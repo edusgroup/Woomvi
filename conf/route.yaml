@@ -1,0 +1,30 @@
+index:
+  controller: \Site\Route\Index\Controller\IndexController::indexAction
+  regexp:
+mainArticle:
+  controller: \Site\Route\MainArticle\Controller\IndexController::indexAction
+  regexp: /main/([^/]+)/
+contact:
+  controller: \Site\Route\MainArticle\Controller\IndexController::contactAction
+  regexp: /contact/
+about:
+  controller: \Site\Route\MainArticle\Controller\IndexController::aboutAction
+  regexp: /about/
+prices:
+  controller: \Site\Route\MainArticle\Controller\IndexController::pricesAction
+  regexp: /prices/
+shopName:
+  controller: \Site\Route\Shop\Controller\IndexController::itemAction
+  regexp: /shop/([^/]+)/
+shop:
+  controller: \Site\Route\Shop\Controller\IndexController::indexAction
+  regexp: /shop/
+#courseItem:
+#  controller: \Site\Route\Course\Controller\IndexController::itemAction
+#  regexp: /course/([^/]+)/([^/]+)/
+courseCategory:
+  controller: \Site\Route\Course\Controller\IndexController::categoryAction
+  regexp: /course/([^/]+)/
+course:
+  controller: \Site\Route\Course\Controller\IndexController::indexAction
+  regexp: /course/

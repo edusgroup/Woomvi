@@ -1,0 +1,171 @@
+{% extends "global/index.twig" %}
+
+{% block content %}
+    <style>
+        .course-list{
+            overflow: hidden;
+        }
+
+        .course-list .item {
+            float: left;
+            line-height: 0;
+            margin-right: 20px;
+        }
+
+        .course-list .item .preview{
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+
+            -webkit-box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.07);
+            -moz-box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.07);
+            box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.07);
+
+            border: 1px solid #f4f4f4;
+        }
+
+        .course-list .item .preview.disable {
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+            filter: gray;
+            filter: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' height='0'><filter id='greyscale'><feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0' /></filter></svg>#greyscale");
+        }
+
+        .course-list .item h2{
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .course-list .item p.description{
+            font-size: 14px;
+        }
+    </style>
+
+    <div id="maincontentcontainer">
+        <div id="maincontent">
+
+            <h1>Урок 1. "Be-have"</h1>
+            <h2>Грамматика</h2>
+
+            <div class="course-list">
+                <div class="item">
+                    <img src="/res/img/raznoe/be-have.jpg" class="preview"/>
+                    <h2>Be-have</h2>
+                    <p class="description">Be-have</p>
+                </div>
+
+                <div class="item">
+                    <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
+                    <h2>Trash mistake №1</h2>
+                    <p class="description">Тест грамматики</p>
+                </div>
+
+
+                <div class="item">
+                    <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
+                    <h2>Trash mistake №2</h2>
+                    <p class="description">Тест грамматики</p>
+                </div>
+
+                <div class="item">
+                    <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
+                    <h2>Вопрос ответ №1</h2>
+                    <p class="description">Тест грамматики</p>
+                </div>
+
+                <div class="item">
+                    <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
+                    <h2>Вопрос ответ №2</h2>
+                    <p class="description">Тест грамматики</p>
+                </div>
+
+            </div>
+
+            <h2>Учить</h2>
+            <div class="course-list">
+                <div class="item">
+                    <img src="/res/img/raznoe/pendulum.png" class="preview"/>
+                    <h2>Talking frog</h2>
+                    <p class="description">Анекдот №1</p>
+                </div>
+
+                <div class="item">
+                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                    <h2>Маятник №2</h2>
+                    <p class="description">Тест грамматики</p>
+                </div>
+
+
+                <div class="item">
+                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                    <h2>Маятник №2</h2>
+                    <p class="description">Тест грамматики</p>
+                </div>
+
+                <div class="item">
+                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                    <h2>Маятник №3</h2>
+                    <p class="description">Тест грамматики</p>
+                </div>
+
+                <div class="item">
+                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                    <h2>Маятник №4</h2>
+                    <p class="description">Тест грамматики</p>
+                </div>
+
+            </div>
+
+            <h2>Маятник</h2>
+            <div class="course-list">
+                <div class="item">
+                    <img src="/res/img/raznoe/pendulum.png" class="preview"/>
+                    <h2>Маятник №1</h2>
+                    <p class="description">Be-have</p>
+                </div>
+
+                <div class="item">
+                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                    <h2>Маятник №2</h2>
+                    <p class="description">Тест грамматики</p>
+                </div>
+
+
+                <div class="item">
+                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                    <h2>Маятник №2</h2>
+                    <p class="description">Тест грамматики</p>
+                </div>
+
+                <div class="item">
+                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                    <h2>Маятник №3</h2>
+                    <p class="description">Тест грамматики</p>
+                </div>
+
+                <div class="item">
+                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                    <h2>Маятник №4</h2>
+                    <p class="description">Тест грамматики</p>
+                </div>
+
+            </div>
+
+            <h2>Новые глаголы</h2>
+
+
+            <h2>Speaking course</h2>
+
+
+            <h2>Разговорник</h2>
+
+            <h2>Устойчивые выражения</h2>
+
+            <h2>Экзамен</h2>
+
+
+
+        </div>
+    </div>
+
+{% endblock %}

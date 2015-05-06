@@ -1,0 +1,26 @@
+res:
+  mongodb:
+    url: mongodb://localhost
+
+class:
+  mongodb:
+    class: \MongoClient
+    param: $mongodb
+  db:
+    class: \Flame\Classes\Db\Driver\Mongo
+    param: [@mongodb, wumvi]
+
+  articleDao:
+    class: \Site\Common\Dao\ArticleDao
+    param: @db
+  articleService:
+    class: \Site\Common\Service\ArticleService
+    param: @articleDao
+
+
+  courseDao:
+    class: \Site\Route\Course\Dao\CourseDao
+    param: @db
+  couseServiceо:
+    class: \Site\Route\Course\Service\CourseService
+    param: @courseDao
