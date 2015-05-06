@@ -13,18 +13,28 @@ about:
 prices:
   controller: \Site\Route\MainArticle\Controller\IndexController::pricesAction
   regexp: /prices/
+  
 shopName:
   controller: \Site\Route\Shop\Controller\IndexController::itemAction
   regexp: /shop/([^/]+)/
 shop:
   controller: \Site\Route\Shop\Controller\IndexController::indexAction
   regexp: /shop/
+  
 #courseItem:
 #  controller: \Site\Route\Course\Controller\IndexController::itemAction
-#  regexp: /course/([^/]+)/([^/]+)/
+#  regexp: /course/([^/]+)/grammar/
+
 courseCategory:
   controller: \Site\Route\Course\Controller\IndexController::categoryAction
   regexp: /course/([^/]+)/
 course:
   controller: \Site\Route\Course\Controller\IndexController::indexAction
   regexp: /course/
+courseGrammar:
+  controller: \Site\Route\Course\Controller\GrammarController::indexAction
+  regexp: /course/([^/]+)/grammar/
+  
+userReg:
+  controller: \Site\Route\User\Controller\IndexController::authAction
+  regexp: /user/auth/

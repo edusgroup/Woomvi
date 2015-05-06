@@ -24,3 +24,10 @@ class:
   couseServiceо:
     class: \Site\Route\Course\Service\CourseService
     param: @courseDao
+
+  user.dao:
+    class: \Site\Route\User\Dao\UserDao
+    param: @db
+  user.service:
+    class: \Site\Route\User\Service\UserService
+    param: @user.dao
