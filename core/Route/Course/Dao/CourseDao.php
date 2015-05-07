@@ -4,7 +4,7 @@ namespace Site\Route\Course\Dao;
 
 class CourseDao
 {
-    const CATEGORY_GROUP = 'course';
+    const GRAMMAR_GROUP = 'course';
 
     public $driver;
 
@@ -16,13 +16,8 @@ class CourseDao
         $this->driver = $driver;
     }
 
-    public function getCategoryNum($categoryUrl)
+    public function getGrammarFile($courseName)
     {
-        return $this->driver->table('categoryList')->selectFirst(['num'], ['url' => $categoryUrl, 'group' => self::CATEGORY_GROUP]);
-    }
-
-    public function getArticleFilename($categoryNum, $itemName)
-    {
-        return $this->driver->table('article')->selectFirst(['id'], ['url' => $itemName, 'categoryNum' => $categoryNum]);
+        return $this->driver->table('courses')->selectFirst(['id'], ['url' => $courseName]);
     }
 }

@@ -15,22 +15,22 @@ class CourseService
         $this->courseDao = $courseDao;
     }
 
-    public function getCategoryNum($categoryUrl)
+    /*public function getCategoryNum($categoryUrl)
     {
         $data = $this->courseDao->getCategoryNum($categoryUrl);
         if (!$data) {
             return null;
         }
         return $data['num'];
-    }
+    }*/
 
-    public function getArticleFilename($categoryNum, $itemName)
+    public function getGrammarFile($courseName)
     {
-        $data = $this->courseDao->getArticleFilename($categoryNum, $itemName);
+        $data = $this->courseDao->getGrammarFile($courseName);
         if (!$data) {
             return null;
         }
-        return 'article/data/' . chunk_split($data['id'], 2, '/') . 'data.txt';
+        return 'grammar/' . chunk_split($data['id'], 2, '/') . 'data.txt';
     }
 }
 

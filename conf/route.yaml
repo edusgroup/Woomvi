@@ -25,16 +25,73 @@ shop:
 #  controller: \Site\Route\Course\Controller\IndexController::itemAction
 #  regexp: /course/([^/]+)/grammar/
 
-courseCategory:
+vars:
+  courseName: ([^/]+)		
+
+course.grammar:
+  controller: \Site\Route\Course\Controller\GrammarController::indexAction
+  regexp: /course/grammar/{courseName}/$
+  vars:
+    courseName: @courseName
+
+course.trash-mistake:
+  controller: \Site\Route\Course\Controller\GrammarController::trashMistakeAction
+  regexp: /course/trash-mistake/{courseName}/{num}/$
+  vars:
+      courseName: @courseName
+      num: (\d+)
+course.question-answer:
+  controller: \Site\Route\Course\Controller\GrammarController::questionAnswerAction
+  regexp: /course/question-answer/{courseName}/{num}/$
+  vars:
+      courseName: @courseName
+      num: (\d+)
+courseAnswerQuestion:
+  controller: \Site\Route\Course\Controller\GrammarController::answerQuestionAction
+  regexp: /course/answer-question/{courseName}/{num}/$
+  vars:
+    courseName: @courseName
+    num: (\d+)
+
+course.category:
   controller: \Site\Route\Course\Controller\IndexController::categoryAction
-  regexp: /course/([^/]+)/
+  regexp: /course/course/list/{courseName}/$
+  vars:
+    courseName: @courseName
+
+course.card:
+  controller: \Site\Route\Course\Controller\cardController::indexAction
+  regexp: /course/card/{courseName}/{num}/$
+  vars:
+    courseName: @courseName
+    num: (\d+)
+
+course.joke:
+  controller: \Site\Route\Course\Controller\JokeController::indexAction
+  regexp: /course/joke/{courseName}/{num}/$
+  vars:
+    courseName: @courseName
+    num: (\d+)
+
+course.getabstract:
+  controller: \Site\Route\Course\Controller\GetAbstractController::indexAction
+  regexp: /course/getabstract/{courseName}/{num}/$
+  vars:
+    courseName: @courseName
+    num: (\d+)
+
+course.video:
+  controller: \Site\Route\Course\Controller\VideoController::indexAction
+  regexp: /course/video/{courseName}/{num}/$
+  vars:
+    courseName: @courseName
+    num: (\d+)
+
 course:
   controller: \Site\Route\Course\Controller\IndexController::indexAction
-  regexp: /course/
-courseGrammar:
-  controller: \Site\Route\Course\Controller\GrammarController::indexAction
-  regexp: /course/([^/]+)/grammar/
-  
+  regexp: /course/$
+
 userReg:
   controller: \Site\Route\User\Controller\IndexController::authAction
   regexp: /user/auth/
+
