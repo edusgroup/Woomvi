@@ -18,12 +18,12 @@ class:
     param: @articleDao
 
 
-  courseDao:
+  course.dao:
     class: \Site\Route\Course\Dao\CourseDao
     param: @db
-  couseServiceо:
+  course.service:
     class: \Site\Route\Course\Service\CourseService
-    param: @courseDao
+    param: @course.dao
 
   user.dao:
     class: \Site\Route\User\Dao\UserDao

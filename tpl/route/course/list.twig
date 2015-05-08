@@ -49,7 +49,7 @@
 
             <div class="course-list">
                 <div class="item">
-					<a href="/kurs/serzhant/osnovy-be-i-have/">
+					<a href="{{ route('course.grammar', courseName) }}">
 						<img src="/res/img/raznoe/be-have.jpg" class="preview"/>
 						<h2>Be-have</h2>
 						<p class="description">Be-have</p>
@@ -57,9 +57,11 @@
                 </div>
 
                 <div class="item">
-                    <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
-                    <h2>Trash mistake №1</h2>
-                    <p class="description">Тест грамматики</p>
+					<a href="{{ route('course.trash-mistake', courseName) }}">
+						<img src="/res/img/raznoe/grammar-test.png" class="preview"/>
+						<h2>Trash mistake №1</h2>
+						<p class="description">Тест грамматики</p>
+					</a>
                 </div>
 
 
@@ -70,9 +72,11 @@
                 </div>
 
                 <div class="item">
-                    <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
-                    <h2>Вопрос ответ №1</h2>
-                    <p class="description">Тест грамматики</p>
+                    <a href="{{ route('course.question-answer', courseName) }}">
+                        <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
+                        <h2>Вопрос ответ №1</h2>
+                        <p class="description">Тест грамматики</p>
+                    </a>
                 </div>
 
                 <div class="item">
@@ -85,11 +89,15 @@
 
             <h2>Увеличиваем словарный запас</h2>
             <div class="course-list">
+
                 <div class="item">
-                    <img src="/res/img/raznoe/pendulum.png" class="preview"/>
-                    <h2>Talking frog</h2>
-                    <p class="description">Анекдот №1</p>
+                    <a href="{{ route('joke', 'talking-frog') }}">
+                        <img src="/res/img/raznoe/pendulum.png" class="preview"/>
+                        <h2>Talking frog</h2>
+                        <p class="description">Анекдот №1</p>
+                    </a>
                 </div>
+
 
                 <div class="item">
                     <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
@@ -99,21 +107,26 @@
 
 
                 <div class="item">
+
                     <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
                     <h2>КГБ</h2>
                     <p class="description">Анекдот №3</p>
                 </div>
 
                 <div class="item">
-                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                    <h2>Eat with frog</h2>
-                    <p class="description">GetAbstract</p>
+                    <a href="{{ route('getabstract', 'eat-this-forg') }}">
+                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                        <h2>Eat with frog</h2>
+                        <p class="description">GetAbstract</p>
+                    </a>
                 </div>
 
                 <div class="item">
-                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                    <h2>Christmas Tree</h2>
-                    <p class="description">Видео</p>
+                    <a href="{{ route('video', 'christmas-tree') }}">
+                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                        <h2>Christmas Tree</h2>
+                        <p class="description">Видео</p>
+                    </a>
                 </div>
 
             </div>
@@ -121,9 +134,11 @@
             <h2>Маятник</h2>
             <div class="course-list">
                 <div class="item">
-                    <img src="/res/img/raznoe/pendulum.png" class="preview"/>
-                    <h2>Маятник №1</h2>
-                    <p class="description">Be-have</p>
+                    <a href="{{ route('pendulum', '1') }}">
+                        <img src="/res/img/raznoe/pendulum.png" class="preview"/>
+                        <h2>Маятник №1</h2>
+                        <p class="description">Be-have</p>
+                    </a>
                 </div>
 
                 <div class="item">
@@ -156,36 +171,44 @@
             <h2>Новые глаголы</h2>
 			<div class="course-list">
 				<div class="item">
-                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                    <h2>Маятник №4</h2>
-                    <p class="description">Тест грамматики</p>
+                    <a href="{{ route('card', '1') }}">
+                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                        <h2>Маятник №4</h2>
+                        <p class="description">Тест грамматики</p>
+                    </a>
                 </div>
 			</div>	
 
             <h2>Speaking course</h2>
 			<div class="course-list">
 				<div class="item">
-                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                    <h2>Маятник №4</h2>
-                    <p class="description">Тест грамматики</p>
+                    <a href="{{ route('speak', '1') }}">
+                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                        <h2>Маятник №4</h2>
+                        <p class="description">Тест грамматики</p>
+                    </a>
                 </div>
 			</div>	
 
             <h2>Устойчивые выражения</h2>
 			<div class="course-list">
 				<div class="item">
-                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                    <h2>Маятник №4</h2>
-                    <p class="description">Тест грамматики</p>
+                    <a href="{{ route('expressions', '1') }}">
+                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                        <h2>Маятник №4</h2>
+                        <p class="description">Тест грамматики</p>
+                    </a>
                 </div>
 			</div>
 
             <h2>Экзамен</h2>
 			<div class="course-list">
 				<div class="item">
-                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                    <h2>Маятник №4</h2>
-                    <p class="description">Тест грамматики</p>
+                    <a href="{{ route('exam', '1') }}">
+                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                        <h2>Маятник №4</h2>
+                        <p class="description">Тест грамматики</p>
+                    </a>
                 </div>
 			</div>
 

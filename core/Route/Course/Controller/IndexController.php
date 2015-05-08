@@ -12,13 +12,15 @@ class IndexController extends \Site\Common\Controller\BaseController
         return new Html('route/course/content.twig', [], $this);
     }
 
-    public function categoryAction($path, $categoryName)
+    public function categoryAction($path, $courseName)
     {
-        return new Html('route/course/list.twig', [], $this);
+        $vars['courseName'] = $courseName;
+        return new Html('route/course/list.twig', $vars, $this);
     }
 
     public function itemAction($path, $categoryUrl, $itemName)
-    {
+    {   echo 1;
+        exit;
         /** @var \Site\Route\Course\Service\CourseService $courseService */
         $courseService = $this->fabric('couseService');
 
