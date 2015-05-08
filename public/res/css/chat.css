@@ -1,0 +1,395 @@
+#charBox{
+    display: block;
+
+    max-width: 1024px;
+    width: 400px;
+    margin: 20px auto;
+    background: #fcfcfc;
+    border: 1px solid #d2d2d2;
+
+
+    position: fixed;
+    left: 100px;
+    top: 50px;
+    max-height: 524px;
+    overflow: hidden;
+
+    padding: 0;
+    padding-bottom: 5px;
+
+    opacity: 0.2;
+}
+
+#charBox:hover{
+    opacity: 1;
+}
+
+#charBox .window-title{
+    height: 30px;
+    background: #efefef;
+    cursor: pointer;
+    border-bottom: 1px solid #d2d2d2;
+    clear: both;
+}
+
+#charBox .msg-box{
+    /*max-height: 576px;*/
+    overflow: auto;
+    height: 300px;
+}
+
+#charBox .msg-item{
+    margin: 10px 0;
+    overflow: hidden;
+    clear: both;
+}
+
+/*#charBox .msg-item:hover{
+    background: #efefef;
+}*/
+
+#charBox .msg-item .nick, #charBox .msg-item .date{
+    color: #8b8b8b;
+    font-size: 12px;
+    float: left;
+    margin-right: 15px;
+}
+
+#charBox .msg-item .date{
+    font-size: 10px;
+}
+
+#charBox .msg-item .nick{
+    cursor: pointer;
+}
+
+#charBox .msg-item .info{
+    clear: both;
+    overflow: hidden;
+    margin-left: 15px;
+}
+
+#charBox .msg{
+
+    float: left;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+
+
+#charBox .msg-item.user .msg{
+    background: #edfbff;
+}
+#charBox .msg-item.teacher .msg{
+    background: #c9ffba;
+}
+
+#charBox .msg-item.question .msg{
+    background: #fdffcb;
+}
+
+
+#charBox .msg-item.programmer .msg{
+    padding-left: 32px;
+    background: url('/res/img/chat/warning.png') no-repeat left center #ffdc91;
+}
+
+
+/*#charBox .msg-item.question .msg{
+  background: #fdffcb;
+}*/
+
+#charBox .ctrl-box{
+    /*margin-top: 20px;*/
+    text-align: right;
+}
+
+#charBox .ctrl-box textarea{
+    width: 100%;
+    border: 1px solid lightgray;
+    padding: 3px;
+    margin: 0;
+    border-radius: inherit;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#itsQuestion{
+    width: auto;
+    height: auto;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    display: inline;
+
+}
+
+#charBox .qustionmark{
+    margin-right: 18px;
+    display: inline-block;
+}
+
+#charBox #sendMsg{
+    margin-right: 15px;
+}
+
+#waitbox img{
+    width: 20px;
+
+    margin-right: 20px;
+}
+
+#charBox .teacher .admin{
+    display: none;
+}
+
+#charBox .admin img{
+    margin-left: 8px;
+    width: 14px;
+    line-height: 14px;
+    cursor: pointer;
+}
+
+#charBox .singin-box{
+    text-align: center;
+}
+
+#charBox .closechat{
+    line-height: 31px;
+    float: right;
+    display: block;
+    margin-right: 10px;
+}
+
+#charBox .singin-box input,  #reg-box input{
+    width: 95%;
+    border-radius: inherit;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    display: inline-block;
+}
+
+#charBox .singin-box .btn, #reg-box  .btn{
+    padding: 3px 40px;
+    margin: 0;
+}
+
+#regBtn{
+    font-size: 14px;
+}
+
+
+#reg-box .wrap{
+}
+
+#reg-box input{
+    width: 100%;
+}
+
+#reg-box{
+    display: none;
+}
+
+#msgInput{
+    border: 1px solid lightgray;
+}
+
+
+#charBox .admin{
+    display: none;
+}
+
+#contentBox{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 20px;
+
+    line-height: inherit;
+
+    overflow: hidden;
+}
+
+#charBox .ctrl-box{
+    display: none;
+}
+
+#contentBox .sample-en, #content-block .sample-en{
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 25px;
+    margin: 0 20px 20px 0;
+    font-style: italic;
+}
+
+#contentBox .select, #content-block .select{
+    color: red;
+}
+
+#charBox .singin-box{
+    border-top: 1px solid #d2d2d2;
+    padding-top: 20px;
+}
+
+
+#contentBox .sample-ru, #content-block .sample-ru{
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-left: 20px;
+    color: lightgray;
+    margin-bottom: 50px;
+}
+
+#contentBox .item, #content-block .item{
+    width: 30%;
+    float: left;
+    height: 58px;
+    line-height: 18px;
+}
+
+#contentBox .trans-en, #content-block .trans-en{
+    font-weight: bold;
+}
+
+#contentBox{
+    height: 576px;
+    width: 1024px;
+    border: 1px solid #d0d0d0;
+    margin: 0 auto 20px auto;
+}
+
+#contCtrlBox{
+    margin: 0 auto 20px auto;
+    width: 1024px;
+}
+
+a.btn.sound-off{
+    background: red;
+    color: white;
+}
+
+a.btn.sound-off:hover{
+    background: #ff6a6a;
+}
+
+a.btn.sound-off:visited{
+    color: white;
+}
+
+#mobilectrl{
+    display: none;
+}
+
+#charBox .closechat{
+    display: none;
+}
+
+/*
+Ipad
+http://stephen.io/mediaqueries/
+*/
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+    #wrapper, #footercontainer, #jivo_top_wrap, #charBox{
+        display: none;
+    }
+
+    #charBox .closechat{
+        display: block;
+    }
+
+
+    #contentBox{
+        z-index: 31;
+        position: fixed;
+        margin: 5px auto 50px auto;
+        left: 0;
+        top: 0;
+        border: 2px solid black;
+
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+
+        background: white;
+    }
+
+    #darkscreen{
+        background: rgba(0,0,0,0.5);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 20;
+    }
+
+
+    #charBox{
+        z-index: 33;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        top: auto;
+        margin: 0;
+    }
+
+    #mobilectrl{
+        display: block;
+        z-index: 32;
+        position: fixed;
+        bottom: 5px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+
+    }
+
+    #mobilectrl a.btn{
+        width: 200px;
+        background: white;
+        display: inline-block;
+
+    }
+
+    #soundCtrl{
+        width: 200px;
+
+        height: 35px;
+        background: white;
+        display: inline-block;
+        margin: 0;
+    }
+
+}
+
+/*Ipad*/
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+
+
+    #darkscreen{
+        background: rgba(0,0,0,0.5) url('/res/img/chat/ipadturn.png') center center no-repeat;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 20;
+    }
+
+    #wrapper, #footercontainer, #jivo_top_wrap, #charBox, #contentBox, #contCtrlBox{
+        display: none;
+    }
+
+}

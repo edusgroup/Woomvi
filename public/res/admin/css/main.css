@@ -1,0 +1,51 @@
+a.btn {
+    display: inline-block;
+    padding: 8px 20px;
+    background: lightgray;
+    color: #201f1b;
+    border: 1px #dedede solid;
+    border-radius: 3px;
+    font: bold 14px/22px 'Open Sans';
+    /* background: url('/res/img/menu.png'); */
+    background: url('http://theme.codecampus.ru/boson/img/btn-soc.png') white;
+    transition: all 0.2s ease-in-out;
+}
+
+a.btn img{
+    height: 15px;
+}
+
+
+/********* ITEM EDIT ****************/
+#wordEditBox .item{
+    margin-bottom: 20px;
+}
+
+#wordEditBox textarea{
+    width: 500px;
+    height: 200px;
+}
+
+#wordEditBox input{
+    width: 100%;
+}
+
+/********* VIEW ****************/
+.viewFormBox{
+    margin: 20px 0;
+}
+
+.viewFormBox .del{
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.viewFormBox .item{
+    margin-top: 10px;
+}
+
+td{
+    width: 50%;
+    border: 1px solid lightgray;
+    padding: 20px;
+}

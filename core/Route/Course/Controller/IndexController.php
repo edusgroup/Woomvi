@@ -40,7 +40,6 @@ class IndexController extends \Site\Common\Controller\BaseController
 
         $var['contentFile'] = $this->getFileFormData($filename);
 
-        return new Html('route/grammar/item.twig', $var, $this);
+        return new Html('route/course/grammar/item.twig', $var, $this);
     }
 }
-

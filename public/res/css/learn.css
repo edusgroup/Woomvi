@@ -1,0 +1,7 @@
+ .bad-bg{
+     background-image: url('/res/img/error/bad-bg.png');
+ }
+
+ .good-bg{
+     background-image: url('/res/img/error/good-bg.png');
+ }

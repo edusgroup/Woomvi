@@ -1,0 +1,225 @@
+body{
+    font: 12px/1.7em 'Open Sans', arial, sans-serif;
+    padding: 20px;
+}
+
+
+.text-block{
+    width: 600px;
+    border: 1px black;
+}
+
+.text-block .sent{
+    float: left;
+    padding: 5px 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: rgb(90, 101, 107);
+}
+
+.text-block .sent .quote{
+    font-style: italic;
+}
+
+.text-block .time-block{
+    clear: both;
+}
+
+.text-block .sent:hover{
+    background-color: #F5F7F7;
+    border-bottom: 1px solid #E2F0F2;
+    padding-bottom: 4px;
+}
+
+.text-block .time-block{
+    overflow: hidden;
+}
+
+.text-block .time-block:hover{
+    background-color: #FdFdFD;
+
+}
+
+#edit-block{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    /*overflow: hidden;*/
+    /* Fallback for web browsers that don't support RGBa */
+    background-color: #ffffff;
+    /* RGBa with 0.6 opacity */
+    background-color: rgba(255, 255, 255, 0.6);
+    /* For IE 5.5 - 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+
+    display: none;
+
+}
+
+#edit-block .outer-wrapper{
+    position: relative
+}
+
+#edit-block .edit-wrapper{
+    margin: 0 auto;
+    width: 80%;
+    background: white;
+    margin-top: 60px;
+
+    color: rgb(90, 101, 107);
+    border:  1px solid #E2F0F2;
+    font-size: 16px;
+    position: relative;
+}
+
+#edit-block .edit-box{
+    padding: 20px;
+}
+
+#edit-block .close-btn{
+    display: block;
+    padding: 3px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background: blue;
+    color: white;
+}
+
+#eg-edit-sample{
+    font-size: 20px;
+    border-bottom: 1px solid #E2F0F2;
+    padding: 20px;
+    clear: both;
+    overflow: hidden;
+    background-color: #F5F7F7;
+
+}
+
+#edit-block .sample{
+    margin-bottom: 10px;
+}
+
+#eg-edit-sample .text, #eg-edit-sample .btn-add{
+    float: left;
+}
+
+.button{
+    margin: 0;
+    text-decoration: none;
+    text-align: center;
+
+    display: inline-block;
+    padding: 2px 5px;
+    font-size: 16px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition-property: background;
+    -moz-transition-property: background;
+    -o-transition-property: background;
+    transition-property: background;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    background: #00a1cb;
+    color: white;
+    text-shadow: none;
+    border: none;
+    margin-left: 20px;
+}
+
+#edit-block #eg-edit-sample .btn-add{
+    margin-left: 20px;
+}
+
+#edit-block .explain-block{
+    border-bottom: 1px dotted #E2F0F2;
+    margin-bottom: 40px;
+    padding: 5px 5px 10px 5px;
+}
+
+#edit-block .explain-block .word{
+    cursor: pointer;
+}
+
+#edit-block .explain-block.error{
+    background-color: #ffd4d4;
+}
+
+#edit-block .explain-block .word.main{
+    font-weight: bold;
+    color: #006c94;
+}
+
+#edit-block .explain-block .word.second{
+    font-weight: bold;
+    color: #b5c3c9;
+}
+
+#edit-block input{
+    font-size: 16px;
+    line-height: 16px;
+    border: 1px solid #E2F0F2;
+    padding: 3px 5px;
+    width: 400px;
+}
+
+#edit-block .explain-block .translate input{
+
+}
+
+#edit-block .explain-block .translate{
+    margin-bottom: 10px;
+}
+
+#edit-block .explain-block .top{
+    clear: both;
+    overflow: hidden;
+}
+
+#edit-block .explain-block .sample{
+    float: left;
+}
+
+#edit-block .explain-block .control{
+    float: left;
+    margin-right: 20px;
+}
+
+#edit-block .explain-block .control img{
+    cursor: pointer;
+}
+
+#edit-block .sentTranslateBox{
+    padding: 20px;;
+}
+
+#edit-block .sentTranslateBox h3{
+    font-size: 14px;
+}
+
+#edit-block .explian{
+    min-height: 60px;
+    border: 1px solid #e8e8e8;
+    padding: 5px;
+}
+
+.sentDescripBox{
+    margin-top: 20px;
+}
+
+a, a:active{
+    color: black;
+}
+
+a:hover{
+    color:  steelblue;
+}
