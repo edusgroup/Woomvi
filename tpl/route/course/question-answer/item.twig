@@ -1,0 +1,47 @@
+{% extends "global/index.twig" %}
+
+{% block content %}
+    <script>
+        /**
+         *  **************** PENDULUM **********************************************************
+         */
+        window.wumvi = window.wumvi || {};
+        wumvi.questionAnswer = (function(){
+            function init(){
+                // func. init
+            }
+
+            init();
+        })();
+
+
+    </script>
+
+    <style>
+        #wumvi-question-answer .item{
+            border: 1px solid black;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+
+
+    <div id="maincontentcontainer">
+        <div id="maincontent">
+
+
+            <div id="wumvi-question-answer">
+                {% for item in questionList %}
+                    <div class="item">
+                        <div class="question-text">{{ item.questionText }}</div>
+                        <div class="sentense-text">{{ item.sentenseText }}</div>
+
+                        <div class="answer-text">{{ item.answerText }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

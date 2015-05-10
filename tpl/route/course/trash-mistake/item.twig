@@ -1,0 +1,37 @@
+{% extends "global/index.twig" %}
+
+{% block content %}
+
+    <style>
+        #wumvi-trash-mistake .item{
+            border: 1px solid black;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+
+
+    <div id="maincontentcontainer">
+        <div id="maincontent">
+
+            <div id="wumvi-trash-mistake">
+                {% for item in trashMistakeList %}
+                    <div class="item" data-id="{{ item._id }}" data-regexp="{{ item.regexp }}">
+                        <div class="wrong-text">
+                            {{ item.wrongText }}
+                        </div>
+                        <div class="question-text">
+                            {{ item.questionText }}
+                        </div>
+                        <div class="right-text">
+                            {{ item.rightText }}
+                        </div>
+                        <div class="answer-text">
+                            {{ item.answerText }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

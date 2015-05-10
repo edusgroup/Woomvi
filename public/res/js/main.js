@@ -227,10 +227,10 @@ $(document).ready(function() {
 
 });
 
-if ( userId ){
+/*if ( userId ){
     jQuery('#top-panel .cabinet .dropdown').remove();
     jQuery('#top-panel .cabinet>a').attr('href', '/cabinet/')
-}
+}*/
 
 
 var notifyBoxLogic = (function(){

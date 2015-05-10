@@ -44,45 +44,54 @@
     <div id="maincontentcontainer">
         <div id="maincontent">
 
-            <h1>Урок 1. "Be-have"</h1>
+            <h1>{{ courseData.name }}</h1>
             <h2>Грамматика</h2>
 
             <div class="course-list">
                 <div class="item">
-					<a href="{{ route('course.grammar', courseName) }}">
+					<a href="{{ route('course.grammar', courseData.url ) }}">
 						<img src="/res/img/raznoe/be-have.jpg" class="preview"/>
 						<h2>Be-have</h2>
 						<p class="description">Be-have</p>
 					</a>
                 </div>
 
-                <div class="item">
-					<a href="{{ route('course.trash-mistake', courseName) }}">
-						<img src="/res/img/raznoe/grammar-test.png" class="preview"/>
-						<h2>Trash mistake №1</h2>
-						<p class="description">Тест грамматики</p>
-					</a>
-                </div>
+                {% for id, num in courseData.data.pendulum %}
+                    <div class="item">
+                        <a href="{{ route('course.pendulum', id) }}">
+                            <img src="/res/img/raznoe/pendulum.png" class="preview"/>
+                            <h2>Маятник №{{ num }}</h2>
+                            <p class="description">Be-have</p>
+                        </a>
+                    </div>
+                {% endfor %}
 
+                {% for id, num in courseData.data.trashMistake %}
+                    <div class="item">{{ key }}
+                        <a href="{{ route('course.trash-mistake', id) }}">
+                            <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
+                            <h2>Trash mistake №{{ num }}</h2>
+                            <p class="description">Тест грамматики</p>
+                        </a>
+                    </div>
+                {% endfor %}
+
+                {% for id, num in courseData.data.question %}
+                    <div class="item">{{ key }}
+                        <a href="{{ route('course.question-answer', id) }}">
+                            <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
+                            <h2>Вопрос ответ №{{ num }}</h2>
+                            <p class="description">Тест грамматики</p>
+                        </a>
+                    </div>
+                {% endfor %}
 
                 <div class="item">
-                    <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
-                    <h2>Trash mistake №2</h2>
-                    <p class="description">Тест грамматики</p>
-                </div>
-
-                <div class="item">
-                    <a href="{{ route('course.question-answer', courseName) }}">
-                        <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
-                        <h2>Вопрос ответ №1</h2>
-                        <p class="description">Тест грамматики</p>
+                    <a href="{{ route('course.exam', 'be-have-1') }}">
+                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                        <h2>Экзамен на Be-have</h2>
+                        <p class="description">Экзамен</p>
                     </a>
-                </div>
-
-                <div class="item">
-                    <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
-                    <h2>Вопрос ответ №2</h2>
-                    <p class="description">Тест грамматики</p>
                 </div>
 
             </div>
@@ -90,127 +99,60 @@
             <h2>Увеличиваем словарный запас</h2>
             <div class="course-list">
 
-                <div class="item">
-                    <a href="{{ route('joke', 'talking-frog') }}">
-                        <img src="/res/img/raznoe/pendulum.png" class="preview"/>
-                        <h2>Talking frog</h2>
-                        <p class="description">Анекдот №1</p>
-                    </a>
-                </div>
+                {% for name in courseData.data.joke %}
+                    <div class="item">
+                        <a href="{{ route('course.joke', name) }}">
+                            <img src="/res/img/raznoe/pendulum.png" class="preview"/>
+                            <h2>Talking frog</h2>
+                            <p class="description">Анекдот №1</p>
+                        </a>
+                    </div>
+                {% endfor %}
+
+                {% for name in courseData.data.abstract %}
+                    <div class="item">
+                        <a href="{{ route('course.getabstract', name) }}">
+                            <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                            <h2>GetAbstract</h2>
+                            <p class="description">Eat with frog</p>
+                        </a>
+                    </div>
+                {% endfor %}
+
+                {% for name in courseData.data.video %}
+                    <div class="item">
+                        <a href="{{ route('course.video', name) }}">
+                            <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                            <h2>Christmas Tree</h2>
+                            <p class="description">Видео</p>
+                        </a>
+                    </div>
+                {% endfor %}
+
+                {% for name in courseData.data.verbs %}
+                    <div class="item">
+                        <a href="{{ route('course.card', name) }}">
+                            <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                            <h2>Глаголы</h2>
+                            <p class="description">Новые глаголы №{{ name }}</p>
+                        </a>
+                    </div>
+                {% endfor %}
 
 
-                <div class="item">
-                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                    <h2>Two workers</h2>
-                    <p class="description">Анекдот №2</p>
-                </div>
+                {% for name in courseData.data.verbs %}
+                    <div class="item">
+                        <a href="{{ route('course.speaking', name) }}">
+                            <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                            <h2>Устойчивые выражения</h2>
+                            <p class="description">Speaking {{ name }}</p>
+                        </a>
+                    </div>
+                {% endfor %}
 
 
-                <div class="item">
-
-                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                    <h2>КГБ</h2>
-                    <p class="description">Анекдот №3</p>
-                </div>
-
-                <div class="item">
-                    <a href="{{ route('getabstract', 'eat-this-forg') }}">
-                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                        <h2>Eat with frog</h2>
-                        <p class="description">GetAbstract</p>
-                    </a>
-                </div>
-
-                <div class="item">
-                    <a href="{{ route('video', 'christmas-tree') }}">
-                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                        <h2>Christmas Tree</h2>
-                        <p class="description">Видео</p>
-                    </a>
-                </div>
-
-            </div>
-
-            <h2>Маятник</h2>
-            <div class="course-list">
-                <div class="item">
-                    <a href="{{ route('pendulum', '1') }}">
-                        <img src="/res/img/raznoe/pendulum.png" class="preview"/>
-                        <h2>Маятник №1</h2>
-                        <p class="description">Be-have</p>
-                    </a>
-                </div>
-
-                <div class="item">
-                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                    <h2>Маятник №2</h2>
-                    <p class="description">Тест грамматики</p>
-                </div>
-
-
-                <div class="item">
-                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                    <h2>Маятник №2</h2>
-                    <p class="description">Тест грамматики</p>
-                </div>
-
-                <div class="item">
-                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                    <h2>Маятник №3</h2>
-                    <p class="description">Тест грамматики</p>
-                </div>
-
-                <div class="item">
-                    <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                    <h2>Маятник №4</h2>
-                    <p class="description">Тест грамматики</p>
-                </div>
-
-            </div>
-
-            <h2>Новые глаголы</h2>
-			<div class="course-list">
-				<div class="item">
-                    <a href="{{ route('card', '1') }}">
-                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                        <h2>Маятник №4</h2>
-                        <p class="description">Тест грамматики</p>
-                    </a>
-                </div>
-			</div>	
-
-            <h2>Speaking course</h2>
-			<div class="course-list">
-				<div class="item">
-                    <a href="{{ route('speak', '1') }}">
-                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                        <h2>Маятник №4</h2>
-                        <p class="description">Тест грамматики</p>
-                    </a>
-                </div>
-			</div>	
-
-            <h2>Устойчивые выражения</h2>
-			<div class="course-list">
-				<div class="item">
-                    <a href="{{ route('expressions', '1') }}">
-                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                        <h2>Маятник №4</h2>
-                        <p class="description">Тест грамматики</p>
-                    </a>
-                </div>
 			</div>
 
-            <h2>Экзамен</h2>
-			<div class="course-list">
-				<div class="item">
-                    <a href="{{ route('exam', '1') }}">
-                        <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
-                        <h2>Маятник №4</h2>
-                        <p class="description">Тест грамматики</p>
-                    </a>
-                </div>
-			</div>
 
 
 

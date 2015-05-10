@@ -26,66 +26,74 @@ shop:
 #  regexp: /course/([^/]+)/grammar/
 
 vars:
-  courseName: ([^/]+)		
+  courseName: ([^/]+)
+  itemName: ([^/]+)
 
 course.grammar:
   controller: \Site\Route\Course\Controller\GrammarController::indexAction
-  regexp: /course/grammar/{courseName}/$
+  regexp: /grammar/{courseName}/$
+  vars:
+    courseName: @courseName
+
+course.exam:
+  controller: \Site\Route\Course\Controller\ExamController::indexAction
+  regexp: /exam/{courseName}/$
+  vars:
+    courseName: @courseName
+
+course.speaking:
+  controller: \Site\Route\Course\Controller\SpeakingController::indexAction
+  regexp: /speaking/{courseName}/$
   vars:
     courseName: @courseName
 
 course.trash-mistake:
-  controller: \Site\Route\Course\Controller\GrammarController::trashMistakeAction
-  regexp: /course/trash-mistake/{courseName}/{num}/$
+  controller: \Site\Route\Course\Controller\TrashMistakeController::indexAction
+  regexp: /trash-mistake/{itemName}/$
   vars:
-      courseName: @courseName
-      num: (\d+)
+      itemName: @itemName
+
 course.question-answer:
-  controller: \Site\Route\Course\Controller\GrammarController::questionAnswerAction
-  regexp: /course/question-answer/{courseName}/{num}/$
+  controller: \Site\Route\Course\Controller\QuestionController::indexAction
+  regexp: /question-answer/{itemName}/$
   vars:
-      courseName: @courseName
-      num: (\d+)
-courseAnswerQuestion:
-  controller: \Site\Route\Course\Controller\GrammarController::answerQuestionAction
-  regexp: /course/answer-question/{courseName}/{num}/$
-  vars:
-    courseName: @courseName
-    num: (\d+)
+      itemName: @itemName
 
 course.category:
   controller: \Site\Route\Course\Controller\IndexController::categoryAction
-  regexp: /course/course/list/{courseName}/$
+  regexp: /course/{courseName}/$
   vars:
     courseName: @courseName
 
 course.card:
   controller: \Site\Route\Course\Controller\cardController::indexAction
-  regexp: /course/card/{courseName}/{num}/$
+  regexp: /card/{itemName}/$
   vars:
-    courseName: @courseName
-    num: (\d+)
+    itemName: @itemName
+
+course.pendulum:
+  controller: \Site\Route\Course\Controller\PendulumController::indexAction
+  regexp: /pendulum/{itemName}/$
+  vars:
+    itemName: @itemName
 
 course.joke:
   controller: \Site\Route\Course\Controller\JokeController::indexAction
-  regexp: /course/joke/{courseName}/{num}/$
+  regexp: /joke/{itemName}/$
   vars:
-    courseName: @courseName
-    num: (\d+)
+    itemName: @itemName
 
 course.getabstract:
   controller: \Site\Route\Course\Controller\GetAbstractController::indexAction
-  regexp: /course/getabstract/{courseName}/{num}/$
+  regexp: /getabstract/{itemName}/$
   vars:
-    courseName: @courseName
-    num: (\d+)
+    itemName: @itemName
 
 course.video:
   controller: \Site\Route\Course\Controller\VideoController::indexAction
-  regexp: /course/video/{courseName}/{num}/$
+  regexp: /video/{itemName}/$
   vars:
-    courseName: @courseName
-    num: (\d+)
+    itemName: @itemName
 
 course:
   controller: \Site\Route\Course\Controller\IndexController::indexAction

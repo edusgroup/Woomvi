@@ -1,0 +1,156 @@
+{% extends "global/index.twig" %}
+
+{% block footer %}
+    <script>
+        /**
+         *  **************** PENDULUM **********************************************************
+         */
+        window.wumvi = window.wumvi || {};
+        wumvi.pendulum = (function(){
+            var textNum = 0;
+            var showTextStatus = null;
+            var $point = null;
+            var $buttonStart = null;
+
+            var $pendulumBox = null;
+
+            function onTimer(){
+                if ( textNum == wumvi.storage.pendulumList.length ){
+                    $buttonStart.html('Заново').css({'display':'inline-block'});
+                    $point.removeClass('block').addClass('hide');
+                    textNum = 0;
+                    return;
+                }
+
+                if ( showTextStatus ){
+                    $point.addClass('text').removeClass('block').html(wumvi.storage.pendulumList[textNum]['questionText']);
+                    setTimeout(onTimer, wumvi.storage.pendulumList[textNum]['timeBegin']);
+                }else{
+                    $point.addClass('block').removeClass('text');
+                    setTimeout(onTimer, wumvi.storage.pendulumList[textNum]['timeEnd']);
+                    textNum++;
+                }
+
+                showTextStatus = !showTextStatus;
+                // func. onTimer
+            }
+
+            function onStartPendulum(){
+                $buttonStart.hide();
+                showTextStatus = true;
+                onTimer();
+                return false;
+                // func. onStart
+            }
+
+            function initEvent() {
+                $buttonStart.click(onStartPendulum);
+            }
+
+            function init(){
+                if (!wumvi.storage.pendulumList) {
+                    throw new Error('wumvi.storage.pendulumList not set');
+                }
+
+                // Контейтер со всеми элементами
+                $pendulumBox = jQuery('#wumvi-pendulum');
+
+                // Мигающая точка
+                $point = $pendulumBox.find('.pendulum-point');
+                // Кнопка старта
+                $buttonStart = $pendulumBox.find('.btn.start');
+
+                initEvent();
+                // func. init
+            }
+
+            init();
+        })();
+    </script>
+{% endblock %}
+
+{% block content %}
+    <script>
+        window.wumvi = window.wumvi || {};
+        wumvi.storage.pendulumList = [];
+        {% for item in pendulumList %}
+            wumvi.storage.pendulumList.push({
+               timeBegin:{{ item.timeBegin * 1000 }},
+               timeEnd: {{ item.timeEnd * 1000 }},
+               questionText: "{{ item.question }}"
+           });
+        {% endfor %}
+    </script>
+
+
+    <style>
+
+        #wumvi-pendulum .pendulum-box{
+            /*text-align: center;
+            margin-top: 60px;*/
+            display: table-cell;
+            vertical-align: middle;
+            height: 200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        #wumvi-pendulum .pendulum-box .btn{
+            display: inline-block;
+        }
+
+        #wumvi-pendulum .pendulum-point{
+            width: 30px;
+            height: 30px;
+            background-color: #9da1ac;
+            border-radius: 15px;
+            color: transparent;
+            display: none;
+        }
+
+        #wumvi-pendulum .pendulum-box .pendulum-point.block{
+            display: inline-block;
+        }
+
+        #wumvi-pendulum .pendulum-box .pendulum-point.text{
+            width: auto;
+            display: inline;
+            color: #9da1ac;
+            font-weight: bold;
+            font-size: 18px;
+            background-color: transparent;
+        }
+
+        #wumvi-pendulum .pendulum-point.hide{
+            display: none;
+        }
+
+        #wumvi-pendulum .table-wrapper{
+            display: table;
+            width: 100%;
+        }
+
+    </style>
+
+    <div id="maincontentcontainer">
+        <div id="maincontent">
+
+            <div id="wumvi-pendulum" class="type-pendulum">
+                <div class="content">
+                    <div class="caption">
+                        Маятник
+                    </div>
+
+                    <div class="tableWrapper">
+                        <div class="pendulum-box">
+                            <div class="pendulum-point hide"></div>
+                            <a href="#start" class="btn start">Начать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
