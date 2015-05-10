@@ -88,4 +88,3 @@ class CourseService
         return iterator_to_array($data);
     }
 }
-

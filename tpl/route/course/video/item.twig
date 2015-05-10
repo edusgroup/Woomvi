@@ -1,0 +1,40 @@
+{# Шаблон для видео в курсах #}
+
+{% extends "global/index.twig" %}
+
+{% block footer %}
+    <script>
+        window.wumvi = window.wumvi || {};
+        window.video.utils = (function(){
+            function init(){
+                jQuery('.wumvi-video-100pr').each(function(num, obj){
+                    /** @var jQuery $videoObj */
+                    var $videoObj = jQuery(obj);
+                    $videoObj.height($videoObj.width() / 1.77777);
+                })
+            }
+
+            init();
+        })();
+
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <style>
+        .wumvi-video-100pr{
+            width: 100%;
+        }
+    </style>
+
+
+    <div id="maincontentcontainer">
+        <div id="maincontent">
+            <iframe class="wumvi-video-100pr" src="https://www.youtube.com/embed/{{ videoData.url }}?modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
+            <div id="wumvi-video-control">
+                <a href="#">Пройти тест</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

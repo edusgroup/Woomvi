@@ -17,13 +17,19 @@ class:
     class: \Site\Common\Service\ArticleService
     param: @articleDao
 
-
   course.dao:
     class: \Site\Route\Course\Dao\CourseDao
     param: @db
   course.service:
     class: \Site\Route\Course\Service\CourseService
     param: @course.dao
+
+  material.dao:
+    class: \Site\Route\Course\Dao\MaterialDao
+    param: @db
+  material.service:
+    class: \Site\Route\Course\Service\MaterialService
+    param: @material.dao
 
   user.dao:
     class: \Site\Route\User\Dao\UserDao

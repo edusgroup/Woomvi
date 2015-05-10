@@ -49,6 +49,7 @@ try{
 }
 catch (\Flame\Classes\Http\Exception\Error4xx $ex) {
     header('HTTP/1.0 404 Not Found');
+    echo '<pre>' . $ex->getMessage() . PHP_EOL . $ex->getTraceAsString() . '</pre>';
     exit;
 }
 catch (\Exception $ex) {
@@ -56,6 +57,5 @@ catch (\Exception $ex) {
         echo (new Json('', Json::STATUS_ERROR, $ex->getMessage()))->get();
         exit;
     }
-	echo $ex->getMessage().'<br/>';
-    echo $ex->getTraceAsString();
+    echo '<pre>' . $ex->getMessage() . PHP_EOL . $ex->getTraceAsString() . '</pre>';
 }

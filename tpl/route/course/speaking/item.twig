@@ -1,0 +1,31 @@
+{# Шаблон для видео в курсах #}
+
+{% extends "global/index.twig" %}
+
+{% block footer %}
+    <script>
+        window.wumvi = window.wumvi || {};
+        window.speaking = (function(){
+            function init(){
+
+            }
+
+            init();
+        })();
+
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <style>
+
+    </style>
+
+
+    <div id="maincontentcontainer">
+        <div id="maincontent">
+            Speaking
+        </div>
+    </div>
+{% endblock %}

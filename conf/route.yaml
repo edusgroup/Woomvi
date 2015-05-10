@@ -65,8 +65,8 @@ course.category:
   vars:
     courseName: @courseName
 
-course.card:
-  controller: \Site\Route\Course\Controller\cardController::indexAction
+material.card:
+  controller: \Site\Route\Course\Controller\CardController::indexAction
   regexp: /card/{itemName}/$
   vars:
     itemName: @itemName
@@ -83,13 +83,13 @@ course.joke:
   vars:
     itemName: @itemName
 
-course.getabstract:
+material.getabstract:
   controller: \Site\Route\Course\Controller\GetAbstractController::indexAction
   regexp: /getabstract/{itemName}/$
   vars:
     itemName: @itemName
 
-course.video:
+material.video:
   controller: \Site\Route\Course\Controller\VideoController::indexAction
   regexp: /video/{itemName}/$
   vars:

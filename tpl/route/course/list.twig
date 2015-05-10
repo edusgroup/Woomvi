@@ -87,7 +87,7 @@
                 {% endfor %}
 
                 <div class="item">
-                    <a href="{{ route('course.exam', 'be-have-1') }}">
+                    <a href="#">
                         <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
                         <h2>Экзамен на Be-have</h2>
                         <p class="description">Экзамен</p>
@@ -99,7 +99,7 @@
             <h2>Увеличиваем словарный запас</h2>
             <div class="course-list">
 
-                {% for name in courseData.data.joke %}
+                <!--{% for name in courseData.data.joke %}
                     <div class="item">
                         <a href="{{ route('course.joke', name) }}">
                             <img src="/res/img/raznoe/pendulum.png" class="preview"/>
@@ -107,11 +107,11 @@
                             <p class="description">Анекдот №1</p>
                         </a>
                     </div>
-                {% endfor %}
+                {% endfor %} -->
 
                 {% for name in courseData.data.abstract %}
                     <div class="item">
-                        <a href="{{ route('course.getabstract', name) }}">
+                        <a href="{{ route('material.getabstract', name) }}">
                             <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
                             <h2>GetAbstract</h2>
                             <p class="description">Eat with frog</p>
@@ -121,7 +121,7 @@
 
                 {% for name in courseData.data.video %}
                     <div class="item">
-                        <a href="{{ route('course.video', name) }}">
+                        <a href="{{ route('material.video', name) }}">
                             <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
                             <h2>Christmas Tree</h2>
                             <p class="description">Видео</p>
@@ -131,7 +131,7 @@
 
                 {% for name in courseData.data.verbs %}
                     <div class="item">
-                        <a href="{{ route('course.card', name) }}">
+                        <a href="{{ route('material.card', name) }}">
                             <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
                             <h2>Глаголы</h2>
                             <p class="description">Новые глаголы №{{ name }}</p>
