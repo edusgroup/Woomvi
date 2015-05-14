@@ -4,7 +4,7 @@ namespace Site\Common\Controller;
 
 class BaseController extends \Flame\Abstracts\BaseController
 {
-	use \Flame\Traits\User;
+	use \Site\Common\Traits\User;
     use \Flame\Traits\Twig;
 
     public function preCallAction($methodName)
@@ -20,6 +20,7 @@ class BaseController extends \Flame\Abstracts\BaseController
 	public function preRenderCommon(\Twig_Environment $twig, &$tplName, &$varible)
     {
 		$this->extendsTwig($twig);
+        $varible['isAuth'] = $this->getUser($this->fabric('user.dao'))->isAuth() ? 'true' : 'false';
 	}
 	
 	protected function initMenuCommon()

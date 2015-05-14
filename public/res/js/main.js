@@ -1,3 +1,4 @@
+window.wumvi = window.wumvi || {};
 
 function rememberMeEmailBtnClick(pEvent){
     var typeAction = jQuery(pEvent.target).attr('data-type');
@@ -303,7 +304,7 @@ var shopBuyBox = (function(){
     }
 })();
 
-
+/*
 jQuery('#loginForm .btn').click(function(){
     var data = jQuery('#loginForm').serialize();
     jQuery.ajax({
@@ -322,7 +323,48 @@ jQuery('#loginForm .btn').click(function(){
         }
         });
     return false;
-});
+});*/
+
+wumvi.auth = {}
+wumvi.auth.login = (function(){
+    var $form;
+
+    function onAuthSuccessCallback(result){
+        if ( result.$ret = wumvi.AJAX_FAIL){
+            alert('Логин/пароль неверный');
+            return;
+        }
+
+        window.location = result.url;
+        // func.
+    }
+
+    function onAuthClick(){
+        var data = $form.serialize();
+        console.log($form.attr('action'), data);
+
+        jQuery.ajax({
+            url: $form.attr('action'),
+            data: data,
+            dataType: 'json',
+            type: 'POST',
+            success: onAuthSuccessCallback
+        });
+        return false;
+    }
+
+    function initEvent(){
+        $form.find('.btn').click(onAuthClick);
+    }
+
+    function init(){
+        $form = jQuery('#wumvi-login-form');
+
+        initEvent();
+    }
+
+    init();
+})();
 
 
 
@@ -384,7 +426,6 @@ UserOffice.prototype.initEvent = function() {
 
 UserOffice.prototype.windowClick = function(event) {
 	if (jQuery(event.target).parents('.cabinet:first').length != 0){
-		console.log('sdf3333');
 		return false;
 	}
 	this.$cabinetShowBtn.toggleClass('show', false);

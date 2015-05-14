@@ -17,8 +17,17 @@ class IndexController extends \Site\Common\Controller\BaseController
         /** @var \Site\Route\Course\Service\CourseService $courseService */
         $courseService = $this->fabric('course.service');
 
-        $vars['courseData'] = $courseService->getCourseData($courseName);
-        $this->ifNullInvokeError4xx($vars['courseData']);
+        $courseData= $courseService->getCourseData($courseName);
+        $this->ifNullInvokeError4xx($courseData);
+
+        $user = $this->getUser($this->fabric('user.dao'));
+
+        $openCourse = $courseService->getEventsByName('', $user->getId());
+        if (!isset($openCourse['grammar'][$courseName])) {
+            die('Вам еще не открыта');
+        }
+
+        $vars['courseData'] = $courseService->getOpenCategory($courseData, $openCourse);
 
         return new Html('route/course/list.twig', $vars, $this);
     }

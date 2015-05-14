@@ -2,20 +2,17 @@
 
 namespace Site\Route\User\Dao;
 
-class UserDao
+class UserDao extends \Flame\Abstracts\Db\Dao
 {
-    public $driver;
-
-    /**
-     * @param \Flame\Abstracts\Db\Driver $driver
-     */
-    public function __construct($driver)
-    {
-        $this->driver = $driver;
-    }
+    const USER_TABLE = 'users';
 
     public function auth($email, $pwd)
     {
-        return $this->driver->table('users')->selectFirst(['id'], ['email' => $email, 'pwd' => $pwd]);
+        return $this->driver->table(self::USER_TABLE)->selectFirst(['id'], ['email' => $email, 'pwd' => $pwd]);
+    }
+
+    public function getUserData($userId)
+    {
+        return $this->driver->table(self::USER_TABLE)->selectFirst([], ['id' => $userId]);
     }
 }

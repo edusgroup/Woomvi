@@ -1,9 +1,12 @@
 index:
   controller: \Site\Route\Index\Controller\IndexController::indexAction
   regexp:
-mainArticle:
+main.article:
   controller: \Site\Route\MainArticle\Controller\IndexController::indexAction
-  regexp: /main/([^/]+)/
+  regexp: /main/{itemName}/
+  vars:
+    itemName: @itemName
+
 contact:
   controller: \Site\Route\MainArticle\Controller\IndexController::contactAction
   regexp: /contact/
@@ -20,7 +23,15 @@ shopName:
 shop:
   controller: \Site\Route\Shop\Controller\IndexController::indexAction
   regexp: /shop/
-  
+
+user.auth:
+  controller: \Site\Route\User\Controller\IndexController::authAction
+  regexp: /user/auth/
+
+user.office:
+  controller: \Site\Route\User\Controller\IndexController::officeAction
+  regexp: /user/office/
+
 #courseItem:
 #  controller: \Site\Route\Course\Controller\IndexController::itemAction
 #  regexp: /course/([^/]+)/grammar/
@@ -29,9 +40,15 @@ vars:
   courseName: ([^/]+)
   itemName: ([^/]+)
 
-course.grammar:
+grammar.index:
   controller: \Site\Route\Course\Controller\GrammarController::indexAction
   regexp: /grammar/{courseName}/$
+  vars:
+    courseName: @courseName
+
+grammar.testing:
+  controller: \Site\Route\Course\Controller\GrammarController::testingAction
+  regexp: /grammar/{courseName}/testing/$
   vars:
     courseName: @courseName
 
@@ -98,8 +115,4 @@ material.video:
 course:
   controller: \Site\Route\Course\Controller\IndexController::indexAction
   regexp: /course/$
-
-userReg:
-  controller: \Site\Route\User\Controller\IndexController::authAction
-  regexp: /user/auth/
 

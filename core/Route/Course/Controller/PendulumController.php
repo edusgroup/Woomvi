@@ -19,6 +19,16 @@ class PendulumController extends \Site\Common\Controller\BaseController
         $vars['pendulumList'] = $courseService->getPendulumList($groupName);
         $this->ifNullInvokeError4xx($vars['pendulumList']);
 
+        $user = $this->getUser($this->fabric('user.dao'));
+        if (!$user->isAuth()) {
+            die('User not reg');
+        }
+
+        $openCourse = $courseService->getEventsByName('pendulum.'.$groupName, $user->getId(), ['course.pendulum'=>1]);
+        if (!$openCourse) {
+            die('Not access');
+        }
+
         return new Html('route/course/pendulum/item.twig', $vars, $this);
     }
 }

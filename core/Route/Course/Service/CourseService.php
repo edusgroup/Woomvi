@@ -87,4 +87,26 @@ class CourseService
 
         return iterator_to_array($data);
     }
+
+    public function getOpenCategory($courseData, $categoryList)
+    {
+        foreach(['pendulum', 'trashMistake', 'question', 'abstract', 'speaking', 'verbs', 'video', 'joke'] as $cardName) {
+            foreach ($courseData['data'][$cardName] as $key => &$item) {
+                $isOpen = isset($categoryList[$cardName][$key]);
+                $item = ['info' => $item, 'open' => $isOpen];
+            }
+        }
+        return $courseData;
+    }
+
+    public function getEventsByName($name, $userId, $fields = [])
+    {
+        $list = $this->courseDao->getEventsByName($name, $userId, $fields);
+        if (!$list) {
+            return [];
+        }
+        return array_map( function($item) {
+            return $item;
+        }, $list['course']);
+    }
 }

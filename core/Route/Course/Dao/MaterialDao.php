@@ -2,22 +2,12 @@
 
 namespace Site\Route\Course\Dao;
 
-class MaterialDao
+class MaterialDao extends \Flame\Abstracts\Db\Dao
 {
     const TABLE_SITE_VIDEO = 'siteVideo';
     const TABLE_SITE_GETABSCTRACT = 'siteGetAbstract';
     const TABLE_SITE_CARD = 'siteCard';
     const TABLE_SITE_SPEAKING = 'siteSpeaking';
-
-    public $driver;
-
-    /**
-     * @param \Flame\Abstracts\Db\Driver $driver
-     */
-    public function __construct($driver)
-    {
-        $this->driver = $driver;
-    }
 
     public function getVideoData($videoId)
     {

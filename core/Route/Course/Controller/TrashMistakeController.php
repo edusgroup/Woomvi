@@ -15,6 +15,16 @@ class TrashMistakeController extends \Site\Common\Controller\BaseController
         $vars['trashMistakeList'] = $courseService->getTrashMistakeData($groupName);
         $this->ifNullInvokeError4xx($vars['trashMistakeList']);
 
+        $user = $this->getUser($this->fabric('user.dao'));
+        if (!$user->isAuth()) {
+            die('User not reg');
+        }
+
+        $openCourse = $courseService->getEventsByName('trashMistake.'.$groupName, $user->getId(), ['course.trashMistake'=>1]);
+        if (!$openCourse) {
+            die('Not access');
+        }
+
         return new Html('route/course/trash-mistake/item.twig', $vars, $this);
     }
 }

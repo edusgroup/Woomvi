@@ -2,7 +2,7 @@
 
 namespace Site\Route\Course\Dao;
 
-class CourseDao
+class CourseDao extends \Flame\Abstracts\Db\Dao
 {
     const GRAMMAR_GROUP = 'course';
 
@@ -10,16 +10,7 @@ class CourseDao
     const TABLE_SITE_QUESTION = 'siteQuestion';
     const TABLE_SITE_COURSE = 'courses';
     const TABLE_SITE_PENDULUM = 'sitePendulum';
-
-    public $driver;
-
-    /**
-     * @param \Flame\Abstracts\Db\Driver $driver
-     */
-    public function __construct($driver)
-    {
-        $this->driver = $driver;
-    }
+    const TABLE_SITE_EVENTS = 'siteEvents';
 
     /**
      * Получаем ID файла, по которуму дальше его можно искать
@@ -55,5 +46,13 @@ class CourseDao
     public function getPendulumList($groupName)
     {
         return $this->driver->table(self::TABLE_SITE_PENDULUM)->selectAll([], ['group' => $groupName]);
+    }
+
+    public function getEventsByName($name, $userId, $fields = [])
+    {   $name = $name ? '.'.$name : '';
+        return $this->driver->table(self::TABLE_SITE_EVENTS)->selectFirst(
+            $fields,
+            ['course' . $name => ['$exists' => true], 'userId' => $userId]
+        );
     }
 }

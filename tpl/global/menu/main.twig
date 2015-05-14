@@ -8,7 +8,7 @@
                         <a href="#"><i class="fa-user"></i> Личный кабинет</a>
 
                         <div class="dropdown">
-                            <form action="#" id="loginForm">
+                            <form action="{{ route('user.auth') }}" id="wumvi-login-form">
                                 <div class="field ico1"><input type="text" name="login" placeholder="Email"></div>
                                 <div class="field ico2"><input type="password" name="pwd" placeholder="Пароль"></div>
 
@@ -20,14 +20,14 @@
                         </div>
 
                     </li>
-                    <li class=""><a href="/contact/">Контакты</a></li>
-                    <li class=""><a href="/about/">О нас</a></li>
+                    <li class=""><a href="{{ route('contact') }}">Контакты</a></li>
+                    <li class=""><a href="{{ route('about') }}">О нас</a></li>
                     <!-- <li class=""><a href="/prices/">Цены</a></li> -->
                     <!--		<li class=""><a href="/english/">Блог</a></li>
                     <li class=""><a href="/pronunciation/">Произношение</a></li>-->
 
-                    <li class=""><a href="/main/programma-obucheniya/">Акценты обучения</a></li>
-                    <li class=""><a href="/shop/">Магазин</a></li>
+                    <li class=""><a href="{{ route('main.article', 'programma-obucheniya') }}">Акценты обучения</a></li>
+                    <li class=""><a href="{{ route('shop') }}">Магазин</a></li>
 
                     <li class=""><a href="/">Главная</a></li>
 
@@ -54,28 +54,28 @@
             <ul class="main_menu menuSelect">
 
                 <li class="" id="main-menu-grammar">
-                    <a href="/kurs/" class="top_link droped">
-                        Грамматика
+                    <a href="{{ route('course') }}" class="top_link droped">
+                        Программа изучения
                         <span class="num"> </span>
                     </a>
                 </li>
 
                 <li class="" id="main-menu-samostoyatelno">
-                    <a href="/main/samostoyatelno/" class="top_link droped">
+                    <a href="{{ route('main.article', 'samostoyatelno') }}" class="top_link droped">
                         Самостоятельно
                         <span class="num"> </span>
                     </a>
                 </li>
 
                 <li class="" id="main-menu-v-grupe">
-                    <a href="/main/v-grupe/" class="top_link droped">
+                    <a href="{{ route('main.article', 'v-grupe') }}" class="top_link droped">
                         В группе
                         <span class="num"> </span>
                     </a>
                 </li>
 
                 <li class="" id="main-menu-individualno">
-                    <a href="/main/individualno/" class="top_link droped">
+                    <a href="{{ route('main.article', 'individualno') }}" class="top_link droped">
                         Индивидуально
                         <span class="num"> </span>
                     </a>

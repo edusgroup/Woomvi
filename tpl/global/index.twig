@@ -47,8 +47,15 @@
 
     <script>
         var wumvi = {
-            storage: {}
+            AJAX_SUCCESS: 1,
+            AJAX_FAIL: 0,
+
+            storage: {
+                user: {}
+            }
         };
+
+        wumvi.storage.user.isAuth = {{ isAuth }};
     </script>
 	
 	{% block head %}{% endblock %}

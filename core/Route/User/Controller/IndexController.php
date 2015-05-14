@@ -9,6 +9,8 @@ use Flame\Classes\Http\Response\Json;
 use Flame\Classes\RequestHttp;
 use Site\Route\User\Service\UserService;
 
+use Flame\Abstracts\User;
+
 class IndexController extends \Site\Common\Controller\BaseController
 {
 	use \Flame\Traits\Session;
@@ -25,8 +27,8 @@ class IndexController extends \Site\Common\Controller\BaseController
 
         $userId = $userService->auth($email, $pwd);
 		if ($userId) {
-			$this->setSession('userId', $userId);
-			return new Json(['id'=>$userId], Json::STATUS_SUCCESS);
+			$this->setSession(User::USER_SESSION_ID, $userId);
+			return new Json(['id'=>$userId, 'url' => $this->getRoutePath('user.office')]);
 		}
 		return new Json('', Json::STATUS_ERROR, UserService::AJAX_STATUS_USER_NOT_AUTH);
     }

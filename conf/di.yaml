@@ -37,3 +37,10 @@ class:
   user.service:
     class: \Site\Route\User\Service\UserService
     param: @user.dao
+
+  testing.dao:
+    class: \Site\Route\Course\Dao\TestingDao
+    param: @db
+  testing.service:
+    class: \Site\Route\Course\Service\TestingService
+    param: @testing.dao
