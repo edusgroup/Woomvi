@@ -2,6 +2,7 @@
 
 namespace Site\Common\Classes;
 
+use Flame\Traits\Session;
 use Site\Route\User\Dao\UserDao;
 
 /**
@@ -11,14 +12,15 @@ use Site\Route\User\Dao\UserDao;
  */
 class User extends \Flame\Abstracts\User
 {
-    use \Flame\Traits\Session;
+    use Session;
 
     protected $_sum_;
 
     /**
      * @param UserDao $userDao
      */
-    public function init($userDao) {
+    public function init($userDao)
+    {
         $userId = $this->getSession(self::USER_SESSION_ID);
         if (!$userId) {
             return;
@@ -26,8 +28,8 @@ class User extends \Flame\Abstracts\User
 
         $this->isAuth = true;
         $userData = $userDao->getUserData($userId);
-        foreach(['id', 'sum', 'email', 'login'] as $name) {
-            $this->{'_' . $name. '_'} = $userData[$name];
+        foreach (['id', 'sum', 'email', 'login'] as $name) {
+            $this->{'_' . $name . '_'} = $userData[$name];
         }
     }
 } 

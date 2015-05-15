@@ -2,11 +2,18 @@
 
 namespace Site\Route\Course\Controller;
 
-use Flame\Classes\Http\Response\String;
 use Flame\Classes\Http\Response\Html;
+use Site\Common\Controller\BaseController;
 
-class QuestionController extends \Site\Common\Controller\BaseController
+class QuestionController extends BaseController
 {
+    /**
+     * @param string $path Полный путь из URL
+     * @param string $groupName Названи группы
+     *
+     * @return Html Респонс
+     * @throws \Flame\Classes\Di\Exception\DiException
+     */
     public function indexAction($path, $groupName)
     {
         /** @var \Site\Route\Course\Service\CourseService $courseService */

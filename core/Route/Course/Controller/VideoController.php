@@ -2,11 +2,18 @@
 
 namespace Site\Route\Course\Controller;
 
-use Flame\Classes\Http\Response\String;
 use Flame\Classes\Http\Response\Html;
+use Site\Common\Controller\BaseController;
 
-class VideoController extends \Site\Common\Controller\BaseController
+class VideoController extends BaseController
 {
+    /**
+     * @param string $path Полный путь из URL
+     * @param string $videoName Название группы
+     *
+     * @return Html Респонс
+     * @throws \Flame\Classes\Di\Exception\DiException
+     */
     public function indexAction($path, $videoName)
     {
         /** @var \Site\Route\Course\Service\MaterialService $materialService */

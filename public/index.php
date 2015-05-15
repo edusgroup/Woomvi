@@ -49,6 +49,7 @@ try{
 }
 catch (\Flame\Classes\Http\Exception\Error4xx $ex) {
     header('HTTP/1.0 404 Not Found');
+    header('Content-Type: text/html; charset=utf-8');
     echo '<pre>' . $ex->getMessage() . PHP_EOL . $ex->getTraceAsString() . '</pre>';
     exit;
 }

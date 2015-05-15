@@ -2,11 +2,20 @@
 
 namespace Site\Route\Course\Controller;
 
-use Flame\Classes\Http\Response\String;
 use Flame\Classes\Http\Response\Html;
+use Site\Common\Controller\BaseController;
 
-class CardController extends \Site\Common\Controller\BaseController
+class CardController extends BaseController
 {
+    /**
+     * Обработка отображения карточки
+     *
+     * @param string $path Полный путь из URL
+     * @param string $cardName Название карточки
+     *
+     * @return Html Респонс
+     * @throws \Flame\Classes\Di\Exception\DiException
+     */
     public function indexAction($path, $cardName)
     {
         /** @var \Site\Route\Course\Service\MaterialService $materialService */

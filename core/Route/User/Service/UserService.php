@@ -22,8 +22,10 @@ class UserService
 
     /**
      * ѕровер€ет есть ли зарегистрированный пользователь в системе
+     *
      * @param $email Email пользовател€
      * @param $pwd ѕароль пользовател€
+     *
      * @return int|null ¬озвращает ID пользователь или пустую строку
      */
     public function auth($email, $pwd)

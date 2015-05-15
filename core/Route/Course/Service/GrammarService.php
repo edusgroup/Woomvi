@@ -24,6 +24,4 @@ class GrammarService
 
         return $data;*/
     }
-
-
 }

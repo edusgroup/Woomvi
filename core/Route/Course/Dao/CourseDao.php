@@ -2,7 +2,9 @@
 
 namespace Site\Route\Course\Dao;
 
-class CourseDao extends \Flame\Abstracts\Db\Dao
+use Flame\Abstracts\Db\Dao;
+
+class CourseDao extends Dao
 {
     const GRAMMAR_GROUP = 'course';
 
@@ -16,6 +18,7 @@ class CourseDao extends \Flame\Abstracts\Db\Dao
      * Получаем ID файла, по которуму дальше его можно искать
      *
      * @param $courseName Название файла
+     *
      * @return array Массив с ID по файлу
      */
     public function getGrammarFile($courseName)
@@ -27,6 +30,8 @@ class CourseDao extends \Flame\Abstracts\Db\Dao
      * Получаем список вопросов по TrashMistake
      *
      * @param string $groupName название группы вопросов
+     *
+     * @return array Массив с данными о TrashMistake
      */
     public function getTrashMistakeData($groupName)
     {
@@ -49,7 +54,9 @@ class CourseDao extends \Flame\Abstracts\Db\Dao
     }
 
     public function getEventsByName($name, $userId, $fields = [])
-    {   $name = $name ? '.'.$name : '';
+    {
+        $name = $name ? '.' . $name : '';
+
         return $this->driver->table(self::TABLE_SITE_EVENTS)->selectFirst(
             $fields,
             ['course' . $name => ['$exists' => true], 'userId' => $userId]

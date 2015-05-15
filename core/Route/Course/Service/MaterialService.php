@@ -18,6 +18,7 @@ class MaterialService
      * Получаем информацию по видео
      *
      * @param string $videoId Id видео
+     *
      * @return null|string Информация по видео или null, если ни чего не нашлось
      */
     public function getVideoData($videoId)
@@ -26,6 +27,7 @@ class MaterialService
         if (!$data) {
             return null;
         }
+
         return $data;
     }
 
@@ -35,6 +37,7 @@ class MaterialService
         if (!$data) {
             return null;
         }
+
         return $data;
     }
 

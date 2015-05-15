@@ -2,7 +2,9 @@
 
 namespace Site\Route\User\Dao;
 
-class UserDao extends \Flame\Abstracts\Db\Dao
+use Flame\Abstracts\Db\Dao;
+
+class UserDao extends Dao
 {
     const USER_TABLE = 'users';
 

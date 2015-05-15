@@ -28,6 +28,7 @@ class CourseService
      * Получаем имя файла с HTML, по объяснению грамматики
      *
      * @param string $courseName название курса
+     *
      * @return null|string Имя файла или null, если ни чего не нашлось
      */
     public function getGrammarFile($courseName)
@@ -36,6 +37,7 @@ class CourseService
         if (!$data) {
             return null;
         }
+
         return 'grammar/' . chunk_split($data['id'], 2, '/') . 'data.txt';
     }
 
@@ -90,12 +92,22 @@ class CourseService
 
     public function getOpenCategory($courseData, $categoryList)
     {
-        foreach(['pendulum', 'trashMistake', 'question', 'abstract', 'speaking', 'verbs', 'video', 'joke'] as $cardName) {
+        foreach ([
+                     'pendulum',
+                     'trashMistake',
+                     'question',
+                     'abstract',
+                     'speaking',
+                     'verbs',
+                     'video',
+                     'joke'
+                 ] as $cardName) {
             foreach ($courseData['data'][$cardName] as $key => &$item) {
                 $isOpen = isset($categoryList[$cardName][$key]);
                 $item = ['info' => $item, 'open' => $isOpen];
             }
         }
+
         return $courseData;
     }
 
@@ -105,7 +117,8 @@ class CourseService
         if (!$list) {
             return [];
         }
-        return array_map( function($item) {
+
+        return array_map(function ($item) {
             return $item;
         }, $list['course']);
     }

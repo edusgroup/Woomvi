@@ -2,7 +2,9 @@
 
 namespace Site\Route\Course\Dao;
 
-class TestingDao extends \Flame\Abstracts\Db\Dao
+use Flame\Abstracts\Db\Dao;
+
+class TestingDao extends Dao
 {
     const GRAMMAR = 'grammar';
 

@@ -3,13 +3,14 @@
 namespace Site\Route\Course\Controller;
 
 use Flame\Classes\Http\Response\Html;
+use Site\Common\Controller\BaseController;
 
-class PendulumController extends \Site\Common\Controller\BaseController
+class PendulumController extends BaseController
 {
     /**
-     * @param $path
-     * @param $groupName
-     * @return Html
+     * @param string $path Полный путь из URL
+     * @param string $groupName Название группы
+     * @return Html Респонс
      * @throws \Flame\Classes\Di\Exception\DiException
      */
     public function indexAction($path, $groupName)

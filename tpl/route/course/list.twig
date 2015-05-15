@@ -25,11 +25,8 @@
             border: 1px solid #f4f4f4;*/
         }
 
-        .course-list .item .preview.disable {
-            -webkit-filter: grayscale(100%);
-            filter: grayscale(100%);
-            filter: gray;
-            filter: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' height='0'><filter id='greyscale'><feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0' /></filter></svg>#greyscale");
+        .course-list .item.locked:hover .locked  {
+            bottom: 45px;
         }
 
         .course-list .item h2{
@@ -42,10 +39,9 @@
         }
 
         .course-list .item.locked .locked {
-
             position: absolute;
-            bottom: 30px;
-            right: 20px;
+            bottom: 35px;
+            right: 50px;
             background: url('/res/img/raznoe/lock.png');
             width: 41px;
             height: 62px;
@@ -85,7 +81,7 @@
                     {% if not item.open %}{% set class = 'locked' %}{% endif %}
                     <div class="item {{ class }}">
                         <a href="{{ route('course.trash-mistake', id) }}">
-                            <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
+                            <img src="/res/img/trash.png" class="preview"/>
                             <h2>Trash mistake №{{ item.info }}</h2>
                             <p class="description">Тест грамматики</p>
                         </a>
@@ -98,7 +94,7 @@
                     {% if not item.open %}{% set class = 'locked' %}{% endif %}
                     <div class="item {{ class }}">
                         <a href="{{ route('course.question-answer', id) }}">
-                            <img src="/res/img/raznoe/grammar-test.png" class="preview"/>
+                            <img src="/res/img/question.png" class="preview"/>
                             <h2>Вопрос ответ №{{ item.info }}</h2>
                             <p class="description">Тест грамматики</p>
                         </a>
@@ -161,7 +157,7 @@
                     {% if not item.open %}{% set class = 'locked' %}{% endif %}
                     <div class="item {{ class }}">
                         <a href="{{ route('material.card', item.info) }}">
-                            <img src="/res/img/raznoe/pendulum01.png" class="preview"/>
+                            <img src="/res/img/verb.png" class="preview"/>
                             <h2>Глаголы</h2>
                             <p class="description">Новые глаголы №{{ item.info }}</p>
                         </a>

@@ -2,16 +2,25 @@
 
 namespace Site\Route\Course\Controller;
 
-use Flame\Classes\Http\Response\String;
 use Flame\Classes\Http\Response\Html;
+use Site\Common\Controller\BaseController;
 
-class IndexController extends \Site\Common\Controller\BaseController
+class IndexController extends BaseController
 {
     public function indexAction()
     {
         return new Html('route/course/content.twig', [], $this);
     }
 
+    /**
+     * Роутинг категорий курса
+     *
+     * @param string $path Полный путь из URL
+     * @param string $courseName Название курса
+     *
+     * @return Html Респонс
+     * @throws \Flame\Classes\Di\Exception\DiException
+     */
     public function categoryAction($path, $courseName)
     {
         /** @var \Site\Route\Course\Service\CourseService $courseService */
@@ -24,7 +33,7 @@ class IndexController extends \Site\Common\Controller\BaseController
 
         $openCourse = $courseService->getEventsByName('', $user->getId());
         if (!isset($openCourse['grammar'][$courseName])) {
-            die('Вам еще не открыта');
+            die('Not open yet');
         }
 
         $vars['courseData'] = $courseService->getOpenCategory($courseData, $openCourse);
