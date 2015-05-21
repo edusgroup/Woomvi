@@ -13,9 +13,4 @@ class TestingService
     {
         $this->testingDao = $testingDao;
     }
-
-    public function addGrammarEvent($courseName, $userId)
-    {
-        $this->testingDao->addGrammarEvent($courseName, $userId);
-    }
 }

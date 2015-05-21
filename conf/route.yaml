@@ -70,9 +70,21 @@ course.trash-mistake:
   vars:
       itemName: @itemName
 
+course.trash-mistake.nextlevel:
+  controller: \Site\Route\Course\Controller\TrashMistakeController::nextLevelAction
+  regexp: /trash-mistake/{itemName}/next-level/$
+  vars:
+    itemName: @itemName
+
 course.question-answer:
   controller: \Site\Route\Course\Controller\QuestionController::indexAction
   regexp: /question-answer/{itemName}/$
+  vars:
+      itemName: @itemName
+
+course.question-answer.nextlevel:
+  controller: \Site\Route\Course\Controller\QuestionController::nextLevelAction
+  regexp: /question-answer/{itemName}/next-level/$
   vars:
       itemName: @itemName
 
@@ -91,6 +103,12 @@ material.card:
 course.pendulum:
   controller: \Site\Route\Course\Controller\PendulumController::indexAction
   regexp: /pendulum/{itemName}/$
+  vars:
+    itemName: @itemName
+
+course.pendulum.nextlevel:
+  controller: \Site\Route\Course\Controller\PendulumController::pdfAnswerAction
+  regexp: /pendulum/{itemName}/next-level/$
   vars:
     itemName: @itemName
 

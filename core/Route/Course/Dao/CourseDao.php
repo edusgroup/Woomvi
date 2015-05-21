@@ -62,4 +62,30 @@ class CourseDao extends Dao
             ['course' . $name => ['$exists' => true], 'userId' => $userId]
         );
     }
+
+    public function getNextLevelItem($type, $key)
+    {
+        return $this->driver->table('siteLevelSequence')->selectFirst(
+            ["$type.$key" => 1],
+            ["$type.$key" => ['$exists' => 1]]
+        );
+    }
+
+
+    public function getEventDataByName($type, $key, $userId)
+    {
+        return $this->driver->table(self::TABLE_SITE_EVENTS)->selectFirst(
+            ["$type.$key" => 1],
+            ["course.$type.$key" => ['$exists' => 1], 'userId' => $userId]
+        );
+    }
+
+    public function addEvent($type, $key, $userId, $match = [])
+    {
+        $match['time'] = time();
+        $match['open'] = false;
+
+        $data = ['$set' => ["course.$type.$key" => $match]];
+        return $this->driver->table(self::TABLE_SITE_EVENTS)->update($data, ['userId' => $userId]);
+    }
 }

@@ -3,35 +3,49 @@
 namespace Site\Route\Course\Controller;
 
 use Flame\Classes\Http\Response\Html;
+use Site\Common\Classes\User;
 use Site\Common\Controller\BaseController;
+use Site\Route\Course\Service\CourseService;
 
 class TrashMistakeController extends BaseController
 {
     /**
-     * @param string $path Ïîëíûé ïóòü èç URL
-     * @param string $groupName Íàçâàíèå ãðóïïû
+     * @param string $path ÐŸÐ¾Ð»Ð½Ñ‹Ð¹ Ð¿ÑƒÑ‚ÑŒ Ð¸Ð· URL
+     * @param string $itemName ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹
      *
-     * @return Html Ðåñïîíñ
+     * @return Html Ð ÐµÑÐ¿Ð¾Ð½Ñ
      * @throws \Flame\Classes\Di\Exception\DiException
      */
-    public function indexAction($path, $groupName)
+    public function indexAction($path, $itemName)
     {
-        /** @var \Site\Route\Course\Service\CourseService $courseService */
+        $response = $this->checkRight(CourseService::TRASH_MISTAKE, $itemName);
+        if ($response !== null) {
+            return $response;
+        }
+
+        /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');
 
-        $vars['trashMistakeList'] = $courseService->getTrashMistakeData($groupName);
+        $vars['trashMistakeList'] = $courseService->getTrashMistakeData($itemName);
         $this->ifNullInvokeError4xx($vars['trashMistakeList']);
 
-        $user = $this->getUser($this->fabric('user.dao'));
-        if (!$user->isAuth()) {
-            die('User not reg');
-        }
-
-        $openCourse = $courseService->getEventsByName('trashMistake.'.$groupName, $user->getId(), ['course.trashMistake'=>1]);
-        if (!$openCourse) {
-            die('Not access');
-        }
-
         return new Html('route/course/trash-mistake/item.twig', $vars, $this);
+    }
+
+    public function nextLevelAction($path, $itemName)
+    {
+        $response = $this->checkRight(CourseService::TRASH_MISTAKE, $itemName);
+        if ($response !== null) {
+            return $response;
+        }
+        /** @var CourseService $courseService */
+        $courseService = $this->fabric('course.service');
+        /** @var User $user */
+        $user = $this->getUser($this->fabric('user.dao'));
+
+        $item = $courseService->openNextLevel(CourseService::TRASH_MISTAKE, $itemName, $user->getId());
+        $this->ifNullInvokeError4xx($item);
+
+        echo 2;
     }
 }

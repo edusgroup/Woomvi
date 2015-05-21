@@ -4,25 +4,31 @@ namespace Site\Route\Course\Controller;
 
 use Flame\Classes\Http\Response\Html;
 use Site\Common\Controller\BaseController;
+use Site\Route\Course\Service\CourseService;
 
 class GetAbstractController extends BaseController
 {
     /**
-     * Îáðàáîòêà îòîáðàæåíèÿ
+     * ÐžÐ±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ
      *
-     * @param string $path Ïîëíûé ïóòü èç URL
-     * @param string $abstractName Íàçâàíèå àáñòðàêòà
+     * @param string $path ÐŸÐ¾Ð»Ð½Ñ‹Ð¹ Ð¿ÑƒÑ‚ÑŒ Ð¸Ð· URL
+     * @param string $itemName ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð°Ð±ÑÑ‚Ñ€Ð°ÐºÑ‚Ð°
      *
-     * @return Html Ðåñïîíñ
+     * @return Html Ð ÐµÑÐ¿Ð¾Ð½Ñ
      * @throws \Flame\Classes\Di\Exception\DiException
      */
-    public function indexAction($path, $abstractName)
+    public function indexAction($path, $itemName)
     {
+        $response = $this->checkRight(CourseService::GET_ABSTRACT, $itemName);
+        if ($response !== null) {
+            return $response;
+        }
+
         /** @var \Site\Route\Course\Service\MaterialService $materialService */
         $materialService = $this->fabric('material.service');
 
-        $vars['abstractData'] = $materialService->getGetAbstractData($abstractName);
-        $this->ifNullInvokeError4xx($vars['abstractData'], 'AbstractData ' . htmlspecialchars($abstractName) . ' not found');
+        $vars['abstractData'] = $materialService->getGetAbstractData($itemName);
+        $this->ifNullInvokeError4xx($vars['abstractData'], 'AbstractData ' . htmlspecialchars($itemName) . ' not found');
 
         return new Html('route/course/getAbstract/item.twig', $vars, $this);
     }

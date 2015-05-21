@@ -4,32 +4,48 @@ namespace Site\Route\Course\Controller;
 
 use Flame\Classes\Http\Response\Html;
 use Site\Common\Controller\BaseController;
+use Site\Route\Course\Service\CourseService;
 
 class PendulumController extends BaseController
 {
     /**
-     * @param string $path Ïîëíûé ïóòü èç URL
-     * @param string $groupName Íàçâàíèå ãðóïïû
-     * @return Html Ðåñïîíñ
+     * @param string $path ÐŸÐ¾Ð»Ð½Ñ‹Ð¹ Ð¿ÑƒÑ‚ÑŒ Ð¸Ð· URL
+     * @param string $itemName ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹
+     * @return Html Ð ÐµÑÐ¿Ð¾Ð½Ñ
      * @throws \Flame\Classes\Di\Exception\DiException
      */
-    public function indexAction($path, $groupName)
+    public function indexAction($path, $itemName)
     {
-        /** @var \Site\Route\Course\Service\CourseService $courseService */
+        $response = $this->checkRight(CourseService::PENDULUM, $itemName);
+        if ($response !== null) {
+            return $response;
+        }
+
+        /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');
-        $vars['pendulumList'] = $courseService->getPendulumList($groupName);
+        $vars['pendulumList'] = $courseService->getPendulumList($itemName);
         $this->ifNullInvokeError4xx($vars['pendulumList']);
 
-        $user = $this->getUser($this->fabric('user.dao'));
-        if (!$user->isAuth()) {
-            die('User not reg');
-        }
-
-        $openCourse = $courseService->getEventsByName('pendulum.'.$groupName, $user->getId(), ['course.pendulum'=>1]);
-        if (!$openCourse) {
-            die('Not access');
-        }
+        $vars['pendulumName'] = $itemName;
 
         return new Html('route/course/pendulum/item.twig', $vars, $this);
+    }
+
+    public function pdfAnswerAction($path, $itemName)
+    {
+        $response = $this->checkRight(CourseService::PENDULUM, $itemName);
+        if ($response !== null) {
+            return $response;
+        }
+
+        $user = $this->getUser($this->fabric('user.dao'));
+
+        /** @var CourseService $courseService */
+        $courseService = $this->fabric('course.service');
+
+        $item = $courseService->openNextLevel(CourseService::PENDULUM, $itemName, $user->getId());
+        $this->ifNullInvokeError4xx($item);
+
+        echo 1;
     }
 }

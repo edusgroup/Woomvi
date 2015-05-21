@@ -9,25 +9,61 @@
         wumvi.pendulum = (function(){
             var textNum = 0;
             var showTextStatus = null;
-            var $point = null;
-            var $buttonStart = null;
+            var $point;
 
-            var $pendulumBox = null;
+            var $pendulumBox;
+            var $startPageBox;
+            var $countDownBox;
+            var $testingBox;
+            var $endBox;
+
+            var $startPageBtn;
+
+            var startCountDownImg;
+
+            var BEGIN_ANIMATION_TIMEOUT = 3;
+
+            var countDownList = {};
+
+            var $pointImg;
 
             function onTimer(){
                 if ( textNum == wumvi.storage.pendulumList.length ){
-                    $buttonStart.html('Заново').css({'display':'inline-block'});
-                    $point.removeClass('block').addClass('hide');
+                    //$buttonStart.html('Заново').css({'display':'inline-block'});
+                    $point.removeClass('block text').addClass('hide');
+                    $testingBox.hide();
+                    $endBox.css({'display': 'table'});
+                    $startPageBtn.html($startPageBtn.data('text2'));
+
+                    setTimeout(function(){
+                        $endBox.hide();
+                        $startPageBox.show();
+                    }, 3000);
                     textNum = 0;
                     return;
                 }
 
                 if ( showTextStatus ){
-                    $point.addClass('text').removeClass('block').html(wumvi.storage.pendulumList[textNum]['questionText']);
-                    setTimeout(onTimer, wumvi.storage.pendulumList[textNum]['timeBegin']);
+                    var text = wumvi.storage.pendulumList[textNum]['questionText'];
+                    //var text = '“' + wumvi.storage.pendulumList[textNum]['questionText'] + '”';.
+
+                    $point.addClass('text').removeClass('block hide').find('.text').html(text);
+                    var time = wumvi.storage.pendulumList[textNum]['timeBegin'];
+                    setTimeout(onTimer, time * 1000);
                 }else{
-                    $point.addClass('block').removeClass('text');
-                    setTimeout(onTimer, wumvi.storage.pendulumList[textNum]['timeEnd']);
+                    $point.addClass('block').removeClass('text hide');
+
+                    var time = wumvi.storage.pendulumList[textNum]['timeEnd'];
+
+                    $pointImg.hide();
+                    setTimeout(function(){
+                        $pointImg.show().each(function() {
+                            this.offsetHeight;
+                        }).prop('src', countDownList[time].src);
+                    }, 0)
+
+
+                    setTimeout(onTimer, time * 1000);
                     textNum++;
                 }
 
@@ -35,19 +71,46 @@
                 // func. onTimer
             }
 
-            function onStartPendulum(){
-                $buttonStart.hide();
+            function onStartPageBtnClick(){
+                switchToCountDownBox();
+                return false;
+            }
+
+            function switchToTesting(){
+                $countDownBox.hide();
+                $testingBox.css({'display': 'table'});
+
                 showTextStatus = true;
                 onTimer();
-                return false;
-                // func. onStart
             }
 
+            function switchToCountDownBox(){
+
+                $countDownBox.find('img.begin-animation:first').hide();
+                setTimeout(function(){
+                    $countDownBox.find('img.begin-animation:first').show().each(function() {
+                        this.offsetHeight;
+                    }).prop('src', startCountDownImg.src);
+                }, 0)
+
+
+                $startPageBox.hide();
+                $countDownBox.css({'display': 'table'});
+                setTimeout(switchToTesting, BEGIN_ANIMATION_TIMEOUT * 1000);
+            }
+
+            /**
+             * Инициализация событий
+             */
             function initEvent() {
-                $buttonStart.click(onStartPendulum);
+                $startPageBtn.click(onStartPageBtnClick);
             }
 
+            /**
+             * Общая функция инициализации
+             */
             function init(){
+                // Если не нашли данных по маятнику, выкидываем исключение
                 if (!wumvi.storage.pendulumList) {
                     throw new Error('wumvi.storage.pendulumList not set');
                 }
@@ -55,10 +118,25 @@
                 // Контейтер со всеми элементами
                 $pendulumBox = jQuery('#wumvi-pendulum');
 
+                $startPageBox = jQuery('#wumvi-pendulum-start-screen');
+                $countDownBox = jQuery('#wumvi-pendulum-start-countdown');
+                $testingBox = jQuery('#wumvi-pendulum-testing');
+                $endBox = jQuery('#wumvi-pendulum-end');
+
                 // Мигающая точка
-                $point = $pendulumBox.find('.pendulum-point');
+                $point = jQuery('#wumvi-pendulum-testing .pendulum-point');
                 // Кнопка старта
-                $buttonStart = $pendulumBox.find('.btn.start');
+                $startPageBtn = $pendulumBox.find('.start-page-btn:first');
+
+                $pointImg = $point.find('.img img:first');
+
+                startCountDownImg = new Image();
+                startCountDownImg.src = '/res/img/course/pendulum/count-down-wumvi.gif?c=' + Math.random();
+
+                for (var i = 2; i <= 5; i++) {
+                    countDownList[i] = new Image();
+                    countDownList[i].src = '/res/img/course/pendulum/coundown-answer-' + i + '.gif?c=' + Math.random();
+                }
 
                 initEvent();
                 // func. init
@@ -75,8 +153,8 @@
         wumvi.storage.pendulumList = [];
         {% for item in pendulumList %}
             wumvi.storage.pendulumList.push({
-               timeBegin:{{ item.timeBegin * 1000 }},
-               timeEnd: {{ item.timeEnd * 1000 }},
+               timeBegin:{{ item.timeBegin }},
+               timeEnd: {{ item.timeEnd }},
                questionText: "{{ item.question }}"
            });
         {% endfor %}
@@ -95,7 +173,7 @@
             text-align: center;
         }
 
-        #wumvi-pendulum .pendulum-box .btn{
+        /*#wumvi-pendulum .pendulum-box .btn{
             display: inline-block;
         }
 
@@ -119,15 +197,143 @@
             font-weight: bold;
             font-size: 18px;
             background-color: transparent;
+        }*/
+        #wumvi-pendulum .pendulum-point.block .img{
+            display: inline-block;
+        }
+
+        #wumvi-pendulum .pendulum-point.block .text{
+            display: none;
+        }
+
+        #wumvi-pendulum .pendulum-point.text .text{
+            display: inline-block;
+            /*font-style: italic;*/
+            color: #666666;
+            font-size: 23px;
+        }
+
+        #wumvi-pendulum .pendulum-point.text .img{
+            display: none;
         }
 
         #wumvi-pendulum .pendulum-point.hide{
             display: none;
         }
 
-        #wumvi-pendulum .table-wrapper{
-            display: table;
+        .pendulum-box-size{
+            width: 728px;
+            height: 524px;
+        }
+
+        #wumvi-pendulum-start-screen{
+            background: url('/res/img/course/pendulum/start-page.png') no-repeat;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        #wumvi-pendulum-start-screen .pendulum-btn{
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 18px;
+            text-decoration: none;
+            display: block;
+            margin: 0 auto 20px auto;
+
+            box-sizing: border-box;
+            -moz-box-sizing: border-box; /*Firefox 1-3*/
+            -webkit-box-sizing: border-box; /* Safari */
+
+            background-color: white;
+            color: #c1c1c1;
+            border: 1px solid #c1c1c1;
+            opacity: 0.3;
+
+            width: 200px;
+        }
+
+        #wumvi-pendulum-start-screen .pendulum-btn:hover{
+            opacity: 1;
+        }
+
+        #wumvi-pendulum-start-screen .start-page-btn{
+            background-color: #75EF6C;
+            border: 1px solid #60cb58;
+            color: #fff;
+            width: 280px;
+            text-shadow: 1px 1px 1px rgba(6, 180, 10, 1);
+            opacity: 1;
+        }
+
+        #wumvi-pendulum-start-screen .start-page-btn:hover{
+            background-color: #69d861;
+        }
+
+        #wumvi-pendulum-start-countdown{
+            display: none;
+            min-height: 300px;
+            text-align: center;
             width: 100%;
+        }
+
+        #wumvi-pendulum-testing{
+            display: none;
+            min-height: 300px;
+            width: 100%;
+        }
+
+        #wumvi-pendulum-start-screen .btn-list{
+            position: absolute;
+            right: 130px;
+            top: 180px;
+        }
+
+        #wumvi-pendulum-start-screen .download{
+            overflow: hidden;
+            clear: both;
+            margin: 0 auto 20px auto;
+            width: 200px;
+            opacity: 0.3;
+        }
+
+        #wumvi-pendulum-start-screen .download:hover{
+            opacity: 1;
+        }
+
+        #wumvi-pendulum-start-screen .download .pendulum-btn{
+            float: left;
+            margin: 0;
+            opacity: 1;
+        }
+
+        #wumvi-pendulum-start-screen .download .pdf-btn{
+            width: 40px;
+            height: 40px;
+            background: url('/res/img/course/pendulum/pdf.png') no-repeat;
+            margin-right: 10px;
+            border: 0px;
+        }
+
+        #wumvi-pendulum-start-screen .download:hover .pdf-btn{
+            background: url('/res/img/course/pendulum/pdf-hover.png') no-repeat;
+        }
+
+        #wumvi-pendulum-start-screen .download .see-answer-btn{
+            width: 150px;
+        }
+
+        #wumvi-pendulum-end{
+            font-size: 24px;
+            display: none;
+            width: 100%;
+        }
+
+        .pendulum-box-size .table-cell{
+            display: table-cell;
+            width: 100%;
+            vertical-align: middle;
+            text-align: center;
         }
 
     </style>
@@ -137,16 +343,45 @@
 
             <div id="wumvi-pendulum" class="type-pendulum">
                 <div class="content">
-                    <div class="caption">
-                        Маятник
-                    </div>
+                    <div id="wumvi-pendulum-start-screen" class="pendulum-box-size">
+                        <div class="btn-list">
+                            <a href="#start" class="start-page-btn pendulum-btn" data-text2="Заново!">Начать!</a>
+                            <a href="#how-to" class="help-btn pendulum-btn">Как проходить?</a>
+                            <div class="download">
+                                <a target="_blank" title="Скачать ответы в PDF" href="#download-pdf" class="pdf-btn pendulum-btn">
 
-                    <div class="tableWrapper">
-                        <div class="pendulum-box">
-                            <div class="pendulum-point hide"></div>
-                            <a href="#start" class="btn start">Начать</a>
+                                </a>
+                                <a href="#see-video" title="Посмотреть видео-ответ" class="see-answer-btn pendulum-btn">
+                                    Видео-ответ
+                                </a>
+                            </div>
+
+                            <a href="{{ route('course.pendulum.nextlevel', pendulumName) }}" class="next-btn pendulum-btn">Я всё сдал!</a>
+
                         </div>
                     </div>
+
+                    <div id="wumvi-pendulum-start-countdown" class="pendulum-box-size">
+                        <div class="table-cell">
+                            <img src="" class="begin-animation"/>
+                        </div>
+                    </div>
+
+                    <div id="wumvi-pendulum-testing" class="pendulum-box-size">
+                        <div class="pendulum-box">
+                            <div class="pendulum-point hide">
+                                <div class="text"></div>
+                                <div class="img"><img src="" alt="Обратный отсчёт"/></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="wumvi-pendulum-end" class="pendulum-box-size">
+                        <div class="table-cell">
+                            Маятник завершен. Хорошая работа!
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

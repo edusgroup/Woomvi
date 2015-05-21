@@ -4,6 +4,7 @@ namespace Site\Route\Course\Controller;
 
 use Flame\Classes\Http\Response\Html;
 use Site\Common\Controller\BaseController;
+use Site\Route\Course\Service\CourseService;
 
 use Flame\Traits\Session;
 
@@ -11,25 +12,27 @@ class GrammarController extends BaseController
 {
     use Session;
 
-    const TPL_USER_NOT_AUTH = 'global/user/notAuth.twig';
+
 
     /**
-     * Ðîóòèíã äëÿ ãðàììàòèêè
+     * Ð Ð¾ÑƒÑ‚Ð¸Ð½Ð³ Ð´Ð»Ñ Ð³Ñ€Ð°Ð¼Ð¼Ð°Ñ‚Ð¸ÐºÐ¸
      *
-     * @param string $path Ïîëíûé ïóòü èç URL
+     * @param string $path ÐŸÐ¾Ð»Ð½Ñ‹Ð¹ Ð¿ÑƒÑ‚ÑŒ Ð¸Ð· URL
      * @param string $courseName
      *
-     * @return Html Ðåñïîíñ
+     * @return Html Ð ÐµÑÐ¿Ð¾Ð½Ñ
      * @throws \Flame\Classes\Di\Exception\DiException
      */
     public function indexAction($path, $courseName)
     {
-        $user = $this->getUser($this->fabric('user.dao'));
-        if (!$user->isAuth()) {
-            return new Html(self::TPL_USER_NOT_AUTH, [], $this);
+        $response = $this->checkRight(CourseService::GRAMMAR, $courseName);
+        if ($response !== null) {
+            return $response;
         }
 
-        /** @var \Site\Route\Course\Service\CourseService $courseService */
+        $user = $this->getUser($this->fabric('user.dao'));
+
+        /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');
 
         /** @var string $filename */
@@ -43,22 +46,26 @@ class GrammarController extends BaseController
     }
 
     /**
-     * @param string $path Ïîëíûé ïóòü èç URL
-     * @param string $courseName Íàçâàíèå êóðñà
+     * @param string $path ÐŸÐ¾Ð»Ð½Ñ‹Ð¹ Ð¿ÑƒÑ‚ÑŒ Ð¸Ð· URL
+     * @param string $courseName ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ ÐºÑƒÑ€ÑÐ°
      *
-     * @return Html Ðåñïîíñ
+     * @return Html Ð ÐµÑÐ¿Ð¾Ð½Ñ
      * @throws \Flame\Classes\Di\Exception\DiException
      */
     public function testingAction($path, $courseName)
     {
-        $user = $this->getUser($this->fabric('user.dao'));
-        if (!$user->isAuth()) {
-            return new Html(self::TPL_USER_NOT_AUTH, [], $this);
+        $response = $this->checkRight(CourseService::GRAMMAR, $courseName);
+        if ($response !== null) {
+            return $response;
         }
 
-        /** @var \Site\Route\Course\Service\TestingService $grammarService */
-        $testingService = $this->fabric('testing.service');
-        $testingService->addGrammarEvent($user->getId(), $courseName);
+        $user = $this->getUser($this->fabric('user.dao'));
+
+        /** @var CourseService $courseService */
+        $courseService = $this->fabric('course.service');
+
+        $item = $courseService->openNextLevel(CourseService::GRAMMAR, $courseName, $user->getId());
+        $this->ifNullInvokeError4xx($item);
 
         $vars['courseName'] = $courseName;
 

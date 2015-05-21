@@ -31,8 +31,10 @@ class IndexController extends BaseController
 
         $user = $this->getUser($this->fabric('user.dao'));
 
+        $isDemoCategory = $courseService->isDemo('category', $courseName);
+
         $openCourse = $courseService->getEventsByName('', $user->getId());
-        if (!isset($openCourse['grammar'][$courseName])) {
+        if (!isset($openCourse['grammar'][$courseName]) && !$isDemoCategory) {
             die('Not open yet');
         }
 

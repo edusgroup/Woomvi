@@ -4,23 +4,29 @@ namespace Site\Route\Course\Controller;
 
 use Flame\Classes\Http\Response\Html;
 use Site\Common\Controller\BaseController;
+use Site\Route\Course\Service\CourseService;
 
 class VideoController extends BaseController
 {
     /**
-     * @param string $path Ïîëíûé ïóòü èç URL
-     * @param string $videoName Íàçâàíèå ãðóïïû
+     * @param string $path ÐŸÐ¾Ð»Ð½Ñ‹Ð¹ Ð¿ÑƒÑ‚ÑŒ Ð¸Ð· URL
+     * @param string $itemName ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹
      *
-     * @return Html Ðåñïîíñ
+     * @return Html Ð ÐµÑÐ¿Ð¾Ð½Ñ
      * @throws \Flame\Classes\Di\Exception\DiException
      */
-    public function indexAction($path, $videoName)
+    public function indexAction($path, $itemName)
     {
+        $response = $this->checkRight(CourseService::VIDEO, $itemName);
+        if ($response !== null) {
+            return $response;
+        }
+
         /** @var \Site\Route\Course\Service\MaterialService $materialService */
         $materialService = $this->fabric('material.service');
 
-        $vars['videoData'] = $materialService->getVideoData($videoName);
-        $this->ifNullInvokeError4xx($vars['videoData'], 'Video ' . htmlspecialchars($videoName) . ' not found');
+        $vars['videoData'] = $materialService->getVideoData($itemName);
+        $this->ifNullInvokeError4xx($vars['videoData'], 'Video ' . htmlspecialchars($itemName) . ' not found');
 
         return new Html('route/course/video/item.twig', $vars, $this);
     }
