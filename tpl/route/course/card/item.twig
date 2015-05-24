@@ -1,48 +1,36 @@
-{# Шаблон для видео в курсах #}
-
-{% extends "global/index.twig" %}
-
-{% block footer %}
-    <script>
-        window.wumvi = window.wumvi || {};
-        window.card = (function(){
-            function init(){
-
-            }
-
-            init();
-        })();
-
-    </script>
-{% endblock %}
-
-{% block content %}
-
-    <style>
-        #wumvi-card-box {
-
-        }
-
-        #wumvi-card-box {
-
-        }
-
-        #wumvi-card-box {
-
-        }
-
-        #wumvi-card-box {
-
-        }
-    </style>
-
-    <div id="maincontentcontainer">
-        <div id="maincontent">
-            <div id="wumvi-card-box">
-                <div class="card-item">
-
-                </div>
-            </div>
+<div class="card-item sentence word-threaten" data-num="{{ item.num }}" data-url="/mp3/">
+    <div class="word-box subitem-box">
+        <div class="inner">
+            <h2>Threaten</h2>
         </div>
     </div>
-{% endblock %}
+
+    <div class="sentence-box subitem-box">
+        <h2>Threaten</h2>
+        <ul>
+            <li>- Hello, we are from Russia.</li>
+            <li>- Why are you <strong>threatening</strong>?</li>
+        </ul>
+    </div>
+    <div class="translate-box subitem-box">
+
+        <h2>Угрожать</h2>
+        <ul>
+            <li>- Привет, мы из России.</li>
+            <li>- Почему вы <strong>угрожаете</strong>?</li>
+        </ul>
+    </div>
+
+
+    <div class="controll">
+        <div class="translate-btn">
+
+        </div>
+        <div class="show-hide-btn">
+
+        </div>
+        <div class="play-btn">
+
+        </div>
+    </div>
+</div>

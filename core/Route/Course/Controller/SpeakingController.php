@@ -25,8 +25,11 @@ class SpeakingController extends BaseController
         /** @var \Site\Route\Course\Service\MaterialService $materialService */
         $materialService = $this->fabric('material.service');
 
-        $vars['speakingData'] = $materialService->getSpeakingData($itemName);
-        $this->ifNullInvokeError4xx($vars['speakingData'], 'Speaking ' . htmlspecialchars($itemName) . ' not found');
+        $cardList = $materialService->getSpeakingData($itemName);
+        $this->ifNullInvokeError4xx($cardList, 'Speaking ' . htmlspecialchars($itemName) . ' not found');
+
+        $vars['cardList'] = $cardList;
+        unset($cardList);
 
         return new Html('route/course/speaking/item.twig', $vars, $this);
     }

@@ -3,29 +3,24 @@
 {% extends "global/index.twig" %}
 
 {% block footer %}
-    <script>
-        window.wumvi = window.wumvi || {};
-        window.speaking = (function(){
-            function init(){
-
-            }
-
-            init();
-        })();
-
-    </script>
+    <script src="/res/plugin/jplayer/jquery.jplayer.min.js"></script>
+    <script src="/res/js/course/card.js"></script>
 {% endblock %}
 
 {% block content %}
+    {% spaceless %}
+        <link rel="stylesheet" href="/res/css/course/card.css" media="all">
 
-    <style>
+        <div id="maincontentcontainer">
+            <div id="maincontent">
 
-    </style>
+                <div id="wumvi-card-box">
+                    {% for id,item in cardList %}
+                        {% include 'route/course/card/item.twig' %}
+                    {% endfor %}
+                </div>
 
-
-    <div id="maincontentcontainer">
-        <div id="maincontent">
-            Speaking
+            </div>
         </div>
-    </div>
+    {% endspaceless %}
 {% endblock %}
