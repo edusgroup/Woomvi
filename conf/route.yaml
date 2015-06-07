@@ -39,6 +39,7 @@ user.office:
 vars:
   courseName: ([^/]+)
   itemName: ([^/]+)
+  teacherId: (\d+)
 
 grammar.index:
   controller: \Site\Route\Course\Controller\GrammarController::indexAction
@@ -134,3 +135,8 @@ course:
   controller: \Site\Route\Course\Controller\IndexController::indexAction
   regexp: /course/$
 
+teacher.info:
+  controller: \Site\Route\Teacher\Controller\IndexController::indexAction
+  regexp: /teacher/{teacherId}/$
+  vars:
+    teacherId: @teacherId

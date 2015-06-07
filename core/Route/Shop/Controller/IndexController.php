@@ -5,8 +5,9 @@ namespace Site\Route\Shop\Controller;
 use Flame\Classes\RequestHttp;
 use Flame\Classes\Http\Response\Json;
 use Flame\Classes\Http\Response\Html;
+use Site\Common\Controller\BaseController;
 
-class IndexController extends \Site\Common\Controller\BaseController
+class IndexController extends BaseController
 {
     const ARTICLE_SHOP_GROUP = 'shop';
 

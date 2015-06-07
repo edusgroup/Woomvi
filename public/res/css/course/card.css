@@ -10,7 +10,8 @@
     height: 200px;
     position: relative;
     float: left;
-    margin: 0 1% 20px 0; }
+    margin: 0 1% 20px 0;
+    box-shadow: 0 2px #d8d6d0; }
     #wumvi-card-box .card-item .word-box {
       background: #f7f7f7;
       width: 100%; }
@@ -52,7 +53,6 @@
     bottom: 10px;
     right: 10px;
     cursor: pointer;
-    opacity: 0.4;
     z-index: 22;
     width: 126px;
     height: 35px;
@@ -76,8 +76,6 @@
       /*background: yellow;
 			opacity: 0.3;*/
       float: left; }
-    #wumvi-card-box .controll :hover {
-      opacity: 1; }
 
 #wumvi-card-box .sentence-box p, #wumvi-card-box .sentence-box li {
   font-size: 16px;

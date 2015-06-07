@@ -36,7 +36,15 @@ class BaseController extends BaseAbstractController
 	
 	}
 
-    public function checkRight($type, $key){
+    public function checkRight($type, $key)
+    {
+        /** @var CourseService $courseService */
+        $courseService = $this->fabric('course.service');
+        $isDemoCategory = $courseService->isDemo($type, $key);
+        if ($isDemoCategory) {
+            return null;
+        }
+
         $user = $this->getUser($this->fabric('user.dao'));
         if (!$user->isAuth()) {
             return new Html(self::TPL_USER_NOT_AUTH, [], $this);
@@ -46,25 +54,19 @@ class BaseController extends BaseAbstractController
             die('No money');
         }
 
-        /** @var CourseService $courseService */
-        $courseService = $this->fabric('course.service');
-
-        $isDemoCategory = $courseService->isDemo($type, $key);
-
         $openCourse = $courseService->getEventsByName(
             $type . '.' . $key,
             $user->getId(),
             ['course.' . $type => 1]
         );
 
-        if (!$isDemoCategory) {
-            if (!$openCourse) {
-                die('Not access');
-            }
 
-            if (!$openCourse[$type][$key]['open']){
-                die('Not open yet');
-            }
+        if (!$openCourse) {
+            die('Not access');
+        }
+
+        if (!$openCourse[$type][$key]['open']){
+            die('Not open yet');
         }
 
         return null;

@@ -1,0 +1,93 @@
+{% extends "global/index.twig" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/res/bower_package/jquery-ui/themes/base/datepicker.css">
+{% endblock %}
+
+{% block footer %}
+    <script src="/res/bower_package/jquery-ui/jquery-ui.js"></script>
+    <script src="/res/bower_package/jquery-ui/ui/i18n/datepicker-ru.js"></script>
+
+    <script>
+
+        jQuery( "#datepicker" ).datepicker();
+
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% spaceless %}
+        <style>
+            .datetime{
+                width: 100px;
+                background: #f9f9f9;
+                cursor: pointer;
+            }
+
+            .datetime .item td{
+                border: 1px solid #d0d4d9;
+                height: 30px;
+            }
+
+            .datetime .item td:hover{
+                background: #f5f5f5;
+            }
+
+            .ui-datepicker{
+                background: #fff;
+                padding: 0;
+            }
+
+            .ui-datepicker .ui-datepicker-header{
+                background: #e1e6eb;
+                margin: 0;
+                color: #575b5f;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+
+            .ui-datepicker td span, .ui-datepicker td a{
+                text-align: center;
+                color: #4d5155;
+            }
+
+            .ui-datepicker td{
+                border: 1px solid #d0d4d9;
+                z-index: 1;
+                position: relative;
+            }
+
+            .ui-datepicker td:hover{
+                border-color: #e0a38a;
+                background: #eef1f5;
+                z-index: 2;
+            }
+
+            .ui-datepicker td span, .ui-datepicker td:hover a {
+                color: #ef733c;
+            }
+
+            .ui-datepicker-today{
+                font-weight: bold;
+            }
+
+        </style>
+
+
+        <div id="maincontentcontainer">
+            <div id="maincontent">
+                <table class="datetime">
+                    <tr class="item"><td>11:00</td></tr>
+
+                </table>
+
+
+
+                Date: <div id="datepicker"></div>
+
+
+
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}

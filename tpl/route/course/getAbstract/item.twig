@@ -15,13 +15,47 @@
 {% block content %}
 
     <style>
+        #absBox{
+            margin-top: 20px;
+        }
+        
+        #absBox .text{
+            font-size: 24px;
+            line-height: 40px;
+        }
 
+        #absBox .text:hover .other{
+            -webkit-filter: url(#blur);
+            filter: url(#blur);
+            -webkit-filter: blur(1px);
+            filter: blur(1px);
+            filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='1');
+            color: #999;
+            transition: 0.3s all linear;
+        }
+
+        #absBox .phrase{
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        #absBox .text:hover .phrase{
+
+        }
+
+        #absBox .phrase:hover{
+
+        }
     </style>
-
 
     <div id="maincontentcontainer">
         <div id="maincontent">
-            Get abstract
+            <div id="absBox">
+                <div class="text">
+                    <span class="other">This is </span> <span id="ph-1" class="phrase"> another way of saying</span> <span class="other"> that if you have two important tasks before you, start with the biggest, hardest, and most important task first. Discipline yourself to begin immediately and then to persist until the task is complete before you go on to something else.</span>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
