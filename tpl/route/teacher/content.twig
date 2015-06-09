@@ -77,8 +77,13 @@
         <div id="maincontentcontainer">
             <div id="maincontent">
                 <table class="datetime">
-                    <tr class="item"><td>11:00</td></tr>
-
+                    {% for minuts in range(0, 50, 10) %}
+                        <tr class="item">
+                            {% for hour in range(0, 23) %}
+                                <td>{{ "%02d"|format(hour) }}:{{ "%02d"|format(minuts) }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
                 </table>
 
 
