@@ -2,38 +2,72 @@
 
 {% block head %}
     <link rel="stylesheet" href="/res/bower_package/jquery-ui/themes/base/datepicker.css">
+    <link rel="stylesheet" href="/res/sprite/build/sprite.css">
 {% endblock %}
 
 {% block footer %}
     <script src="/res/bower_package/jquery-ui/jquery-ui.js"></script>
-    <script src="/res/bower_package/jquery-ui/ui/i18n/datepicker-ru.js"></script>
+    <script src="/res/bower_package/jquery-mousewheel/jquery.mousewheel.min.js"></script>
+    <!--<script src="/res/bower_package/jquery-ui/ui/i18n/datepicker-ru.js"></script> -->
 
     <script>
 
-        jQuery( "#datepicker" ).datepicker();
+        //jQuery( "#datepicker" ).datepicker();
+        $(".datetimeWrapper").mousewheel(function(event, delta) {
 
+            this.scrollLeft += (delta * 30);
+
+            event.preventDefault();
+
+        });
     </script>
 {% endblock %}
 
 {% block content %}
     {% spaceless %}
         <style>
+            .datetimeWrapper{
+                overflow: hidden;
+                overflow-x: scroll;
+                padding-bottom: 10px;
+                width: 70%;
+            }
+
             .datetime{
-                width: 100px;
-                background: #f9f9f9;
+                /*background: #f9f9f9;
+                background: url('/res/img/bg.jpg') ;*/
                 cursor: pointer;
+                width: 2280px; /* 24 * 70 */
+                min-width: 2280px; /* 24 * 70 */
             }
 
-            .datetime .item td{
-                border: 1px solid #d0d4d9;
+            .datetime .item{
+                clear: both;
+                overflow: hidden;
+            }
+
+            .datetime .item .cell{
+                border: 1px solid #f0f1f5;
+
                 height: 30px;
+                width: 70px;
+                float: left;
+                text-align: center;
+
+
             }
 
-            .datetime .item td:hover{
+            .datetime .item .cell:hover{
                 background: #f5f5f5;
+                font-weight: bold;
+         
             }
 
-            .ui-datepicker{
+            .datetime .item .cell.booked {
+                background: #edf7ec;
+            }
+
+            /*.ui-datepicker{
                 background: #fff;
                 padding: 0;
             }
@@ -69,6 +103,48 @@
 
             .ui-datepicker-today{
                 font-weight: bold;
+            }*/
+
+            .thin-scroll::-webkit-scrollbar {
+                width: 5px;
+                height: 5px;
+            }
+
+            .thin-scroll::-webkit-scrollbar-track {
+                background-color: rgba(0,0,0, 0.2);
+                box-shadow: inset 0px 0px 0px 2px #f2f2f2;
+
+                border-radius: 5px;
+            }
+
+            .thin-scroll::-webkit-scrollbar-thumb {
+                background-color: rgba(255,255,255,1);
+                border-radius: 5px;
+                border: 1px solid #d4d4d4;
+            }
+
+            .thin-scroll::-webkit-scrollbar-corner {
+            }
+
+            .datetime .cell{
+                background: transparent;
+            }
+
+
+            .datetime .cell.icon-schedule-stop{
+                background: url('/res/img/schedule/stop.png')  no-repeat center center;
+            }
+
+            .datetime .cell.icon-schedule-lock{
+                background: url('/res/img/schedule/lock.png')  no-repeat center center;
+            }
+
+            .datetime .cell.icon-schedule-percent{
+                background: url('/res/img/schedule/percent.png') #ffac68  no-repeat right  bottom ;
+            }
+
+            .datetime .cell .text{
+
             }
 
         </style>
@@ -76,19 +152,26 @@
 
         <div id="maincontentcontainer">
             <div id="maincontent">
-                <table class="datetime">
-                    {% for minuts in range(0, 50, 10) %}
-                        <tr class="item">
-                            {% for hour in range(0, 23) %}
-                                <td>{{ "%02d"|format(hour) }}:{{ "%02d"|format(minuts) }}</td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </table>
+
+                <div class="datetimeWrapper thin-scroll">
+                    <table class="datetime">
+                        {% for minuts in range(0, 50, lessonsLength) %}
+                            <tr class="item">
+                                {% for hour in range(0, 23) %}
+                                    <td class="cell {{ hour == 5 and minuts == 30 ? 'icon-schedule-percent' : '' }}">
+                                        <span class="text">
+                                            {{ "%02d"|format(hour) }}:{{ "%02d"|format(minuts) }}
+                                        </span>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
 
 
 
-                Date: <div id="datepicker"></div>
+                <!-- Date: <div id="datepicker"></div> -->
 
 
 
