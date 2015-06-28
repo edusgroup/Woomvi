@@ -48,7 +48,7 @@ grammar.index:
     courseName: @courseName
 
 grammar.testing:
-  controller: \Site\Route\Course\Controller\GrammarController::testingAction
+  controller: \Site\Route\Course\Controller\GrammarController::nextLevelAction
   regexp: /grammar/{courseName}/testing/$
   vars:
     courseName: @courseName
@@ -101,6 +101,12 @@ material.card:
   vars:
     itemName: @itemName
 
+material.card.nextlevel:
+  controller: \Site\Route\Course\Controller\CardController::nextlevelAction
+  regexp: /card/{itemName}/next-level/$
+  vars:
+    itemName: @itemName
+
 course.pendulum:
   controller: \Site\Route\Course\Controller\PendulumController::indexAction
   regexp: /pendulum/{itemName}/$
@@ -108,7 +114,7 @@ course.pendulum:
     itemName: @itemName
 
 course.pendulum.nextlevel:
-  controller: \Site\Route\Course\Controller\PendulumController::pdfAnswerAction
+  controller: \Site\Route\Course\Controller\PendulumController::nextLevelAction
   regexp: /pendulum/{itemName}/next-level/$
   vars:
     itemName: @itemName
@@ -125,9 +131,33 @@ material.getabstract:
   vars:
     itemName: @itemName
 
+material.getabstract.test:
+  controller: \Site\Route\Course\Controller\GetAbstractController::testingAction
+  regexp: /getabstract/{itemName}/testing/$
+  vars:
+    itemName: @itemName
+
+material.getabstract.nextlevel:
+  controller: \Site\Route\Course\Controller\GetAbstractController::nextLevelAction
+  regexp: /getabstract/{itemName}/nextlevel/$
+  vars:
+    itemName: @itemName
+
 material.video:
   controller: \Site\Route\Course\Controller\VideoController::indexAction
   regexp: /video/{itemName}/$
+  vars:
+    itemName: @itemName
+
+material.video.test:
+  controller: \Site\Route\Course\Controller\VideoController::testingAction
+  regexp: /video/{itemName}/test/$
+  vars:
+    itemName: @itemName
+
+material.video.nextlevel:
+  controller: \Site\Route\Course\Controller\VideoController::nextLevelAction
+  regexp: /video/{itemName}/nextlevel/$
   vars:
     itemName: @itemName
 

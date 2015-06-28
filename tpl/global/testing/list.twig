@@ -1,0 +1,34 @@
+<div class="item-list">
+    {% for item in testList %}
+        <div class="item">
+            <div class="question-box">
+                <div class="box question-header"></div>
+                <div class="box question-text">
+                    {{ item.questionText }}
+                </div>
+                <div class="box panel-bottom"></div>
+                <div class="panel-button">
+                    <a href="#" class="btn check">Показать ответ</a>
+                </div>
+                <div class="answer-status">
+                    <img src="/res/img/wrong.png" class="wrong"/>
+                    <img src="/res/img/ok.png" class="right"/>
+                </div>
+            </div>
+
+            <div class="answer-box">
+                <div class="box question-header"></div>
+                <div class="">
+                    <div class="box answer-text">
+                        <h2>Ответ</h2>
+                        {{ item.answerText }}
+                    </div>
+                    <a href="#" class="close">
+                        <img src="/res/img/sprite/close.png"/>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+</div>

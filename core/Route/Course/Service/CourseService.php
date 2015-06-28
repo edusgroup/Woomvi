@@ -64,7 +64,14 @@ class CourseService
             return null;
         }
 
-        return iterator_to_array($data);
+        $data = iterator_to_array($data);
+        foreach ($data as &$item) {
+            $item = preg_replace_callback('/\#([^#]+)\#/', function ($matches) {
+                return '<input type="text" name="text" class="select-text" value="' . $matches[1] . '"/>';
+            }, $item);
+        }
+
+        return $data;
     }
 
     public function getCourseData($courseName)
@@ -141,6 +148,15 @@ class CourseService
         }, $list['course']);
     }
 
+    public function getCourseName($groupName, $blockName)
+    {
+        $data = $this->courseDao->getCourseName($groupName, $blockName);
+        if (!$data) {
+            return null;
+        }
+        return $data['url'];
+    }
+
     public function isDemo($type, $key)
     {
         //return $key == 'be-have';
@@ -160,6 +176,16 @@ class CourseService
         $this->courseDao->nextLevel($courseName, $userId);
     }*/
 
+    /**
+     * Открывает новый уровень в курсе
+     *
+     * @param string $type Тип курса
+     * @param string $key Название курса
+     * @param string $userId UserId
+     * @return bool Результат открытия
+     *
+     * $courseService->openNextLevel(CourseService::GRAMMAR, $courseName, $user->getId());
+     */
     public function openNextLevel($type, $key, $userId)
     {
         $item = $this->courseDao->getNextLevelItem($type, $key);

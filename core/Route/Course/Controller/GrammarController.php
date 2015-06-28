@@ -45,30 +45,8 @@ class GrammarController extends BaseController
         return new Html('route/course/grammar/item.twig', $vars, $this);
     }
 
-    /**
-     * @param string $path Полный путь из URL
-     * @param string $courseName Название курса
-     *
-     * @return Html Респонс
-     * @throws \Flame\Classes\Di\Exception\DiException
-     */
-    public function testingAction($path, $courseName)
+    public function nextLevelAction($path, $courseName)
     {
-        $response = $this->checkRight(CourseService::GRAMMAR, $courseName);
-        if ($response !== null) {
-            return $response;
-        }
-
-        $user = $this->getUser($this->fabric('user.dao'));
-
-        /** @var CourseService $courseService */
-        $courseService = $this->fabric('course.service');
-
-        $item = $courseService->openNextLevel(CourseService::GRAMMAR, $courseName, $user->getId());
-        $this->ifNullInvokeError4xx($item);
-
-        $vars['courseName'] = $courseName;
-
-        return new Html('route/course/grammar/testing.twig', $vars, $this);
+        return parent::nextLevel($path, $courseName, CourseService::GRAMMAR);
     }
 }

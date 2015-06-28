@@ -7,28 +7,36 @@ use Flame\Abstracts\Db\Dao;
 class MaterialDao extends Dao
 {
     const TABLE_SITE_VIDEO = 'siteVideo';
+    const TABLE_SITE_TESTING_LIST = 'siteTestingList';
     const TABLE_SITE_GET_ABSTRACT = 'siteGetAbstract';
     const TABLE_SITE_CARD = 'siteCard';
     const TABLE_SITE_SPEAKING = 'siteSpeaking';
 
     /**
-     * Получаем данные по видео по ID
      *
-     * @param string $videoId Id видео
      *
-     * @return array Массив с данными
+     * @param string $videoId Id
+     *
+     * @return array
      */
     public function getVideoData($videoId)
     {
         return $this->driver->table(self::TABLE_SITE_VIDEO)->selectFirst([], ['id' => $videoId]);
     }
 
+    public function getTestList($testId, $group)
+    {
+        return $this->driver
+            ->table(self::TABLE_SITE_TESTING_LIST)
+            ->selectFirst([], ['_id' => $testId, 'group' => $group]);
+    }
+
     /**
-     * Получаем данные по GetAbstract по ID
      *
-     * @param string $abstractId ID гетбастракта
      *
-     * @return array Массив с данными
+     * @param string $abstractId ID
+     *
+     * @return array
      */
     public function getGetAbstractData($abstractId)
     {

@@ -3,13 +3,203 @@
 {% extends "global/index.twig" %}
 
 {% block footer %}
+
+    <div id="modal">
+        <div class="wrapper">
+            <div class="inner">
+                <div class="text"></div>
+                <div class="close"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
         window.wumvi = window.wumvi || {};
-        window.abstract = (function(){
 
-        })();
+        /* ------------------------------ BASE ---------------------------------- */
+        wumvi.AbstractBook = function(){
+            /** @type {jQuery} */
+            this.root = jQuery('#absBox');
+            /** @type {wumvi.ModalWindow} */
+            this.windowModal = new wumvi.ModalWindow(jQuery('#modal'), 'main');
+
+            this.attachEvent();
+        }
+
+        wumvi.AbstractBook.prototype.attachEvent = function() {
+            var that = this;
+            this.root.find('.phrase').each(function(num, obj){
+                var model = new wumvi.AbstractBook.Phrase.Model(obj);
+                new wumvi.AbstractBook.Phrase(obj, model);
+            })
+        }
+
+        /* ------------------------------ PHRASE ---------------------------------- */
+        wumvi.AbstractBook.Phrase = function(obj, model){
+            this.obj = obj;
+            /** @type {wumvi.AbstractBook.Phrase.Model}*/
+            this.model = model;
+
+            this.attachEvent();
+
+        }
+
+        wumvi.AbstractBook.Phrase.prototype.attachEvent = function(){
+            var that = this;
+            jQuery(this.obj).click(function(){
+                var html = jQuery('#' + that.model.id).html();
+                jQuery(document).trigger(wumvi.ModalWindow.SHOW, ['main', html]);
+            })
+        }
+
+        /* ------------------------------- MODEL ----------------------------------- */
+        wumvi.AbstractBook.Phrase.Model = function(obj){
+            /** @type {string} ID фразы*/
+            this.id = jQuery(obj).data('id');
+        }
+
+        wumvi.ModalWindow = function($obj, name) {
+            /** @type {jQuery} */
+            this.$obj = $obj;
+            /** @type {string} */
+            this.name = name;
+
+            this.attachEvent();
+        }
+
+
+
+        wumvi.ModalWindow.prototype.attachEvent = function(){
+            var that = this;
+            this.$obj.find('.close:first').click(function(){
+                that.hide();
+            });
+
+            jQuery(document).on(wumvi.ModalWindow.SHOW, function(event, name, html) {
+                if (that.name != name) {
+                    return;
+                }
+
+                if (html) {
+                    that.$obj.find('.text:first').html(html);
+                }
+
+                that.show();
+            });
+        }
+
+        wumvi.ModalWindow.prototype.show = function() {
+
+            this.$obj.addClass('show');
+            jQuery('#modal').addClass('show')
+        }
+
+        wumvi.ModalWindow.prototype.hide = function() {
+            this.$obj.removeClass('show');
+        }
+
+        wumvi.ModalWindow.SHOW = 'wumvi.modal.show';
+
+        new wumvi.AbstractBook();
 
     </script>
+
+    <style>
+        #modal .inner {
+            background: white;
+            max-width: 1200px;
+            width: 60%;
+
+            min-width: 100px;
+
+
+            /*position: fixed;
+            top: 200px;
+
+            left:0;
+            right:0;
+            margin-left:auto;
+            margin-right:auto;*/
+
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+
+            -webkit-box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
+            -moz-box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
+            box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
+
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 20px 20px 60px 20px;
+
+            display: inline-block;
+            position: relative;
+            margin-top: -60px;
+
+
+
+            text-align: left;
+            opacity: 0;
+
+            max-height: 80%;
+        }
+
+
+        #modal.show .inner {
+            margin-top: 0;
+            opacity: 1;
+            -webkit-transition: all .3s linear 0s;
+            -moz-transition: all .3s linear 0s;
+            -o-transition: all .3s linear 0s;
+            transition: all .3s linear 0s;
+        }
+
+        #modal{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, .2);
+            display: none;
+        }
+
+        #modal.show{
+            display: table;
+
+        }
+
+        #modal .close{
+            background: url('/res/img/sprite/close.png') no-repeat;
+            width: 25px;
+            height: 25px;
+            display: block;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            opacity: 0.2;
+            cursor: pointer;
+        }
+
+        #modal .close:hover{
+            opacity: 1;
+        }
+
+        #modal .wrapper{
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+
+        }
+
+        @media only screen and (max-width: 1020px) {
+            #modal .inner {
+                width: 95%;
+            }
+        }
+    </style>
+
+
 {% endblock %}
 
 {% block content %}
@@ -24,7 +214,11 @@
             line-height: 40px;
         }
 
-        #absBox .text:hover .other{
+        #absBox .text p{
+            font-size: inherit;
+        }
+
+        #absBox .text:hover .other, #absBox .text:hover h2{
             -webkit-filter: url(#blur);
             filter: url(#blur);
             -webkit-filter: blur(1px);
@@ -38,6 +232,8 @@
             font-weight: 600;
             cursor: pointer;
             display: inline-block;
+            transition: 0.3s all linear;
+            color: 0;
         }
 
         #absBox .text:hover .phrase{
@@ -47,14 +243,68 @@
         #absBox .phrase:hover{
 
         }
+
+        #absBox h2{
+            font-size: 30px;
+            font-weight: 600;
+        }
+
+        #absBox .explanation{
+            display: none;
+        }
+
+
+
+        .next-level-box{
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .next-level-box .btn:hover{
+            background: #5fcf2d;
+            color: #fff;
+        }
+
+        .btn.test{
+            margin-right: 20px;
+        }
     </style>
 
     <div id="maincontentcontainer">
         <div id="maincontent">
             <div id="absBox">
                 <div class="text">
-                    <span class="other">This is </span> <span id="ph-1" class="phrase"> another way of saying</span> <span class="other"> that if you have two important tasks before you, start with the biggest, hardest, and most important task first. Discipline yourself to begin immediately and then to persist until the task is complete before you go on to something else.</span>
+                    <h2>If you have two frogs, eat the ugliest one first</h2>
+                    <img src="/res/img/frog-1.png" style="float: right">
+                    <span class="other">This is </span> <span data-id="ph-1" class="phrase"> another way of saying</span> <span class="other"> that if you have two important tasks before you, start with the biggest, hardest, and most important task first. Discipline yourself to begin immediately and then to persist until the task is complete before you go on to something else.</span>
                 </div>
+
+
+                <div class="text">
+                    <h2>Apply the 80/20 Rule </h2>
+                    <img src="/res/img/frog-2.png" style="float: left; margin-right: 30px">
+                    <span class="other">
+                        This law, in particular, this means that if you have a list of ten tasks, the execution of two tasks from this list will bring you 80% of the benefits that you get by making all things from the list.
+                        Resist the temptation to clear up small things.
+                        The fact is the amount of time required to complete an important job is often the same amount of time required to do an unimportant job.
+                    </span>
+                </div>
+
+                <div class="explanation" id="ph-1">
+                    <h2>Another way of saying</h2>
+                    Another way of saying – используем в значении «другой\еще один способ сказать».
+                    Выражение another way очень универсально, к примеру, группа Hollywood undead назвала одну из своих песен Another way out – другой выход. Получается, что ключевое слово именно another (другой). В компании со словом way могут получаться самые разнообразные выражения, например:
+                    “put another way” – иными словами:
+                </div>
+            </div>
+
+            <div class="next-level-box">
+                <a href="{{ route('material.getabstract.test', abstractName) }}" class="btn test">
+                    Пройти тест по тексту
+                </a>
+                <a href="{{ route('material.getabstract.nextlevel', abstractName) }}" class="btn">
+                    Я выучил(а) текст. Открыть следующий курс
+                </a>
             </div>
         </div>
     </div>

@@ -25,40 +25,16 @@ class QuestionController extends BaseController
         /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');
 
-        $vars['questionList'] = $courseService->getQuestionList($itemName);
-        $this->ifNullInvokeError4xx($vars['questionList']);
+        $params['questionList'] = $courseService->getQuestionList($itemName);
+        $this->ifNullInvokeError4xx($params['questionList']);
 
-        $user = $this->getUser($this->fabric('user.dao'));
-        if (!$user->isAuth()) {
-            die('User not reg');
-        }
+        $params['questionName'] = $itemName;
 
-        $openCourse = $courseService->getEventsByName(
-            CourseService::QUESTION_ANSWER . '.' . $itemName,
-            $user->getId(),
-            ['course.' . CourseService::QUESTION_ANSWER => 1]
-        );
-        if (!$openCourse) {
-            die('Not access');
-        }
-
-        return new Html('route/course/question-answer/item.twig', $vars, $this);
+        return new Html('route/course/question-answer/item.twig', $params, $this);
     }
 
-    public function nextLevelAction($path, $itemName)
+    public function nextLevelAction($path, $courseName)
     {
-        $response = $this->checkRight(CourseService::QUESTION_ANSWER, $itemName);
-        if ($response !== null) {
-            return $response;
-        }
-        /** @var CourseService $courseService */
-        $courseService = $this->fabric('course.service');
-        /** @var User $user */
-        $user = $this->getUser($this->fabric('user.dao'));
-
-        $item = $courseService->openNextLevel(CourseService::QUESTION_ANSWER, $itemName, $user->getId());
-        $this->ifNullInvokeError4xx($item);
-
-        echo 3;
+        return parent::nextLevel($path, $courseName, CourseService::QUESTION_ANSWER);
     }
 }

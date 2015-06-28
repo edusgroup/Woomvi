@@ -30,9 +30,16 @@ class CardController extends BaseController
         $cardList = $materialService->getCardData($itemName);
         $this->ifNullInvokeError4xx($cardList, 'Card ' . htmlspecialchars($itemName) . ' not found');
 
-        $vars['cardList'] = $cardList;
+        $params['cardList'] = $cardList;
         unset($cardList);
 
-        return new Html('route/course/card/content.twig', $vars, $this);
+        $params['cardName'] = $itemName;
+
+        return new Html('route/course/card/content.twig', $params, $this);
+    }
+
+    public function nextLevelAction($path, $courseName)
+    {
+        return parent::nextLevel($path, $courseName, CourseService::CARD);
     }
 }

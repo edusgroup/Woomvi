@@ -26,6 +26,11 @@ class CourseDao extends Dao
         return $this->driver->table('courses')->selectFirst(['id'], ['url' => $courseName]);
     }
 
+    public function getMainBlock()
+    {
+
+    }
+
     /**
      * Получаем список вопросов по TrashMistake
      *
@@ -60,6 +65,14 @@ class CourseDao extends Dao
         return $this->driver->table(self::TABLE_SITE_EVENTS)->selectFirst(
             $fields,
             ['course' . $name => ['$exists' => true], 'userId' => $userId]
+        );
+    }
+
+    public function getCourseName($groupName, $blockName)
+    {
+        return $this->driver->table(self::TABLE_SITE_COURSE)->selectFirst(
+            ['url' => 1, '_id' => 0],
+            ['data.' . $groupName. '.' . $blockName => ['$exists' => true]]
         );
     }
 

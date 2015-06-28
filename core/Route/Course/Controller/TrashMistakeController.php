@@ -26,26 +26,16 @@ class TrashMistakeController extends BaseController
         /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');
 
-        $vars['trashMistakeList'] = $courseService->getTrashMistakeData($itemName);
-        $this->ifNullInvokeError4xx($vars['trashMistakeList']);
+        $params['trashMistakeList'] = $courseService->getTrashMistakeData($itemName);
+        $this->ifNullInvokeError4xx($params['trashMistakeList']);
 
-        return new Html('route/course/trash-mistake/item.twig', $vars, $this);
+        $params['trashMistakeName'] = $itemName;
+
+        return new Html('route/course/trash-mistake/item.twig', $params, $this);
     }
 
-    public function nextLevelAction($path, $itemName)
+    public function nextLevelAction($path, $courseName)
     {
-        $response = $this->checkRight(CourseService::TRASH_MISTAKE, $itemName);
-        if ($response !== null) {
-            return $response;
-        }
-        /** @var CourseService $courseService */
-        $courseService = $this->fabric('course.service');
-        /** @var User $user */
-        $user = $this->getUser($this->fabric('user.dao'));
-
-        $item = $courseService->openNextLevel(CourseService::TRASH_MISTAKE, $itemName, $user->getId());
-        $this->ifNullInvokeError4xx($item);
-
-        echo 2;
+        return parent::nextLevel($path, $courseName, CourseService::TRASH_MISTAKE);
     }
 }

@@ -2,38 +2,60 @@
 
 {% extends "global/index.twig" %}
 
+{% block head%}
+    <link href="/res/css/course/test-box.css" rel="stylesheet"/>
+{% endblock %}
+
 {% block footer %}
+    <script src="/res/js/wumvi/Utils.js"></script>
     <script>
         window.wumvi = window.wumvi || {};
-        window.video.utils = (function(){
-            function init(){
-                jQuery('.wumvi-video-100pr').each(function(num, obj){
-                    /** @var jQuery $videoObj */
-                    var $videoObj = jQuery(obj);
-                    $videoObj.height($videoObj.width() / 1.77777);
-                })
-            }
-
-            init();
-        })();
-
+        new wumvi.Utils();
     </script>
 {% endblock %}
 
 {% block content %}
 
     <style>
-        .wumvi-video-100pr{
+        .video-100pr{
             width: 100%;
+        }
+
+        .video-box{
+            width: 100%;
+        }
+
+        #wumvi-video-control .next-level-box{
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #wumvi-video-control .next-level-box .btn:hover{
+            background: #5fcf2d;
+            color: #fff;
+        }
+
+        .btn.test{
+            margin-right: 20px;
         }
     </style>
 
 
     <div id="maincontentcontainer">
         <div id="maincontent">
-            <iframe class="wumvi-video-100pr" src="https://www.youtube.com/embed/{{ videoData.url }}?modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
             <div id="wumvi-video-control">
-                <a href="#">Пройти тест</a>
+                <div class="video-box">
+                    <iframe class="video-100pr" src="https://www.youtube.com/embed/{{ videoData.url }}?modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <div class="next-level-box">
+                    <a href="{{ route('material.video.test', videoName) }}" class="btn test">
+                        Пройти тест по видео
+                    </a>
+                    <a href="{{ route('material.video.nextlevel', videoName) }}" class="btn">
+                        Я выучил(а) видео. Открыть следующий курс
+                    </a>
+                </div>
             </div>
         </div>
     </div>

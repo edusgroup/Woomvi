@@ -1,52 +1,97 @@
 {% extends "global/index.twig" %}
 
+{% block head%}
+    <link href="/res/css/course/test-box.css" rel="stylesheet"/>
+{% endblock %}
+
 {% block footer %}
+    <script src="/res/js/wumvi/Utils.js"></script>
     <script>
         window.wumvi = window.wumvi || {};
-        window.trashMistake = (function(){
-            var $root = jQuery('#wumvi-trash-mistake');
+        new wumvi.Utils();
 
-            function showAnswerBtnClick() {
-                jQuery(this).parents('.trash-mistake-item-box:first').addClass('show-answer-mode');
-                return false;
+        wumvi.TrashMistake = function(){
+            this.$root =  jQuery('#wumvi-trash-mistake');
+
+            this.$root.find('.item').each(function(num, obj){
+               new  wumvi.TrashMistake.Form(obj);
+            });
+        }
+
+        wumvi.TrashMistake.Form = function(itemRoot){
+            /** @type {jQuery} */
+            this.$itemRoot = jQuery(itemRoot);
+            /** @type {string} */
+            this.id = this.$itemRoot.data('id');
+            /** @type {string} */
+            this.regexp = this.$itemRoot.data('regexp');
+            /** @type {jQuery} */
+            this.$input = this.$itemRoot.find('input[name="text"]');
+
+            this.RIGHT_ANSWER_CLASS = 'right-answer';
+            this.WRONG_ANSWER_CLASS = 'wrong-answer';
+            this.SHORT_BTN_CLASS = 'short-btn';
+            this.SHOW_ANSWER_CLASS = 'show-answer';
+
+            this.initHeight();
+
+            this.attachEvent();
+        }
+
+        wumvi.TrashMistake.Form.prototype.initHeight = function() {
+            var $questionBox = this.$itemRoot.find('.question-box:first');
+            var $answerBox = this.$itemRoot.find('.answer-box:first');
+
+            var answerHeight = $answerBox.outerHeight();
+            var questionHeight = $questionBox.outerHeight();
+
+            if (questionHeight < answerHeight) {
+                this.$itemRoot.css({'height': answerHeight});
+            }else{
+                this.$itemRoot.css({'height': questionHeight});
             }
 
-            function hideAnswerBtnClick() {
-                jQuery(this).parents('.trash-mistake-item-box:first').removeClass('show-answer-mode');
-                return false;
+            $answerBox.find('.answer-text').addClass('short-height');
+        }
+
+        wumvi.TrashMistake.Form.prototype.attachEvent = function() {
+            var that = this;
+            this.$itemRoot.find('.btn.check').click(function(){
+                return that.checkBtnClick();
+            });
+
+            this.$itemRoot.find('.btn.answer').click(function(){
+                return that.answerBtnClick();
+            });
+
+            this.$itemRoot.find('.close').click(function(){
+                return that.closeAnswerBtnClick();
+            });
+        }
+
+        wumvi.TrashMistake.Form.prototype.closeAnswerBtnClick = function() {
+            this.$itemRoot.removeClass(this.SHOW_ANSWER_CLASS);
+            return false;
+        }
+
+        wumvi.TrashMistake.Form.prototype.answerBtnClick = function() {
+            this.$itemRoot.addClass(this.SHOW_ANSWER_CLASS);
+            return false;
+        }
+
+        wumvi.TrashMistake.Form.prototype.checkBtnClick = function() {
+            var val = this.$input.val().trim();
+            if ((new RegExp(this.regexp)).test(val)){
+                this.$itemRoot.removeClass(this.WRONG_ANSWER_CLASS).addClass(this.RIGHT_ANSWER_CLASS);
+            } else {
+                this.$itemRoot.removeClass(this.RIGHT_ANSWER_CLASS).addClass(this.WRONG_ANSWER_CLASS);
             }
 
-            function init(){
-                $root.find('.question-box tr').each(function(num, trObj){
+            this.$itemRoot.addClass(this.SHORT_BTN_CLASS);
+            return false;
+        }
 
-                    var $answerObj = jQuery(trObj).parents('.trash-mistake-item-box:first').find('.answer-box .body');
-                    var answerHeight = $answerObj.outerHeight();
-                    var questionHeight = jQuery(trObj).find('.body:first').outerHeight();
-
-                    if (questionHeight < answerHeight) {
-                        jQuery(trObj).find('.body .item:first').css({'height': answerHeight});
-                    }
-
-                    $answerObj = jQuery(trObj).parents('.trash-mistake-item-box:first').find('.answer-box .check-btn-box .item');
-                    answerHeight = $answerObj.outerHeight();
-                    questionHeight = jQuery(trObj).find('.check-btn-box:first .item').outerHeight();
-
-                    if (questionHeight > answerHeight) {
-                        $answerObj.css({'height': questionHeight});
-                    }
-                });
-
-
-                initEvent();
-            }
-
-            function initEvent() {
-                $root.find('.show-answer-btn').click(showAnswerBtnClick);
-                $root.find('.hide-answer-btn').click(hideAnswerBtnClick);
-            }
-
-            init();
-        })();
+        new wumvi.TrashMistake();
 
     </script>
 {% endblock %}
@@ -54,227 +99,81 @@
 {% block content %}
 
     <style>
-        #wumvi-trash-mistake .item{
-            padding: 18px;
 
-            background: #FAFAFA;
-            border: 1px solid #F0F0F0;
-
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-
-            box-sizing: border-box;
-            -moz-box-sizing: border-box; /*Firefox 1-3*/
-            -webkit-box-sizing: border-box; /* Safari */
-
-            display: inline-block;
-            position: relative;
-
-            box-shadow: 0 2px #d8d6d0;
-
-            width: 100%;
+        #wumvi-trash-mistake .header{
+            text-align: center;
         }
 
-        #wumvi-trash-mistake .question-box .item{
-            padding: 18px 18px 5px 18px;
-        }
-
-        #wumvi-trash-mistake .answer-box .item{
-            background: #FFF;
-        }
-
-        #wumvi-trash-mistake table{
-            margin-bottom: 20px;
-        }
-
-        #wumvi-trash-mistake td{
-            vertical-align: top;
-            padding: 0;
-        }
-
-        #wumvi-trash-mistake .item input{
-            -webkit-border-radius: 0;
-            -moz-border-radius: 0;
-            border-radius: 0;
-
-            -webkit-box-shadow: none;
-            -moz-box-shadow: none;
-            box-shadow: none;
-
-            border: 0;
-            width: 100%;
-
-            margin: 0;
-            height: 50px;
-
-            box-sizing: border-box;
-            -moz-box-sizing: border-box; /*Firefox 1-3*/
-            -webkit-box-sizing: border-box; /* Safari */
-        }
-
-        #wumvi-trash-mistake .wrong-text{
-
-        }
-
-        #wumvi-trash-mistake .answer-text{
-
-        }
-
-        #wumvi-trash-mistake .question-text{
+        #wumvi-trash-mistake .next-level-box{
             margin-top: 20px;
-
-        }
-
-        #wumvi-trash-mistake .right-text{
-
-        }
-
-        #wumvi-trash-mistake td.check-btn-box{
-            width: 200px;
-            padding-left: 19px;
             text-align: center;
         }
 
-        #wumvi-trash-mistake .item .btn{
-            width: 100%;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box; /*Firefox 1-3*/
-            -webkit-box-sizing: border-box; /* Safari */
-            text-align: center;
-
-            background: #fff;
+        #wumvi-trash-mistake .next-level-box .btn:hover{
+            background: #5fcf2d;
+            color: #fff;
         }
 
-        #wumvi-trash-mistake .item .btn:hover{
-            background: #F9F9F9;
-        }
-
-        #wumvi-trash-mistake .item-text{
-            font-size: 16px;
-            padding-left: 10px;
-        }
-
-        #wumvi-trash-mistake .trash-mistake-item-box{
-            position: relative;
-
-        }
-
-        #wumvi-trash-mistake .question-box{
-            position: relative;
-            z-index: 2;
-        }
-
-        #wumvi-trash-mistake .answer-box{
-            position: absolute;
-            top: -3px;
-            left: 3px;
-            z-index: 1;
-        }
-
-        #wumvi-trash-mistake .bridge{
-            position: absolute;
-            right: -24px;
-            top: 20px;
-            z-index: 1;
-        }
-
-        #wumvi-trash-mistake .check-btn-box .show-answer-btn{
-            font-size: 10px;
-            color: #bfbfbf;
-            margin-top: 10px;
-            display: inline-block;
-        }
-
-        #wumvi-trash-mistake .trash-mistake-item-box.show-answer-mode .answer-box{
-            z-index: 3;
-            top: auto;
-            left: auto;
-            position: relative;
-        }
-
-        #wumvi-trash-mistake .trash-mistake-item-box.show-answer-mode .question-box{
-            position: absolute;
-            top: -3px;
-            left: 3px;
-        }
-
-        #wumvi-trash-mistake .answer-box .right-text{
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        #wumvi-trash-mistake .answer-mode{
-            width: 48px;
-            height: 48px;
-            position: absolute;
-            right: 250px;
-            bottom: -12px;
-            z-index: 5;
-        }
-
-        #wumvi-trash-mistake .trash-mistake-item-box.right-answer-mode .answer-mode{
-            background: url('/res/img/ok.png') no-repeat;
-        }
-
-        #wumvi-trash-mistake .trash-mistake-item-box.wrong-answer-mode .answer-mode{
-            background: url('/res/img/wrong.png') no-repeat;
+        .test-box .item-list .item .question-header{
+            background: url('/res/img/bg-item.png') no-repeat top center #fff;
         }
     </style>
 
     <div id="maincontentcontainer">
         <div id="maincontent">
 
-            <div id="wumvi-trash-mistake">
-                <h2>Исправьте ошибки в предложениях</h2>
-                {% for item in trashMistakeList %}
-                    <div class="trash-mistake-item-box right-answer-mode">
-                        <table class="question-box" data-id="{{ item._id }}" data-regexp="{{ item.regexp }}">
-                            <tr>
-                                <td class="body">
-                                    <div class="item">
-                                        <div class="wrong-text">
-                                            <input type="text" value="{{ item.wrongText }}"/>
-                                        </div>
-                                        <div class="question-text item-text">
-                                            {{ item.questionText }}
-                                        </div>
-                                        <img src="/res/img/bridge.png" class="bridge"/>
-                                    </div>
-                                </td>
-                                <td class="check-btn-box">
-                                    <div class="item">
-                                        <a href="#check" class="btn">Проверить</a>
-                                        <a href="#show-answer" class="show-answer-btn">показать ответ</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+            <div id="wumvi-trash-mistake" class="test-box">
+                <div class="header">
+                    <img src="/res/img/course/mistake/caption.png"/>
+                </div>
+                <div class="item-list">
+                    {% for item in trashMistakeList %}
+                        <div class="item" data-id="{{ item._id }}" data-regexp="{{ item.regexp }}">
+                            <div class="question-box">
+                                <div class="box question-header"></div>
+                                <div class="box question-text">
+                                    {{ item.questionText }}
+                                </div>
+                                <div class="box wrong-text">
+                                    {{ item.wrongText|raw }}
+                                </div>
+                                <div class="box panel-bottom"></div>
+                                <div class="panel-button">
+                                    <a href="#" class="btn answer">Ответ</a>
+                                    <a href="#" class="btn check">Проверить</a>
+                                </div>
+                                <div class="answer-status">
+                                    <img src="/res/img/wrong.png" class="wrong"/>
+                                    <img src="/res/img/ok.png" class="right"/>
+                                </div>
+                            </div>
 
-                        <table class="answer-box">
-                            <tr>
-                                <td class="body">
-                                    <div class="item">
-                                        <div class="right-text item-text">
-                                            {{ item.rightText }}
-                                        </div>
-                                        <div class="answer-text item-text">
-                                            {{ item.answerText }}
-                                        </div>
-                                        <img src="/res/img/bridge-white.png" class="bridge"/>
+                            <div class="answer-box">
+                                <div class="box question-header"></div>
+                                <div class="">
+                                    <div class="box answer-text">
+                                        <h2>Ответ</h2>
+                                        {{ item.answerText }}
                                     </div>
-                                </td>
-                                <td class="check-btn-box">
-                                    <div class="item">
-                                        <a href="#" class="btn hide-answer-btn">Скрыть</a>
+                                    <div class="box right-text">
+                                        {{ item.rightText }}
                                     </div>
-                                </td>
-                            </tr>
-                        </table>
+                                    <a href="#" class="close">
+                                        <img src="/res/img/sprite/close.png"/>
+                                    </a>
+                                </div>
+                            </div>
 
-                        <div class="answer-mode"></div>
-                    </div>
-                {% endfor %}
+
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="next-level-box">
+                    <a href="{{ route('course.trash-mistake.nextlevel', trashMistakeName) }}" class="btn">
+                        Я прошёл все тесты. Открыть следующий курс
+                    </a>
+                </div>
             </div>
         </div>
     </div>

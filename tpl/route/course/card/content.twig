@@ -19,17 +19,39 @@
         }
 
 
+        #wumvi-card-box .next-level-box{
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #wumvi-card-box .next-level-box .btn:hover{
+            background: #5fcf2d;
+            color: #fff;
+        }
+
+        #wumvi-card-box .item-list{
+            overflow: hidden;
+            clear: both;
+        }
+
     </style>
 
     <div id="maincontentcontainer">
         <div id="maincontent">
             <div id="wumvi-card-box">
 
-                {% for id,item in cardList %}
-                    {% include 'route/course/card/item.twig' %}
-                {% endfor %}
+                <div class="item-list">
+                    {% for id,item in cardList %}
+                        {% include 'route/course/card/item.twig' %}
+                    {% endfor %}
+                </div>
 
 
+                <div class="next-level-box">
+                      <a href="{{ route('material.card.nextlevel', cardName) }}" class="btn">
+                        Я выучил(а) глаголы. Открыть следующий курс
+                    </a>
+                </div>
             </div>
         </div>
     </div>

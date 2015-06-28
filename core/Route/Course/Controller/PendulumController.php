@@ -23,29 +23,16 @@ class PendulumController extends BaseController
 
         /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');
-        $vars['pendulumList'] = $courseService->getPendulumList($itemName);
-        $this->ifNullInvokeError4xx($vars['pendulumList']);
+        $params['pendulumList'] = $courseService->getPendulumList($itemName);
+        $this->ifNullInvokeError4xx($params['pendulumList']);
 
-        $vars['pendulumName'] = $itemName;
+        $params['pendulumName'] = $itemName;
 
-        return new Html('route/course/pendulum/item.twig', $vars, $this);
+        return new Html('route/course/pendulum/item.twig', $params, $this);
     }
 
-    public function pdfAnswerAction($path, $itemName)
+    public function nextLevelAction($path, $courseName)
     {
-        $response = $this->checkRight(CourseService::PENDULUM, $itemName);
-        if ($response !== null) {
-            return $response;
-        }
-
-        $user = $this->getUser($this->fabric('user.dao'));
-
-        /** @var CourseService $courseService */
-        $courseService = $this->fabric('course.service');
-
-        $item = $courseService->openNextLevel(CourseService::PENDULUM, $itemName, $user->getId());
-        $this->ifNullInvokeError4xx($item);
-
-        echo 1;
+        return parent::nextLevel($path, $courseName, CourseService::PENDULUM);
     }
 }

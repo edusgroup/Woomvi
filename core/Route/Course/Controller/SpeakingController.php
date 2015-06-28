@@ -33,4 +33,9 @@ class SpeakingController extends BaseController
 
         return new Html('route/course/speaking/item.twig', $vars, $this);
     }
+
+    public function nextLevelAction($path, $courseName)
+    {
+        return parent::nextLevel($path, $courseName, CourseService::SPEAKING);
+    }
 }

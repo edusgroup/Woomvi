@@ -47,24 +47,64 @@
             }
 
             .datetime .item .cell{
-                border: 1px solid #f0f1f5;
+                border: 1px solid #d3e4f8;
 
-                height: 30px;
+                height: 20px;
                 width: 70px;
                 float: left;
                 text-align: center;
-
+                background: #e2ecf8;
 
             }
 
             .datetime .item .cell:hover{
-                background: #f5f5f5;
+                background: #c0d6ee;
+                border: 1px solid #a7c5e7;
                 font-weight: bold;
+                color: #fff;
          
             }
 
             .datetime .item .cell.booked {
-                background: #edf7ec;
+                background: #6990c9;
+                color: #dee4f2;
+                font-weight: bold;
+                /*cursor: not-allowed;*/
+            }
+
+            .datetime .item .cell.booked.your {
+                background: #64b8a1;
+                color: #e4f3ee;
+                font-weight: bold;
+                border-color: #39977d;
+            }
+
+
+            .datetime .item .cell.disable {
+                background: #f2f2f2;
+                color: #777777;
+                border-color: #e5e5e5;
+            }
+
+            .datetime .cell{
+
+            }
+
+
+            .datetime .cell.icon-schedule-stop{
+                background: url('/res/img/schedule/stop.png')  no-repeat center center;
+            }
+
+            .datetime .cell.icon-schedule-lock{
+                background: url('/res/img/schedule/lock.png')  no-repeat center center;
+            }
+
+            .datetime .cell.icon-schedule-percent{
+                background: url('/res/img/schedule/percent.png') #ffac68  no-repeat right  bottom ;
+            }
+
+            .datetime .cell .text{
+
             }
 
             /*.ui-datepicker{
@@ -126,26 +166,7 @@
             .thin-scroll::-webkit-scrollbar-corner {
             }
 
-            .datetime .cell{
-                background: transparent;
-            }
 
-
-            .datetime .cell.icon-schedule-stop{
-                background: url('/res/img/schedule/stop.png')  no-repeat center center;
-            }
-
-            .datetime .cell.icon-schedule-lock{
-                background: url('/res/img/schedule/lock.png')  no-repeat center center;
-            }
-
-            .datetime .cell.icon-schedule-percent{
-                background: url('/res/img/schedule/percent.png') #ffac68  no-repeat right  bottom ;
-            }
-
-            .datetime .cell .text{
-
-            }
 
         </style>
 
@@ -158,7 +179,13 @@
                         {% for minuts in range(0, 50, lessonsLength) %}
                             <tr class="item">
                                 {% for hour in range(0, 23) %}
-                                    <td class="cell {{ hour == 5 and minuts == 30 ? 'icon-schedule-percent' : '' }}">
+                                    {% set demo = hour == 5 and minuts == 30 ? 'icon-schedule-percent' : '' %}
+                                    {% set demo = hour == 4 and minuts == 40 ? 'booked' : demo %}
+                                    {% set demo = hour == 2 and minuts == 40 ? 'booked your' : demo %}
+                                    {% set demo = hour == 1 ? 'disable' : demo %}
+
+
+                                    <td class="cell {{ demo }}">
                                         <span class="text">
                                             {{ "%02d"|format(hour) }}:{{ "%02d"|format(minuts) }}
                                         </span>

@@ -36,6 +36,32 @@ class BaseController extends BaseAbstractController
 	
 	}
 
+    public function nextLevel($path, $courseName, $type)
+    {
+        $response = $this->checkRight($type, $courseName);
+        if ($response !== null) {
+            return $response;
+        }
+
+        $user = $this->getUser($this->fabric('user.dao'));
+
+        /** @var CourseService $courseService */
+        $courseService = $this->fabric('course.service');
+
+        $item = $courseService->openNextLevel($type, $courseName, $user->getId());
+        $this->ifNullInvokeError4xx(
+            $item,
+            'Open level type="' . $type . '" course="' . htmlspecialchars($courseName). '" not found'
+        );
+
+        $groupName = $courseService->getCourseName($type, $courseName);
+        $this->ifNullInvokeError4xx($groupName);
+
+        $vars['courseName'] = $groupName;
+
+        return new Html('route/course/testing.twig', $vars, $this);
+    }
+
     public function checkRight($type, $key)
     {
         /** @var CourseService $courseService */

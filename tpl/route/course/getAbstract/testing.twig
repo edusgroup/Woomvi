@@ -1,0 +1,33 @@
+{# Шаблон для видео в курсах #}
+
+{% extends "global/index.twig" %}
+
+{% block head%}
+    <link href="/res/css/course/test-box.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block footer %}
+    <script src="/res/js/wumvi/TestForm.js"></script>
+    <script>
+        window.wumvi = window.wumvi || {};
+        new wumvi.TestForm('#wumvi-abstract-testing');
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <style>
+        .test-box .item-list .item .question-header{
+            background: url('/res/img/bg-item.png') no-repeat top center #fff;
+        }
+    </style>
+
+
+    <div id="maincontentcontainer">
+        <div id="maincontent">
+            <div id="wumvi-abstract-testing" class="test-box">
+                {% include 'global/testing/list.twig' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

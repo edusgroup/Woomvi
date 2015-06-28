@@ -31,6 +31,16 @@ class MaterialService
         return $data;
     }
 
+    public function getTestList($videoId, $group)
+    {
+        $data = $this->materialDao->getTestList($videoId, $group);
+        if (!$data) {
+            return null;
+        }
+
+        return $data['list'];
+    }
+
     public function getGetAbstractData($absctractId)
     {
         $data = $this->materialDao->getGetAbstractData($absctractId);

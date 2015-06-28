@@ -158,14 +158,14 @@
                     {% endfor %} -->
 
                     {# Видео ---------------------------------------- #}
-                    {% for item in courseData.data.video %}
+                    {% for key, item in courseData.data.video %}
                         {% set class = 'locked' %}
                         {% if item.isInit %}
                             {% set class = item.isOpen ? '' : 'time' %}
                         {% endif %}
                         <div class="item">
-                            <a href="{{ route('material.video', item.info) }}">
-                                <img src="/res/img/course/video/crhistmas-tree.png" class="preview"/>
+                            <a href="{{ route('material.video', key) }}">
+                                <img src="/res/img/course/video/{{ key }}.png" class="preview"/>
                                 <h2>Видео</h2>
                                 <p class="description">{{ item.info }}</p>
 
@@ -176,14 +176,14 @@
                     {% endfor %}
 
                     {# GetAbstract ---------------------------------------- #}
-                    {% for item in courseData.data.getabstract %}
+                    {% for key, item in courseData.data.getabstract %}
                         {% set class = 'locked' %}
                         {% if item.isInit %}
                             {% set class = item.isOpen ? '' : 'time' %}
                         {% endif %}
                         <div class="item {{ class }}">
-                            <a href="{{ route('material.getabstract', item.info) }}">
-                                <img src="/res/img/eat-that-frog.png" class="preview"/>
+                            <a href="{{ route('material.getabstract', key) }}">
+                                <img src="/res/img/course/abstract/{{ key }}.png" class="preview"/>
                                 <h2>GetAbstract</h2>
                                 <p class="description">{{ item.info }}</p>
 

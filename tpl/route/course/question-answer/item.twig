@@ -1,247 +1,92 @@
 {% extends "global/index.twig" %}
 
+{% block head%}
+    <link href="/res/css/course/test-box.css" rel="stylesheet"/>
+{% endblock %}
+
 {% block footer %}
+    <script src="/res/js/wumvi/TestForm.js"></script>
     <script>
-
-        window.Wumvi = window.Wumvi || {};
-        Wumvi.QuestionAnswer = function(){
-            this.$root = jQuery('#wumvi-question-answer');
-
-            this.$root.find('.question-item-box').each(function(num, obj){
-                new Wumvi.QuestionAnswer.Item(jQuery(obj));
-            })
-        }
-
-        Wumvi.QuestionAnswer.Item = function($item){
-            this.$item = $item;
-            this.initHeight();
-            this.initEvent();
-        }
-
-        Wumvi.QuestionAnswer.Item.prototype.initHeight = function() {
-            var that = this;
-
-            var $answerObj = this.$item.find('.answer-box .body');
-            var answerHeight = $answerObj.outerHeight();
-
-            var $questionObj = this.$item.find('.question-box .body');
-            var questionHeight = $questionObj.outerHeight();
-
-            console.log($questionObj, $answerObj);
-
-
-            if (questionHeight < answerHeight) {
-                $questionObj.find('.item').css({'height': answerHeight});
-            }else{
-                $answerObj.find('.item').css({'height': questionHeight});
-            }
-
-        }
-
-        Wumvi.QuestionAnswer.Item.prototype.showAnswerBtnClick = function() {
-            this.$item.addClass('show-answer-mode');
-            return false;
-        }
-
-        Wumvi.QuestionAnswer.Item.prototype.hideAnswerBtnClick = function(){
-            this.$item.removeClass('show-answer-mode');
-            return false;
-        }
-
-        Wumvi.QuestionAnswer.Item.prototype.initEvent = function(){
-            var that = this;
-            this.$item.find('.show-answer-btn').click(function(){return that.showAnswerBtnClick(this)});
-            this.$item.find('.hide-answer-btn').click(function(){return that.hideAnswerBtnClick(this)});
-        }
-
-        new Wumvi.QuestionAnswer();
-
+        new wumvi.TestForm('#wumvi-question-answer');
     </script>
 {% endblock %}
 
 {% block content %}
-
-
     <style>
-        #wumvi-question-answer .item{
-            padding: 18px;
 
-            background: #FAFAFA;
-            border: 1px solid #F0F0F0;
-
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-
-            box-sizing: border-box;
-            -moz-box-sizing: border-box; /*Firefox 1-3*/
-            -webkit-box-sizing: border-box; /* Safari */
-
-            display: inline-block;
-            position: relative;
-            box-shadow: 0 2px #d8d6d0;
-
-
-            width: 100%;
-        }
-
-        #wumvi-question-answer .question-box .item{
-            padding: 18px;
-        }
-
-        #wumvi-question-answer .answer-box .item{
-            background: #FFF;
-        }
-
-        #wumvi-question-answer table{
-            margin-bottom: 20px;
-        }
-
-        #wumvi-question-answer table td{
-            vertical-align: top;
-            padding: 0;
-        }
-
-        #wumvi-question-answer td.check-btn-box{
-            width: 200px;
-            padding-left: 19px;
+        #wumvi-question-answer .header{
             text-align: center;
         }
 
-        #wumvi-question-answer .item .btn{
-            width: 100%;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box; /*Firefox 1-3*/
-            -webkit-box-sizing: border-box; /* Safari */
+        #wumvi-question-answer .next-level-box{
+            margin-top: 20px;
             text-align: center;
-
-            background: #fff;
         }
 
-        #wumvi-question-answer .item .btn:hover{
-            background: #F9F9F9;
+        #wumvi-question-answer .next-level-box .btn:hover{
+            background: #5fcf2d;
+            color: #fff;
         }
 
-        #wumvi-question-answer .item-text{
-            font-size: 16px;
-        }
-
-        #wumvi-question-answer .question-item-box{
-            position: relative;
-
-        }
-
-        #wumvi-question-answer .question-box{
-            position: relative;
-            z-index: 2;
-        }
-
-        #wumvi-question-answer .answer-box{
-            position: absolute;
-            top: -3px;
-            left: 3px;
-            z-index: 1;
-        }
-
-        #wumvi-question-answer .bridge{
-            position: absolute;
-            right: -24px;
-            top: 20px;
-            z-index: 1;
-
-        }
-
-        #wumvi-question-answer .question-item-box.show-answer-mode .answer-box{
-            z-index: 3;
-            top: auto;
-            left: auto;
-            position: relative;
-        }
-
-        #wumvi-question-answer .question-item-box.show-answer-mode .question-box{
-            position: absolute;
-            top: -3px;
-            left: 3px;
-        }
-
-        #wumvi-question-answer .answer-box .right-text{
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        #wumvi-question-answer .answer-mode{
-            width: 48px;
-            height: 48px;
-            position: absolute;
-            right: 250px;
-            bottom: -12px;
-            z-index: 5;
-        }
-
-        #wumvi-question-answer .sample-text{
-
-        }
-
-        #wumvi-question-answer .question-text{
-            font-weight: bold;
-            font-size: 18px;
-            line-height: 20px;
-            margin-bottom: 20px;
-
+        .test-box .item-list .item .question-header{
+            background: url('/res/img/bg-item.png') no-repeat top center #fff;
         }
     </style>
-
 
     <div id="maincontentcontainer">
         <div id="maincontent">
 
 
-            <div id="wumvi-question-answer">
-                {% for item in questionList %}
-                    <div class="question-item-box">
-                        <table class="question-box" data-id="{{ item._id }}" data-regexp="{{ item.regexp }}">
-                        <tr>
-                            <td class="body">
-                                <div class="item">
-                                    <div class="question-text">
-                                        {{ item.questionText }}
-                                    </div>
-                                    <div class="sample-text item-text">
-                                        {{ item.sentenseText }}
-                                    </div>
-                                    <img src="/res/img/bridge.png" class="bridge"/>
+            <div id="wumvi-question-answer" class="test-box">
+                <div class="header">
+                    <img src="/res/img/course/question/caption.png"/>
+                </div>
+                <div class="item-list">
+                    {% for item in questionList %}
+                        <div class="item">
+                            <div class="question-box">
+                                <div class="box question-header"></div>
+                                <div class="box question-text">
+                                    {{ item.questionText }}
                                 </div>
-                            </td>
-                            <td class="check-btn-box">
-                                <div class="item">
-                                    <a href="#check" class="btn show-answer-btn">Показать ответ</a>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                                <div class="box wrong-text">
+                                    {{ item.sentenseText }}
 
-                        <table class="answer-box">
-                            <tr>
-                                <td class="body">
-                                    <div class="item">
-                                        <div class="answer-text item-text">
-                                            {{ item.answerText }}
-                                        </div>
-                                        <img src="/res/img/bridge-white.png" class="bridge"/>
+                                </div>
+                                <div class="box panel-bottom"></div>
+                                <div class="panel-button">
+                                    <a href="#" class="btn check">Показать ответ</a>
+                                </div>
+                                <div class="answer-status">
+                                    <img src="/res/img/wrong.png" class="wrong"/>
+                                    <img src="/res/img/ok.png" class="right"/>
+                                </div>
+                            </div>
+
+                            <div class="answer-box">
+                                <div class="box question-header"></div>
+                                <div class="">
+                                    <div class="box answer-text">
+                                        <h2>Ответ</h2>
+                                        {{ item.answerText }}
                                     </div>
-                                </td>
-                                <td class="check-btn-box">
-                                    <div class="item">
-                                        <a href="#" class="btn hide-answer-btn">Скрыть</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                {% endfor %}
+                                    <a href="#" class="close">
+                                        <img src="/res/img/sprite/close.png"/>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="next-level-box">
+                    <a href="{{ route('course.trash-mistake.nextlevel', questionName) }}" class="btn">
+                        Я прошёл все тесты. Открыть следующий курс
+                    </a>
+                </div>
+
             </div>
-
-
         </div>
     </div>
 {% endblock %}
