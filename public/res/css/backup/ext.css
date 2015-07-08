@@ -1,0 +1,429 @@
+body{
+    /*background-color: white;*/
+
+    background-color: rgba(0,0,0,0.5);
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+body:before{
+    top: 0;
+    background: url("https://wumvi.com/res/img/ext/wave__bottom.png") repeat-x 0 0;
+}
+
+
+
+#wumviBox {
+    width: 450px;
+
+    display: inline-block;
+
+    z-index: 1300;
+    border-radius: 3px;
+
+    text-align: left;
+    /*
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -150px;
+    */
+
+    /*-webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.54);
+    -moz-box-shadow:    2px 2px 5px 0px rgba(50, 50, 50, 0.54);
+    box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 0.54);
+    */
+
+    font-family: 'Open Sans', arial, sans-serif;
+
+
+}
+
+#wumviBox .content{
+    background: white;
+    min-height: 200px;
+
+    position: relative;
+    z-index: 10;
+    border-radius: 2px;
+
+    color: #3c3c3c;
+}
+
+#wumviBox .footer{
+
+
+    background: white;
+    border-radius: 2px;
+    margin-top: -8px;
+
+    position: relative;
+}
+
+#wumviBox .content, #wumviBox .footer{
+    border: 1px solid #dfdfdf;
+    border: 1px solid #599eb8;
+    border: 1px solid #27a75c;
+    border: 1px solid #6d6d6d;
+}
+
+#wumviBox div.caption{
+    background-color: #74cef0;
+    background-color: #52ce86;
+    background-color: #9da1ac;
+
+    padding: 10px;
+    color: white;
+}
+
+
+#wumviBox.error .content, #wumviBox.error .footer{
+    border: 1px solid #dd5049;
+}
+#wumviBox.error div.caption{
+    background-color: #dd5049;
+}
+
+#wumviBox .footer-1{
+    z-index: 9;
+    height: 8px;
+    margin: -8px 2px 0 2px;
+}
+
+#wumviBox .footer-2{
+    z-index: 8;
+    height: 8px;
+    margin: -8px 4px 0 4px;
+}
+
+#wumviBox .footer-3{
+    z-index: 7;
+    height: 8px;
+    margin: -8px 6px 0 6px;
+}
+
+
+#wumviBox .content h2{
+    margin: 0;
+    padding: 0;
+
+}
+
+#wumviBox .content h2{
+    color: #3c3c3c;
+    color: white;
+    margin: 10px 0;
+}
+
+#wumviBox .content h2>span.tranlate{
+    color: #838383;
+    color: white;
+}
+
+#wumviBox .content p.sentense{
+    font-weight: bold;
+    text-align: center;
+}
+
+#wumviBox .content p.translate{
+    color: #838383;
+}
+
+
+
+#wumviBox div.text{
+    padding: 10px;
+    background: /*url('https://wumvi.com/res/mp3/forgive.png') right bottom no-repeat */white;
+}
+
+#wumviBox .playerControll{
+    overflow: hidden;
+}
+
+#wumviBox .btn{
+
+    padding: 7px 19px;
+    font-weight: bold;
+    color: white;
+    color: #9da1ac;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    border-radius: 2px;
+    background-color: white;
+
+    /*background-color: #52ce86;*/
+    border: 1px solid #9da1ac;
+}
+
+#wumviBox.error .btn{
+    color: #dd5049;
+    border-color: #dd5049;
+}
+
+/*
+#wumviBox .btn.play{
+    float: left;
+}*/
+
+#wumviBox .btn.ok{
+    float: right;
+}
+
+#wumviBox .registr{
+    float: left;
+    color: #9da1ac;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 38px;
+}
+
+#wumviBox .playerControll{
+    margin-top: 30px;
+}
+
+#wumviPlayBtn:hover{
+
+}
+
+
+
+
+
+#wumviBox .trash-mistake .sentense{
+    font-size: 20px;
+    margin: 15px 0;
+}
+
+#wumviBox .inputBox{
+    margin-top: 20px;
+}
+
+#wumviBox .inputBox input[type="text"]{
+    padding: 20px;
+    height: 30px;
+    font-size: 18px;
+    width: 100%;
+    color: #9da1ac;
+    border: 1px solid #9da1ac;
+}
+
+#wumviBox p{
+    margin: 0;
+}
+
+
+
+#wumviBox .btn.question-why{
+    float: left;
+}
+
+/*
+#wumviBox.error .wordpanel{
+    background-color: #dd5049;
+}
+
+#wumviBox.error .wordpanel .btn{
+    background-color: #dd5049;
+}
+
+#wumviBox.error .wordpanel .btn:hover{
+    background-color: #f7746d;
+} */
+
+#wumviBox.error .see-content{
+    text-align: center;
+}
+
+#wumviBox.error .see-content .btn{
+    display: inline-block;
+}
+
+/******************** What-do-i-mean ********************/
+#wumviBox.what-do-i-mean .sentense{
+    font-size: 20px;
+}
+
+#wumviBox.what-do-i-mean .playerControll{
+    text-align: center;
+}
+
+#wumviBox.what-do-i-mean .btn{
+    display: inline-block;
+}
+
+/******************** Pendulum ********************/
+
+#wumviBox .pendulumBox{
+    /*text-align: center;
+    margin-top: 60px;*/
+    display: table-cell;
+    vertical-align: middle;
+    height: 200px;
+    width: 100%;
+    text-align: center;
+}
+
+#wumviBox .pendulumBox .btn{
+    display: inline-block;
+}
+
+#wumviBox .pendulumPoint{
+    width: 30px;
+    height: 30px;
+    background-color: #9da1ac;
+    border-radius: 15px;
+    color: transparent;
+    display: none;
+}
+
+#wumviBox .pendulumBox .pendulumPoint.block{
+    display: inline-block;
+}
+
+#wumviBox .pendulumBox .pendulumPoint.text{
+    width: auto;
+    display: inline;
+    color: #9da1ac;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: transparent;
+}
+
+#wumviBox .pendulumPoint.hide{
+    display: none;
+}
+/******************** ********************/
+
+#wumviBox .tableWrapper{
+    display: table;
+    width: 100%;
+}
+
+body{
+
+    height: 100%;
+    width: 100%;
+}
+
+.body-table{
+    display: table;
+    height: 100%;
+    width: 100%;
+
+}
+
+.body-cell{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+
+#wumviBox .login input{
+    width: 100%;
+    margin-top: 10px;
+    height: auto;
+    font-size: 18px;
+    padding: 5px;
+}
+
+/****** Word *****/
+#wumviBox.word-play .playerControll{
+    text-align: center;
+}
+
+
+#wumviBox.type-snd .full-info, #wumviBox.type-txt .full-info{
+    display: none;
+}
+
+#wumviBox .wordpanel{
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    min-height: 165px;
+    padding-top: 55px;
+    /*line-height: 200px;*/
+    font-size: 40px;
+
+    background:#9da1ac;/* url('https://wumvi.com/res/mp3/forgive-2.png')  right bottom no-repeat;*/
+}
+
+
+#wumviBox .see-content{
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 24px;
+}
+
+#wumviBox .see-content .btn{
+    background: #9da1ac;
+    border-color: white;
+    color: inherit;
+}
+
+#wumviBox .snd .see-content{
+    margin: 0;
+}
+
+#wumviBox .snd .see-content img{
+    margin-bottom: 20px;
+}
+
+/********************** type-question ***************/
+#wumviBox.type-question .question{
+    font-weight: bold;
+}
+
+#wumviBox.type-question .sentense{
+    color: #6b6b6b;
+    text-align: center;
+    margin: 20px 0;
+}
+
+#wumviBox.type-question .answer{
+    display: none;
+}
+
+#wumviBox.type-question .playerControll{
+    text-align: center;
+}
+
+#wumviBox.type-question .playerControll .btn{
+    width: 50%;
+    display: inline-block;
+}
+/**************** mistake ****************/
+
+
+#wumviBox.type-mistake .playerControll{
+    text-align: center;
+}
+
+#wumviBox.type-mistake .playerControll .btn{
+    width: 50%;
+    display: inline-block;
+}
+
+#wumviBox.type-mistake .content p.sentense{
+    margin: 20px 0;
+    color: #9da1ac;
+
+}
+
+#wumviBox.type-mistake .content p.answer{
+    margin-top: 20px;
+    display: none;
+    text-align: center; 
+}
+
+
+
+
+#wumviBox.type-nomoney .wordpanel{
+    font-size: 30px;
+}

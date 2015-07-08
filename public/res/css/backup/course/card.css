@@ -1,0 +1,104 @@
+#wumvi-card-box {
+  overflow: hidden; }
+  #wumvi-card-box .card-item {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #F0F0F0;
+    width: 45%;
+    height: 200px;
+    position: relative;
+    float: left;
+    margin: 0 1% 20px 0;
+    box-shadow: 0 2px #d8d6d0; }
+    #wumvi-card-box .card-item .word-box {
+      background: #f7f7f7;
+      width: 100%; }
+    #wumvi-card-box .card-item div.subitem-box {
+      padding: 20px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      /*Firefox 1-3*/
+      -webkit-box-sizing: border-box;
+      /* Safari */
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      display: none; }
+    #wumvi-card-box .card-item .word-box .inner {
+      display: table-cell;
+      vertical-align: middle;
+      width: 100%; }
+    #wumvi-card-box .card-item .word-box h2 {
+      text-align: center;
+      font-size: 40px; }
+    #wumvi-card-box .card-item .translate-box {
+      border: 1px solid #f7f7f7; }
+      #wumvi-card-box .card-item .translate-box h2 {
+        margin: 0 0 10px 0;
+        font-size: 22px;
+        line-height: 22px; }
+    #wumvi-card-box .card-item .sentence-box {
+      background: #f7f7f7; }
+      #wumvi-card-box .card-item .sentence-box h2 {
+        margin: 0 0 10px 0;
+        font-size: 22px;
+        line-height: 22px; }
+  #wumvi-card-box .controll {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 22;
+    width: 126px;
+    height: 35px;
+    overflow: hidden;
+    clear: both; }
+    #wumvi-card-box .controll .play-btn {
+      height: 100%;
+      width: 33%;
+      /*background: red;
+			opacity: 0.3;*/
+      float: left; }
+    #wumvi-card-box .controll .translate-btn {
+      height: 100%;
+      width: 33%;
+      /*background: green;
+			opacity: 0.3;*/
+      float: left; }
+    #wumvi-card-box .controll .show-hide-btn {
+      height: 100%;
+      width: 33%;
+      /*background: yellow;
+			opacity: 0.3;*/
+      float: left; }
+
+#wumvi-card-box .sentence-box p, #wumvi-card-box .sentence-box li {
+  font-size: 16px;
+  line-height: 20px; }
+
+#wumvi-card-box .translate .controll {
+  background: url("/res/img/course/card/controll-translate.png") no-repeat; }
+
+#wumvi-card-box .word .controll {
+  background: url("/res/img/course/card/controll-word.png") no-repeat; }
+
+#wumvi-card-box .sentence .controll {
+  background: url("/res/img/course/card/controll-sent.png") no-repeat; }
+
+#wumvi-card-box .card-item.translate .translate-box {
+  display: block; }
+
+#wumvi-card-box .card-item.word .word-box {
+  display: table; }
+
+#wumvi-card-box .card-item.sentence .sentence-box {
+  display: block; }
+
+#player-box {
+  width: 1px;
+  height: 1px; }

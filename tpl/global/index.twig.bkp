@@ -1,0 +1,87 @@
+{% spaceless %}
+<!DOCTYPE html>
+<!-- HTML5 Boilerplate -->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+
+    <meta charset="utf-8">
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <link rel="canonical" href="http://wumvi.com/"/>
+    <meta property="og:url" content="http://wumvi.com/"/>
+    <meta itemprop="url" href="http://wumvi.com/"/>
+
+    <meta name="description" content="{{ seo.description }}"/>
+    <title>{{ seo.title }}</title>
+
+    <meta name="google-site-verification" content="{{ google.verification }}" />
+    <meta name='yandex-verification' content="{{ yandex.verification }}" />
+    <meta name='wmail-verification' content="" />
+
+    <meta http-equiv="cleartype" content="on">
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link href="/res/icons/icon128.png" rel="icon"/>
+    <link href="/res/icons/icon128.png" rel="apple-touch-icon-precomposed"/>
+
+    <!-- Responsive and mobile friendly stuff -->
+    <!--<meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
+
+    <link rel="stylesheet" href="/res/css/responsive/html5reset.css" media="all">
+    <link rel="stylesheet" href="/res/css/responsive/responsivegridsystem.css" media="all">
+    <link rel="stylesheet" href="/res/css/responsive/col.css" media="all">
+    <link rel="stylesheet" href="/res/css/responsive/12cols.css" media="all">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="http://theme.codecampus.ru/plugin/fancybox2.0/jquery.fancybox.css"/>
+
+    <link href="http://theme.codecampus.ru/plugin/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet"  href="/res/css/main.css">
+
+    <script>
+        var wumvi = {
+            AJAX_SUCCESS: 1,
+            AJAX_FAIL: 0,
+
+            storage: {
+                user: {}
+            }
+        };
+
+        wumvi.storage.user.isAuth = {{ isAuth }};
+    </script>
+	
+	{% block head %}{% endblock %}
+	
+
+</head>
+<body>
+
+{% include("global/menu/main.twig") %}
+
+{% block content %}{% endblock %}
+
+<div id="footercontainer">
+    <footer class="group">
+        <a href="/english/">Блог английского языка</a>
+    </footer>
+</div>
+
+
+<script src="/res/bower_package/jquery/dist/jquery.min.js"></script>
+<script src="http://yastatic.net/jquery/cookie/1.0/jquery.cookie.min.js"></script>
+<script src="/res/js/main.js"></script>
+<script src="/res/js/menuselect.js"></script>
+
+{% block footer %}{% endblock %}
+</body>
+</html>
+{% endspaceless %}
