@@ -75,10 +75,19 @@
             background-repeat: repeat-x;
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5400', endColorstr='#f35000', GradientType=0);
         }
+
+        #maincontentcontainer{
+            background: #fff;
+
+        }
+
+        #maincontent{
+
+        }
     </style>
 
     <div id="maincontentcontainer">
-        <div id="maincontent">
+        <div id="maincontent" class="container">
             {{ printFile(contentFile) }}
 
             <div id="wumvi-grammar-control">

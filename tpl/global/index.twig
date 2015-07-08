@@ -1,22 +1,23 @@
 {% spaceless %}
 <!DOCTYPE html>
-<!-- HTML5 Boilerplate -->
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="ru">
 <head>
-
     <meta charset="utf-8">
-    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <meta property="og:type"        content="article" />
+    <meta property="og:url"         content="" />
+    <meta property="og:title"       content="{{ seo.title }}" />
+    <meta property="og:image"       content="" />
+    <meta property="og:description" content="{{ seo.description }}" />
 
     <link rel="canonical" href="http://wumvi.com/"/>
-    <meta property="og:url" content="http://wumvi.com/"/>
     <meta itemprop="url" href="http://wumvi.com/"/>
 
     <meta name="description" content="{{ seo.description }}"/>
     <title>{{ seo.title }}</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <meta name="google-site-verification" content="{{ google.verification }}" />
     <meta name='yandex-verification' content="{{ yandex.verification }}" />
@@ -29,22 +30,16 @@
     <link href="/res/icons/icon128.png" rel="apple-touch-icon-precomposed"/>
 
     <!-- Responsive and mobile friendly stuff -->
-    <!--<meta name="HandheldFriendly" content="True">
+    <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <link rel="stylesheet" href="/res/css/responsive/html5reset.css" media="all">
-    <link rel="stylesheet" href="/res/css/responsive/responsivegridsystem.css" media="all">
-    <link rel="stylesheet" href="/res/css/responsive/col.css" media="all">
-    <link rel="stylesheet" href="/res/css/responsive/12cols.css" media="all">
+    <link rel="stylesheet"  href="/res/css/base.css">
+    <link rel="stylesheet"  href="/res/css/responsive.gs.24col.css">
 
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'> -->
+    <link href="/res/css/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="http://theme.codecampus.ru/plugin/fancybox2.0/jquery.fancybox.css"/>
-
-    <link href="http://theme.codecampus.ru/plugin/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
-
-    <link rel="stylesheet"  href="/res/css/main.css">
 
     <script>
         var wumvi = {
@@ -65,7 +60,145 @@
 </head>
 <body>
 
-{% include("global/menu/main.twig") %}
+<style>
+    body, a, h2, h1, h3{
+        /*font: 13px/20px 'OpenSansRegular';*/
+        font: 15px/18px Helvetica Neue Light, Arial, Tahoma, sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0 0 10px;
+        padding: 0;
+        line-height: 1em;
+        font-weight: normal;
+        color: #313538;
+    }
+
+
+
+    h2 {
+        /*font: 22px 'OpenSansSemiboldRegular';*/
+    }
+
+
+    .menu-view .headline{
+        height: 20px;
+    }
+
+    .menu-view .menu-box{
+
+        background-color: #4baf4d;
+        background-color: #f5f5f5;
+        box-shadow: 0px 1px 5px 0px #777;
+        position: relative;
+        z-index: 1;
+        clear: both;
+    }
+
+    .menu-view .menu-box.small{
+        height: 52px;
+    }
+
+    .menu-view .menu-box.big{
+        height: 80px;
+    }
+
+    .menu-view .menu-box nav{
+        float: right;
+    }
+
+    .menu-view .menu-box .menu-link-nav{
+        display: inline-block;
+        font-size: 120%;
+        color: #fff;
+        color: #303030;
+        text-align: center;
+        position: relative;
+        text-decoration: none;
+    }
+
+    .menu-view .menu-box .menu-link-nav:hover{
+        background: #93dc82;
+        color: white;
+        text-shadow: 1px 1px 1px rgba(0, 122, 0, 1);
+    }
+
+    .menu-view .menu-box.small .menu-link-nav{
+        height: 52px;
+        padding-top: 16px;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .menu-view .menu-box.big .menu-link-nav{
+        height: 30px;
+        padding-top: 50px;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .container{
+        max-width: 1200px;
+    }
+
+    .menu-view .menu-box .logo{
+        float: left;
+    }
+
+    .menu-view .menu-box .logo img{
+        margin-top: 10px;
+    }
+
+    #slider{
+        height: 430px;
+        padding-top: 20px;
+    }
+
+    #slider .sliderinner{
+        text-align: center;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    #maincontentcontainer{
+        background: #e7e7e7;
+    }
+
+    #maincontent{
+        padding: 20px 0 40px 0;
+    }
+</style>
+
+{# include("global/menu/main.twig") #}
+
+<header class="menu-view" id="menu-view">
+    <div class="headline">
+
+    </div>
+    <div class="menu-box small">
+        <div class="container">
+            <a href="/" class="logo"><img src="/res/img/logo.png"/></a>
+            <nav class="row">
+                <a href="{{ route('course') }}" class="menu-link-nav">Программа изучения</a>
+                <a href="{{ route('main.article', 'samostoyatelno') }}" class="menu-link-nav">Самостоятельно</a>
+                <a href="{{ route('main.article', 'individualno') }}" class="menu-link-nav">Индивидуально</a>
+                <a href="{{ route('main.article', 'v-grupe') }}" class="menu-link-nav">В группе</a>
+                <a href="{{ route('main.article', 'v-grupe') }}" class="menu-link-nav">Помощь</a>
+            </nav>
+        </div>
+    </div>
+
+
+</header>
+
 
 {% block content %}{% endblock %}
 
@@ -75,11 +208,11 @@
     </footer>
 </div>
 
-
+<script src="/res/js/respond.min.js"></script>
 <script src="/res/bower_package/jquery/dist/jquery.min.js"></script>
-<script src="http://yastatic.net/jquery/cookie/1.0/jquery.cookie.min.js"></script>
+<!-- <script src="http://yastatic.net/jquery/cookie/1.0/jquery.cookie.min.js"></script> -->
+
 <script src="/res/js/main.js"></script>
-<script src="/res/js/menuselect.js"></script>
 
 {% block footer %}{% endblock %}
 </body>

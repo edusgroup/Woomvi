@@ -6,7 +6,7 @@
             overflow: hidden;
         }
 
-        .course-list .item {
+        /*.course-list .item {
             float: left;
             line-height: 0;
             margin:0 20px 30px 0;
@@ -53,10 +53,6 @@
 
         .course-list .item .preview.disable .preview {
             opacity: 0.2;
-            /*-webkit-filter: grayscale(100%);
-            filter: grayscale(100%);
-            filter: gray;
-            filter: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' height='0'><filter id='greyscale'><feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0' /></filter></svg>#greyscale");*/
         }
 
         .course-list .item h2{
@@ -133,29 +129,115 @@
             height: 239px;
             width: 270px;
             position: relative;
-            /*border: 1px solid black;*/
+        }*/
+
+
+
+
+        .course-list .item{
+            height: 234px;
+            background: #fff;
+            float: left;
+            overflow: hidden;
+            margin: 15px 0 0 15px;
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+            width: 252px;
+            text-decoration: none;
+
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
         }
+
+        .course-list .item img{
+            display: block;
+            width: 100%;
+            height: 152px;
+            vertical-align: top;
+        }
+
+        .course-list .item .preview.disable .preview {
+            opacity: 0.2;
+        }
+
+        .course-list .item .text{
+            display: block;
+            height: 234px;
+            padding: 0 15px;
+            text-decoration: none;
+            position: absolute;
+            width: 100%;
+            background-color: white;
+            top: 152px;
+
+            -moz-transition-duration: 0.28s;
+            -o-transition-duration: 0.28s;
+            -webkit-transition-duration: 0.28s;
+            transition-duration: 0.28s;
+        }
+
+        .course-list .item:hover .text, .course-list .item.hover .text{
+            top: 0;
+
+        }
+        
+        .course-list .item .txt-preview{
+            height: 82px;
+            overflow: hidden;
+        }
+
+        .course-list .item .txt-preview .inner{
+            display: table-cell;
+            vertical-align: middle;
+            line-height: 21px;
+            color: #3a3a3a;
+            font-size: 21px;
+            font-weight: normal;
+            height: 82px;
+        }
+
+        .course-list .item .txt-preview .description{
+            font-size: 13px;
+            font-weight: normal;
+            color: #a7a7a7;
+            display: block;
+        }
+
+        .course-list .item .txt-preview .title{
+            line-height: 21px;
+            color: #3a3a3a;
+            font-size: 21px;
+            font-weight: normal;
+            display: block;
+        }
+
     </style>
 
     <div id="maincontentcontainer">
-        <div id="maincontent">
+        <div id="maincontent" class="container">
 
             <h1>Программа изучения</h1>
 
             <div class="course-list">
 
                 <div class="level-base">
-                    <div class="level-1 level-box"></div>
-                    <div class="level-2 level-box"></div>
-                    <div class="level-3 level-box">
+                    <div class="level-box">
                         <a class="item" href="{{ route('course.category', 'be-have') }}">
-                           <div class="preview">
+                           <div class="img-preview">
                                 <img src="/res/img/raznoe/be-have-2.jpg" class="preview"/>
                                 <div class="lock"></div>
                             </div>
                             <div class="text">
-                                <h2>Урок 1. Основы</h2>
-                                <p class="description">Основы основ английского</p>
+                                <div class="txt-preview">
+                                    <div class="inner">
+                                        <span class="title">Урок 1. Основы</span>
+                                        <span class="description">Основы основ английского</span>
+                                    </div>
+                                </div>
+                                <p class="body"></p>
+                                <span class="btn">Продолжить</span>
                             </div>
                         </a>
                     </div>
@@ -171,7 +253,7 @@
                                 <div class="lock"></div>
                             </div>
                             <div class="text">
-                                <h2>Урок 2. Прошедшее времся</h2>
+                                <h2 class="title">Урок 2. Прошедшее времся</h2>
                                 <p class="description">Как говорить о прошлом?</p>
                             </div>
                         </a>
@@ -189,7 +271,7 @@
                                 <div class="lock"></div>
                             </div>
                             <div class="text">
-                                <h2>Урок 2. Прошедшее времся</h2>
+                                <h2 class="title">Урок 2. Прошедшее времся</h2>
                                 <p class="description">Как говорить о прошлом?</p>
                             </div>
                         </a>
@@ -206,7 +288,7 @@
                                 <div class="lock"></div>
                             </div>
                             <div class="text">
-                                <h2>Урок 2. Прошедшее времся</h2>
+                                <h2 class="title">Урок 2. Прошедшее времся</h2>
                                 <p class="description">Как говорить о прошлом?</p>
                             </div>
                         </a>
@@ -223,25 +305,7 @@
                                 <div class="lock"></div>
                             </div>
                             <div class="text">
-                                <h2>Урок 2. Прошедшее времся</h2>
-                                <p class="description">Как говорить о прошлом?</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="level-base">
-                    <div class="level-1 level-box"></div>
-                    <div class="level-2 level-box"></div>
-                    <div class="level-3 level-box">
-                        <a class="item lock" href="{{ route('course.category', 'past-simple') }}">
-                            <div class="preview disable">
-                                <img src="/res/img/raznoe/present-tense.jpg" class="preview"/>
-                                <div class="lock"></div>
-                            </div>
-                            <div class="text">
-                                <h2>Урок 2. Прошедшее времся</h2>
+                                <h2 class="title">Урок 2. Прошедшее времся</h2>
                                 <p class="description">Как говорить о прошлом?</p>
                             </div>
                         </a>
@@ -259,7 +323,25 @@
                                 <div class="lock"></div>
                             </div>
                             <div class="text">
-                                <h2>Урок 2. Прошедшее времся</h2>
+                                <h2 class="title">Урок 2. Прошедшее времся</h2>
+                                <p class="description">Как говорить о прошлом?</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="level-base">
+                    <div class="level-1 level-box"></div>
+                    <div class="level-2 level-box"></div>
+                    <div class="level-3 level-box">
+                        <a class="item lock" href="{{ route('course.category', 'past-simple') }}">
+                            <div class="preview disable">
+                                <img src="/res/img/raznoe/present-tense.jpg" class="preview"/>
+                                <div class="lock"></div>
+                            </div>
+                            <div class="text">
+                                <h2 class="title">Урок 2. Прошедшее времся</h2>
                                 <p class="description">Как говорить о прошлом?</p>
                             </div>
                         </a>
