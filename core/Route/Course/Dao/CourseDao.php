@@ -17,7 +17,7 @@ class CourseDao extends Dao
     /**
      * Получаем ID файла, по которуму дальше его можно искать
      *
-     * @param $courseName Название файла
+     * @param string $courseName Название файла
      *
      * @return array Массив с ID по файлу
      */

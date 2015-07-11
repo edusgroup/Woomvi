@@ -2,7 +2,6 @@
 
 namespace Site\Route\Course\Service;
 
-
 class CourseService
 {
     private $courseDao;
@@ -37,7 +36,7 @@ class CourseService
     /**
      * Получаем имя файла с HTML, по объяснению грамматики
      *
-     * @param string $courseName название курса
+     * @param string $courseName Название курса
      *
      * @return null|string Имя файла или null, если ни чего не нашлось
      */
@@ -66,8 +65,15 @@ class CourseService
 
         $data = iterator_to_array($data);
         foreach ($data as &$item) {
-            $item = preg_replace_callback('/\#([^#]+)\#/', function ($matches) {
-                return '<input type="text" name="text" class="select-text" value="' . $matches[1] . '"/>';
+            $item = preg_replace_callback('/\#([^#]+)\#(\d+#)?/', function ($matches) {
+                $input = '<input type="text" name="text" class="select-text" value="' . $matches[1] . '"';
+
+                $size = isset($matches[2]) ? $matches[2] : null;
+                if ($size) {
+                    $size = trim($size, '#');
+                    $input .= ' size="'.$size.'" maxlength="'.$size.'"';
+                }
+                return $input . '/>';
             }, $item);
         }
 

@@ -1,12 +1,20 @@
 $item-height: 240px;
-$item-box-height: 180px;
+$item-padding-top: 20px;
+$item-panel-button-height: 40px;
+
+$item-box-height: $item-height - $item-padding-top - $item-panel-button-height;
+
+$item-list-margin-left: 25px;
 
 .item-list {
+  overflow: hidden;
+  margin-left: -$item-list-margin-left;
+
   .item {
     height: $item-height;
     width: 550px;
-    margin: 0 0 25px 25px;
-    padding: 20px 20px 00px 20px;
+    margin: 0 0 25px $item-list-margin-left;
+    padding: $item-padding-top 20px 00px 20px;
     float: left;
     background: #fff;
     position: relative;
@@ -30,7 +38,6 @@ $item-box-height: 180px;
         margin-bottom: 5px;
         font-weight: bold;
       }
-
       .box{
         padding-bottom: 20px;
       }
@@ -46,7 +53,7 @@ $item-box-height: 180px;
       /*background: dodgerblue;*/
     }
 
-    &:hover, &.show {
+    &.show-block-1 {
       .box-1 {
         top: -$item-box-height;
         opacity: 0;
@@ -59,15 +66,27 @@ $item-box-height: 180px;
     }
   }
 
-  .panel-button{
-    /*background: red;*/
-    border-top: 1px solid #f5f5f5;
-    padding: 4px 8px;
-    height: 40px;
-    clear: both;
 
-    .btn{
+  .panel-button{
+    background: #333333;
+    /*border-top: 1px solid #f5f5f5;
+    padding: 4px 8px;*/
+    height: $item-panel-button-height;
+    clear: both;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+
+    .item-btn{
       float: right;
+      background-color: #0096ff;
+      height: $item-panel-button-height;
+      color: white;
+      line-height: $item-panel-button-height;
+      text-decoration: none;
+      padding: 0 20px;
     }
   }
 }
