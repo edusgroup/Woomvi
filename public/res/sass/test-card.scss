@@ -1,0 +1,85 @@
+$item-height: 240px;
+$item-box-height: 180px;
+
+.item-list {
+  .item {
+    height: $item-height;
+    width: 550px;
+    margin: 0 0 25px 25px;
+    padding: 20px 20px 00px 20px;
+    float: left;
+    background: #fff;
+    position: relative;
+
+    -webkit-box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
+    border: 1px solid #cdcdcd;
+
+    .text-box{
+      height: $item-box-height;
+
+      overflow: hidden;
+      font-size: 18px;
+      line-height: 26px;
+
+      .caption{
+        display: block;
+        font-size: 22px;
+        line-height: 22px;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      .box{
+        padding-bottom: 20px;
+      }
+    }
+
+    .box-1{
+      /* background: green;*/
+      opacity: 1;
+    }
+
+    .box-2{
+      opacity: 0;
+      /*background: dodgerblue;*/
+    }
+
+    &:hover, &.show {
+      .box-1 {
+        top: -$item-box-height;
+        opacity: 0;
+      }
+
+      .box-2{
+        top: -$item-box-height;
+        opacity: 1;
+      }
+    }
+  }
+
+  .panel-button{
+    /*background: red;*/
+    border-top: 1px solid #f5f5f5;
+    padding: 4px 8px;
+    height: 40px;
+    clear: both;
+
+    .btn{
+      float: right;
+    }
+  }
+}
+
+.item-list .item .box-1, .item-list .item .box-2{
+  height: $item-box-height;
+  position: relative;
+
+  -webkit-transition: all 0.2s linear 0s;
+  -moz-transition: all 0.2s linear 0s;
+  -o-transition: all 0.4s linear 0s;
+  transition: all 0.4s linear 0s;
+  top: 0;
+
+}
