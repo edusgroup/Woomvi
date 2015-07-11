@@ -2,7 +2,7 @@
   overflow: hidden;
   margin-left: -25px; }
   .item-list .item {
-    height: 240px;
+    height: 280px;
     width: 550px;
     margin: 0 0 25px 25px;
     padding: 20px 20px 0px 20px;
@@ -14,7 +14,7 @@
     box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.1);
     border: 1px solid #cdcdcd; }
     .item-list .item .text-box {
-      height: 180px;
+      height: 220px;
       overflow: hidden;
       font-size: 18px;
       line-height: 26px; }
@@ -24,12 +24,6 @@
         line-height: 22px;
         margin-bottom: 5px;
         font-weight: bold; }
-      .item-list .item .text-box input.select-text {
-        height: 30px;
-        padding: 4px;
-        font-size: 18px;
-        width: auto;
-        text-align: center; }
       .item-list .item .text-box .box {
         padding-bottom: 20px; }
     .item-list .item .box-1 {
@@ -39,10 +33,10 @@
       opacity: 0;
       /*background: dodgerblue;*/ }
     .item-list .item.show-block-1 .box-1 {
-      top: -180px;
+      top: -220px;
       opacity: 0; }
     .item-list .item.show-block-1 .box-2 {
-      top: -180px;
+      top: -220px;
       opacity: 1; }
   .item-list .panel-button {
     background: #333333;
@@ -65,7 +59,7 @@
       padding: 0 20px; }
 
 .item-list .item .box-1, .item-list .item .box-2 {
-  height: 180px;
+  height: 220px;
   position: relative;
   -webkit-transition: all 0.2s linear 0s;
   -moz-transition: all 0.2s linear 0s;

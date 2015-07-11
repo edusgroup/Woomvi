@@ -2,42 +2,27 @@
 
 {% extends "global/index.twig" %}
 
+{% block head %}
+    <link href="/res/sass/bin/test-card.css" rel="stylesheet"/>
+    <link href="/res/sass/bin/course/trashMistake.css" rel="stylesheet"/>
+    <link href="/res/bower_package/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet"/>
+{% endblock %}
+
 {% block footer %}
     <script src="/res/plugin/jplayer/jquery.jplayer.min.js"></script>
     <script src="/res/js/course/card.js"></script>
 {% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="/res/css/course/card.css" media="all">
+
     <style>
-        #wumvi-card-box .card-item.word-threaten .word-box{
-            background: url('/res/img/bg-01.jpg') no-repeat #f7f7f7;
+        .item-list .panel-button .item-btn.hide,  .item-list .panel-button .item-btn.translate{
+            background-color: transparent;
         }
-
-        #wumvi-card-box .card-item .sentence-box{
-            background: #fbfbfb;
-        }
-
-
-        #wumvi-card-box .next-level-box{
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        #wumvi-card-box .next-level-box .btn:hover{
-            background: #5fcf2d;
-            color: #fff;
-        }
-
-        #wumvi-card-box .item-list{
-            overflow: hidden;
-            clear: both;
-        }
-
     </style>
 
     <div id="maincontentcontainer">
-        <div id="maincontent">
+        <div id="maincontent" class="container">
             <div id="wumvi-card-box">
 
                 <div class="item-list">

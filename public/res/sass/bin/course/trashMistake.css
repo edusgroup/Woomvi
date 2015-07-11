@@ -1,0 +1,51 @@
+.item-list .panel-button .item-btn.answer {
+  background-color: transparent;
+  display: none; }
+
+.item-list .item.show-answer-btn .item-btn.answer {
+  display: block; }
+
+.item-list .item .text-box input.select-text {
+  height: 30px;
+  padding: 4px;
+  font-size: 18px;
+  width: auto;
+  text-align: center;
+  border: 1px solid #cdcdcd;
+  border-radius: 4px; }
+
+.item-list .item .status {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  height: 74px;
+  width: 74px;
+  display: none; }
+
+.item-list .item:hover .status {
+  opacity: 0.1; }
+
+.item-list .item.show-block-1 .status {
+  display: none; }
+
+.item-list .item.right-answer .status {
+  background: url("/res/img/right-answer.png") no-repeat center center;
+  display: block; }
+
+.item-list .item.wrong-answer .status {
+  background: url("/res/img/wrong-answer.png") no-repeat center center;
+  display: block; }
+
+.item-list .item.show-block-1 .status {
+  display: none; }
+
+.item-list .item.wrong-answer .text-box input.select-text {
+  background: #ffe8e7;
+  border: 1px solid #f1a6a2; }
+
+.item-list .item.right-answer .text-box input.select-text {
+  background: #cfffe2;
+  border: 1px solid #6aec9d; }
+
+.item-list .item.show-block-1 .panel-button .item-btn.check {
+  display: none; }

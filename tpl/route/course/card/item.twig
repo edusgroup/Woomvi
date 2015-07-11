@@ -1,36 +1,31 @@
-<div class="card-item sentence word-threaten" data-num="{{ item.num }}" data-url="/mp3/">
-    <div class="word-box subitem-box">
-        {# <div class="inner">
-            <h2>Threaten</h2>
-        </div> #}
-    </div>
-
-    <div class="sentence-box subitem-box">
-        <h2>Threaten</h2>
-        <ul>
-            <li>- Hello, we are from Russia.</li>
-            <li>- Why are you <strong>threatening</strong>?</li>
-        </ul>
-    </div>
-    <div class="translate-box subitem-box">
-
-        <h2>Угрожать</h2>
-        <ul>
-            <li>- Привет, мы из России.</li>
-            <li>- Почему вы <strong>угрожаете</strong>?</li>
-        </ul>
-    </div>
-
-
-    <div class="controll">
-        <div class="translate-btn">
-
+<div class="item" data-num="{{ item.num }}" data-url="/mp3/">
+    <div class="text-box">
+        <div class="box box-1">
+            <div class="question-text">
+                <div class="caption">Threaten</div>
+                <ul>
+                    <li>- Hello, we are from Russia.</li>
+                    <li>- Why are you <strong>threatening</strong>?</li>
+                </ul>
+            </div>
         </div>
-        <div class="show-hide-btn">
-
-        </div>
-        <div class="play-btn">
-
+        <div class="box box-2">
+            <div class="answer-text">
+                <div class="caption">Угрожать</div>
+                <ul>
+                    <li>- Привет, мы из России.</li>
+                    <li>- Почему вы <strong>угрожаете</strong>?</li>
+                </ul>
+            </div>
         </div>
     </div>
+
+    <div class="panel-button">
+
+        <a href="#" class="item-btn play" data-load="Загрузка">Воспроизвести</a>
+        <a href="#" class="item-btn translate">Перевод</a>
+        <a href="#" class="item-btn hide" data-text="Показать">Скрыть</a>
+    </div>
+
+    <div class="status"></div>
 </div>
