@@ -68,6 +68,14 @@
                 border: 1px solid #cdcdcd;
             }
 
+            .course-list .item.noshadow{
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: none;
+
+                border: 0;
+            }
+
             .course-list .item a{
                 display: block;
                 overflow: hidden;
@@ -118,7 +126,7 @@
                         </a>
                     </div>
 
-                    <div class="item">
+                    <div class="item noshadow">
                         <a href="{{ route('grammar.index', courseData.url ) }}">
                             <img src="/res/img/empty.png" class="preview"/>
                         </a>

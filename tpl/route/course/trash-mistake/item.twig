@@ -1,20 +1,23 @@
 {% extends "global/index.twig" %}
 
 {% block head%}
-    <link href="/res/css/course/test-box.css" rel="stylesheet"/>
+   <link href="/res/css/test-card.css" rel="stylesheet"/>
+   <link href="/res/bower_package/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block footer %}
-    <script src="/res/js/wumvi/Utils.js"></script>
+    <!--<script src="/res/js/wumvi/Utils.js"></script>-->
+    <script src="/res/bower_package/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js"></script>
+
     <script>
         window.wumvi = window.wumvi || {};
-        new wumvi.Utils();
+        //new wumvi.Utils();
 
         wumvi.TrashMistake = function(){
             this.$root =  jQuery('#wumvi-trash-mistake');
 
             this.$root.find('.item').each(function(num, obj){
-               new  wumvi.TrashMistake.Form(obj);
+               new wumvi.TrashMistake.Form(obj);
             });
         }
 
@@ -91,7 +94,9 @@
             return false;
         }
 
-        new wumvi.TrashMistake();
+        //new wumvi.TrashMistake();
+        jQuery('.item .box-2').perfectScrollbar();          // Initialize
+
 
     </script>
 {% endblock %}
@@ -100,7 +105,7 @@
 
     <style>
 
-        #wumvi-trash-mistake .header{
+        /*#wumvi-trash-mistake .header{
             text-align: center;
         }
 
@@ -116,11 +121,15 @@
 
         .test-box .item-list .item .question-header{
             background: url('/res/img/bg-item.png') no-repeat top center #fff;
-        }
+        }*/
+
+
+
+
     </style>
 
     <div id="maincontentcontainer">
-        <div id="maincontent">
+        <div id="maincontent" class="container">
 
             <div id="wumvi-trash-mistake" class="test-box">
                 <div class="header">
@@ -128,44 +137,33 @@
                 </div>
                 <div class="item-list">
                     {% for item in trashMistakeList %}
-                        <div class="item" data-id="{{ item._id }}" data-regexp="{{ item.regexp }}">
-                            <div class="question-box">
-                                <div class="box question-header"></div>
-                                <div class="box question-text">
-                                    {{ item.questionText }}
+                        <div class="item show" data-id="{{ item._id }}" data-regexp="{{ item.regexp }}">
+                            <div class="text-box">
+                                <div class="box box-1">
+                                    <div class="question-text">
+                                        {{ item.questionText }}
+                                    </div>
+                                    <div class="wrong-text">
+                                        {{ item.wrongText|raw }}
+                                    </div>
                                 </div>
-                                <div class="box wrong-text">
-                                    {{ item.wrongText|raw }}
-                                </div>
-                                <div class="box panel-bottom"></div>
-                                <div class="panel-button">
-                                    <a href="#" class="btn answer">Ответ</a>
-                                    <a href="#" class="btn check">Проверить</a>
-                                </div>
-                                <div class="answer-status">
-                                    <img src="/res/img/wrong.png" class="wrong"/>
-                                    <img src="/res/img/ok.png" class="right"/>
-                                </div>
-                            </div>
-
-                            <div class="answer-box">
-                                <div class="box question-header"></div>
-                                <div class="">
-                                    <div class="box answer-text">
-                                        <h2>Ответ</h2>
+                                <div class="box box-2">
+                                    <div class="answer-text">
+                                        <div class="caption">Ответ</div>
                                         {{ item.answerText }}
                                     </div>
-                                    <div class="box right-text">
+                                    <div class="right-text">
                                         {{ item.rightText }}
                                     </div>
-                                    <a href="#" class="close">
-                                        <img src="/res/img/sprite/close.png"/>
-                                    </a>
                                 </div>
                             </div>
 
+                            <div class="panel-button">
+                                <a href="#" class="btn answer">Ответ</a>
+                                <a href="#" class="btn check">Проверить</a>
+                            </div>
 
-                        </div>
+                         </div>
                     {% endfor %}
                 </div>
 
