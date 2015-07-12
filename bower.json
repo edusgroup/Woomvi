@@ -12,7 +12,8 @@
 		"jquery": "2.1",
 		"jquery-ui": "1.11",
         "jquery-mousewheel": "3.1",
-		"perfect-scrollbar": "0.6"
+		"perfect-scrollbar": "0.6",
+		"jplayer": "2.9"
 	},
 	"devDependencies": {
 

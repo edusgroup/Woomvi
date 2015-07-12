@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block footer %}
-    <script src="/res/plugin/jplayer/jquery.jplayer.min.js"></script>
+    <script src="/res/bower_package/jplayer/dist/jplayer/jquery.jplayer.js"></script>
     <!-- <script src="/res/js/course/card.js"></script> -->
 
     <script>
@@ -33,7 +33,8 @@
 
 
             this.$playerBox.jPlayer({
-                swfPath: "/res/plugin/jplayer",
+                swfPath: "/res/bower_package/jplayer/dist/jplayer",
+                //solution: "flash, html",
                 supplied: "mp3, oga",
                 wmode: "window",
                 useStateClassSkin: true,
@@ -45,7 +46,7 @@
             });
 
             this.$playerBox.bind(jQuery.jPlayer.event.progress, function(event){
-                console.log(event.jPlayer.status.seekPercent);
+                jQuery('.item-btn.play').html(event.jPlayer.status.seekPercent);
             });
         }
 
@@ -60,7 +61,9 @@
 
         wumvi.Card.ItemModel.prototype.onPlayBtnClick = function(){
             this.cardCtrl.$playerBox.jPlayer("setMedia", {
-                mp3: "/res/card/audio/01/threaten.mp3",
+                //mp3: "https://psv4.vk.me/c611423/u228368481/audios/2c4cf31c1d07.mp3?d=1",
+                mp3: "https://psv4.vk.me/c422529/u67616085/audios/a06b7eeae38b.mp3?d=1",
+                //oga: "/res/card/audio/01/threaten.mp3",
                 oga: "/res/card/audio/01/threaten.ogg"
             }).jPlayer("play");
 
