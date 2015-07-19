@@ -2,32 +2,28 @@
 
 {% extends "global/index.twig" %}
 
-{% block head%}
-    <link href="/res/css/course/test-box.css" rel="stylesheet"/>
+{% block head %}
+    <link href="/res/sass/bin/test-card.css" rel="stylesheet"/>
+    <link href="/res/bower_package/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block footer %}
-    <script src="/res/js/wumvi/TestForm.js"></script>
+    <script src="/res/js/loadjs.js"></script>
     <script>
-        window.wumvi = window.wumvi || {};
-        new wumvi.TestForm('#wumvi-video-testing');
+        loadJsList([
+            '/res/bower_package/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js',
+            '/res/js/course/CourseTesting.js'
+        ]);
     </script>
 {% endblock %}
 
 {% block content %}
-
-<style>
-    .test-box .item-list .item .question-header{
-        background: url('/res/img/bg-item.png') no-repeat top center #fff;
-    }
-</style>
-
-
 <div id="maincontentcontainer">
-    <div id="maincontent">
-        <div id="wumvi-video-testing" class="test-box">
-            {% include 'global/testing/list.twig' %}
-        </div>
+    <div id="maincontent" class="container">
+
+        {% include 'global/breadcrumbs/breadcrumbs.twig' %}
+        {% include 'global/testing/list.twig' %}
+
     </div>
 </div>
 {% endblock %}

@@ -1,0 +1,130 @@
+{% extends "global/index.twig" %}
+
+{% block footer %}
+    <script src="/res/js/loadjs.js"></script>
+    <script>
+        jQuery(document).ready(function(){
+            loadJsList([
+                '/res/bower_package/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js',
+                '/res/js/wumvi/Login.js'
+            ]);
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <style>
+        .login-box{
+            width: 400px;
+            position: relative;
+
+            background: #eceef1;
+            min-height: 450px;
+            padding: 40px 30px 0 30px;
+        }
+
+        .login-box input{
+            background: #fff;
+            border: 0px;
+            padding: 12px;
+            padding-left: 42px;
+            margin: 0;
+            line-height: 24px;
+            height: 44px;
+            color: #8e9ba9;
+            font-size: 14px;
+            font-family: "PT Sans",sans-serif;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 100%;
+
+            margin-bottom: 17px;
+        }
+
+        .login-box .submit{
+            font-size: 18px;
+            height: 44px;
+            line-height: 44px;
+            background: #93dc82;
+            background: #aebac8;
+            color: #fff;
+            text-align: center;
+            padding: 0 15px;
+            margin: 0;
+            border: 0;
+            border-radius: 4px;
+            display: block;
+            text-decoration: none;
+
+        }
+
+        .login-box .caption{
+            font-size: 23px;
+            line-height: 23px;
+            margin-bottom: 18px;
+            font-weight: bold;
+            color: #7a8195;
+        }
+
+        #maincontent{
+            padding: 0;
+        }
+
+        #maincontentcontainer{
+            background: #e1e5ec;
+        }
+
+        .regist{
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .regist a{
+            font-size: 15px;
+            color: #878787;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 5px;
+            line-height: 25px;
+        }
+
+    </style>
+
+
+    <div id="maincontentcontainer">
+        <div id="maincontent" class="container">
+            <div class="row">
+                <div class="span_12 col">
+                    <img src="/res/img/i-miss-you.png"/>
+                </div>
+                <div class="span_12 col">
+                    <div class="login-box">
+                        <div class="caption">Вход</div>
+                        <div class="form-item"><input type="email" name="login" placeholder="Введите email"/></div>
+                        <div class="form-item"><input type="password" name="pwd" placeholder="Введите пароль"/></div>
+                        <div class="form-item"><a href="#" class="submit">Войти</a></div>
+
+                        <div class="regist">
+                            <a href="{{ route('user.registration') }}" id="registration">Зарегистрироваться</a>
+                            /
+                            <a href="{{ route('user.forgot-pwd') }}" id="forgot-pwd">Восстановить пароль</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="urlList"
+            data-login-url-ajax="{{ route('user.login-auth') }}",
+            ></div>
+    <div id="userData"
+            data-url-from="{{ fromUrl }}"
+            ></div>
+{% endblock %}

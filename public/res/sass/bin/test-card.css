@@ -56,9 +56,10 @@
       color: white;
       line-height: 40px;
       text-decoration: none;
-      padding: 0 20px; }
+      padding: 0 20px;
+      min-width: 80px; }
 
-.item-list .item .box-1, .item-list .item .box-2 {
+.item-list .item .box {
   height: 220px;
   position: relative;
   -webkit-transition: all 0.2s linear 0s;

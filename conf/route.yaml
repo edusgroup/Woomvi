@@ -125,6 +125,10 @@ course.joke:
   vars:
     itemName: @itemName
 
+material.abstract.choose:
+  controller: \Site\Route\Course\Controller\GetAbstractController::chooseAction
+  regexp: /getabstract/choose/$
+
 material.getabstract:
   controller: \Site\Route\Course\Controller\GetAbstractController::indexAction
   regexp: /getabstract/{itemName}/$
@@ -170,3 +174,28 @@ teacher.info:
   regexp: /teacher/{teacherId}/$
   vars:
     teacherId: @teacherId
+
+user.login:
+  controller: \Site\Route\User\Controller\IndexController::loginAction
+  regexp: /user/login/$
+
+user.exit:
+  controller: \Site\Route\User\Controller\IndexController::exitAction
+  regexp: /user/exit/$
+
+user.kabinet:
+  controller: \Site\Route\User\Controller\IndexController::kabinetAction
+  regexp: /user/kabinet/$
+
+user.login-auth:
+  controller: \Site\Route\User\Controller\IndexController::authAction
+  regexp: /user/login/auth/$
+
+user.registration:
+  controller: \Site\Route\User\Controller\IndexController::registrationAction
+  regexp: /user/registration/$
+
+user.forgot-pwd:
+  controller: \Site\Route\User\Controller\IndexController::forgotpwdAction
+  regexp: /user/forgotpwd/$
+

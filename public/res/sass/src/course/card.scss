@@ -1,0 +1,52 @@
+$colorButton: transparent;
+
+.item-list {
+  .item {
+
+    .item-btn.hide{
+      background-color: $colorButton;
+    }
+
+    .item-btn.translate{
+      display: none;
+      background-color: $colorButton;
+    }
+
+    .card-box {
+      height: 220px;
+    }
+
+    .box-3{
+      opacity: 0;
+      position: relative;
+      top: 0;
+    }
+
+    &.show-hide {
+      .box-2 {
+        display: none;
+      }
+      .box-1 {
+        top: -220px;
+        opacity: 0;
+      }
+
+      .box-3{
+        top: -220px;
+        opacity: 1;
+        position: relative;
+
+        line-height: 220px;
+        text-align: center;
+        font-size: 50px;
+
+        img{
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+      }
+
+    }
+  }
+}

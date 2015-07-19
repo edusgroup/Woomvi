@@ -1,34 +1,31 @@
 <div class="item-list">
     {% for item in testList %}
-        <div class="item">
-            <div class="question-box">
-                <div class="box question-header"></div>
-                <div class="box question-text">
-                    {{ item.questionText }}
+        <div class="item" data-id="{{ item._id }}">
+            <div class="text-box">
+                <div class="box box-1">
+                    <div class="question-text">
+                        {{ item.questionText }}
+                    </div>
+                    <div class="wrong-text">
+                        {{ item.wrongText|raw }}
+                    </div>
                 </div>
-                <div class="box panel-bottom"></div>
-                <div class="panel-button">
-                    <a href="#" class="btn check">Показать ответ</a>
-                </div>
-                <div class="answer-status">
-                    <img src="/res/img/wrong.png" class="wrong"/>
-                    <img src="/res/img/ok.png" class="right"/>
-                </div>
-            </div>
-
-            <div class="answer-box">
-                <div class="box question-header"></div>
-                <div class="">
-                    <div class="box answer-text">
-                        <h2>Ответ</h2>
+                <div class="box box-2">
+                    <div class="answer-text">
+                        <div class="caption">Ответ</div>
                         {{ item.answerText }}
                     </div>
-                    <a href="#" class="close">
-                        <img src="/res/img/sprite/close.png"/>
-                    </a>
+                    <div class="right-text">
+                        {{ item.rightText }}
+                    </div>
                 </div>
             </div>
 
+            <div class="panel-button">
+                <a href="#" class="item-btn answer" data-text="Показать вопрос">Показать ответ</a>
+            </div>
+
+            <div class="status"></div>
         </div>
     {% endfor %}
 </div>

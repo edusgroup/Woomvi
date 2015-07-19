@@ -28,7 +28,7 @@ class SpeakingController extends BaseController
         $cardList = $materialService->getSpeakingData($itemName);
         $this->ifNullInvokeError4xx($cardList, 'Speaking ' . htmlspecialchars($itemName) . ' not found');
 
-        $vars['cardList'] = $cardList;
+        $vars['speakingList'] = $cardList;
         unset($cardList);
 
         return new Html('route/course/speaking/item.twig', $vars, $this);

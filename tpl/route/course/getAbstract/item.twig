@@ -24,7 +24,7 @@
             this.windowModal = new wumvi.ModalWindow(jQuery('#modal'), 'main');
 
             this.attachEvent();
-        }
+        };
 
         wumvi.AbstractBook.prototype.attachEvent = function() {
             var that = this;
@@ -32,7 +32,7 @@
                 var model = new wumvi.AbstractBook.Phrase.Model(obj);
                 new wumvi.AbstractBook.Phrase(obj, model);
             })
-        }
+        };
 
         /* ------------------------------ PHRASE ---------------------------------- */
         wumvi.AbstractBook.Phrase = function(obj, model){
@@ -42,7 +42,7 @@
 
             this.attachEvent();
 
-        }
+        };
 
         wumvi.AbstractBook.Phrase.prototype.attachEvent = function(){
             var that = this;
@@ -50,13 +50,13 @@
                 var html = jQuery('#' + that.model.id).html();
                 jQuery(document).trigger(wumvi.ModalWindow.SHOW, ['main', html]);
             })
-        }
+        };
 
         /* ------------------------------- MODEL ----------------------------------- */
         wumvi.AbstractBook.Phrase.Model = function(obj){
             /** @type {string} ID фразы*/
             this.id = jQuery(obj).data('id');
-        }
+        };
 
         wumvi.ModalWindow = function($obj, name) {
             /** @type {jQuery} */
@@ -65,7 +65,7 @@
             this.name = name;
 
             this.attachEvent();
-        }
+        };
 
 
 
@@ -86,17 +86,17 @@
 
                 that.show();
             });
-        }
+        };
 
         wumvi.ModalWindow.prototype.show = function() {
 
             this.$obj.addClass('show');
             jQuery('#modal').addClass('show')
-        }
+        };
 
         wumvi.ModalWindow.prototype.hide = function() {
             this.$obj.removeClass('show');
-        }
+        };
 
         wumvi.ModalWindow.SHOW = 'wumvi.modal.show';
 
@@ -283,6 +283,9 @@
 
     <div id="maincontentcontainer">
         <div id="maincontent" class="container">
+
+            {% include 'global/breadcrumbs/breadcrumbs.twig' %}
+
             <div id="absBox">
                 <div class="text">
                     <h2>If you have two frogs, eat the ugliest one first</h2>

@@ -8,33 +8,35 @@ use Site\Common\Traits\User;
 use Flame\Abstracts\BaseController as BaseAbstractController;
 use Site\Route\Course\Service\CourseService;
 
+use \Site\Common\Classes\User as UserModel;
+
 class BaseController extends BaseAbstractController
 {
     const TPL_USER_NOT_AUTH = 'global/user/notAuth.twig';
 
-	use User;
+    use User;
     use Twig;
 
     public function preCallAction($methodName)
     {
-
+        $this->user = $this->getUser($this->fabric('user.dao'));
     }
 
-	public function preInitCommon($methodName, $matches)
-	{
-		$this->initMenuCommon($methodName, $matches);
-	}
-	
-	public function preRenderCommon(\Twig_Environment $twig, &$tplName, &$varible)
+    public function preInitCommon($methodName, $matches)
     {
-		$this->extendsTwig($twig);
-        $varible['isAuth'] = $this->getUser($this->fabric('user.dao'))->isAuth() ? 'true' : 'false';
-	}
-	
-	protected function initMenuCommon()
-	{
-	
-	}
+        $this->initMenuCommon($methodName, $matches);
+    }
+
+    public function preRenderCommon(\Twig_Environment $twig, &$tplName, &$varible)
+    {
+        $this->extendsTwig($twig);
+        $varible['isAuth'] = $this->user->isAuth() ? 1 : 0;
+    }
+
+    protected function initMenuCommon()
+    {
+
+    }
 
     public function nextLevel($path, $courseName, $type)
     {
@@ -43,15 +45,14 @@ class BaseController extends BaseAbstractController
             return $response;
         }
 
-        $user = $this->getUser($this->fabric('user.dao'));
 
         /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');
 
-        $item = $courseService->openNextLevel($type, $courseName, $user->getId());
+        $item = $courseService->openNextLevel($type, $courseName, $this->user->getId());
         $this->ifNullInvokeError4xx(
             $item,
-            'Open level type="' . $type . '" course="' . htmlspecialchars($courseName). '" not found'
+            'Open level type="' . $type . '" course="' . htmlspecialchars($courseName) . '" not found'
         );
 
         $groupName = $courseService->getCourseName($type, $courseName);
@@ -71,18 +72,17 @@ class BaseController extends BaseAbstractController
             return null;
         }
 
-        $user = $this->getUser($this->fabric('user.dao'));
-        if (!$user->isAuth()) {
+        if (!$this->user->isAuth()) {
             return new Html(self::TPL_USER_NOT_AUTH, [], $this);
         }
 
-        if ($user->getSum() <= 0) {
+        if ($this->user->getSum() <= 0) {
             die('No money');
         }
 
         $openCourse = $courseService->getEventsByName(
             $type . '.' . $key,
-            $user->getId(),
+            $this->user->getId(),
             ['course.' . $type => 1]
         );
 
@@ -91,7 +91,7 @@ class BaseController extends BaseAbstractController
             die('Not access');
         }
 
-        if (!$openCourse[$type][$key]['open']){
+        if (!$openCourse[$type][$key]['open']) {
             die('Not open yet');
         }
 

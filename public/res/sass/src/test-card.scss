@@ -87,11 +87,12 @@ $item-list-margin-left: 25px;
       line-height: $item-panel-button-height;
       text-decoration: none;
       padding: 0 20px;
+      min-width: 80px;
     }
   }
 }
 
-.item-list .item .box-1, .item-list .item .box-2{
+.item-list .item .box{
   height: $item-box-height;
   position: relative;
 

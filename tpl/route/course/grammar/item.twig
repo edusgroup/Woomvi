@@ -32,65 +32,32 @@
 
 {% block content %}
     <style>
-        #wumvi-grammar-control{
-            text-align: center;
-        }
-
-        #wumvi-grammar-control .btn{
-            text-decoration: none;
-
-            box-sizing: content-box;
-            -webkit-box-sizing: content-box;
-            -moz-box-sizing: content-box;
-
-            display: inline-block;
-            position: relative;
-            overflow: visible;
-
-            font-weight: 700;
-            text-align: center;
-            vertical-align: middle;
-            cursor: pointer;
-            margin: 0 0 5px 0;
-            -webkit-border-radius: 2px!important;
-            -moz-border-radius: 2px!important;
-            border-radius: 2px!important;
-            -webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
-            -moz-box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
-
-            font-size: 18px;
-            line-height: 20px;
-            padding: 6px 15px;
-
-            color: #fff;
-            border: 1px solid #eb4e01;
-            min-width: 121px;
-            background-image: -moz-linear-gradient(top,#ff5400,#f35000);
-            background-image: -ms-linear-gradient(top,#ff5400,#f35000);
-            background-image: -webkit-gradient(linear,0 0,0 100%,from(#ff5400),to(#f35000));
-            background-image: -webkit-linear-gradient(top,#ff5400,#f35000);
-            background-image: -o-linear-gradient(top,#ff5400,#f35000);
-            background-image: linear-gradient(top,#ff5400,#f35000);
-            background-repeat: repeat-x;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5400', endColorstr='#f35000', GradientType=0);
-        }
-
         #maincontentcontainer{
             background: #fff;
-
         }
 
-        #maincontent{
-
+        #slider {
+            background-image: url('/res/img/slider/slider-bg-01.jpg');
         }
     </style>
 
+    <div id="slider">
+        <div class="sliderinner">
+            <a href="#" title="Как правильно учить граммитку?">
+                <img src="/res/img/how-learn-grammar.png" title="Как правильно учить граммитку?"
+                        alt="Как правильно учить граммитку?"/>
+            </a>
+        </div>
+    </div>
+
     <div id="maincontentcontainer">
         <div id="maincontent" class="container">
+
+
+
             {{ printFile(contentFile) }}
 
-            <div id="wumvi-grammar-control">
+            <div class="open-next-level-box">
                 <a href="{{ route('grammar.testing', 'be-have') }}" class="btn">Всё понятно! Проверяйте меня)</a>
             </div>
         </div>

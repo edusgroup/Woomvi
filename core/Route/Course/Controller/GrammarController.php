@@ -30,7 +30,6 @@ class GrammarController extends BaseController
             return $response;
         }
 
-        $user = $this->getUser($this->fabric('user.dao'));
 
         /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');
@@ -39,7 +38,7 @@ class GrammarController extends BaseController
         $filename = $courseService->getGrammarFile($courseName);
         $this->ifNullInvokeError4xx($filename);
 
-        $vars['user'] = $user;
+        $vars['user'] = $this->user;
         $vars['contentFile'] = $this->getFileFormData($filename);
 
         return new Html('route/course/grammar/item.twig', $vars, $this);

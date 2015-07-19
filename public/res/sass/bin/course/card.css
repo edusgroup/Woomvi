@@ -1,0 +1,33 @@
+.item-list .item .item-btn.hide {
+  background-color: transparent; }
+
+.item-list .item .item-btn.translate {
+  display: none;
+  background-color: transparent; }
+
+.item-list .item .card-box {
+  height: 220px; }
+
+.item-list .item .box-3 {
+  opacity: 0;
+  position: relative;
+  top: 0; }
+
+.item-list .item.show-hide .box-2 {
+  display: none; }
+
+.item-list .item.show-hide .box-1 {
+  top: -220px;
+  opacity: 0; }
+
+.item-list .item.show-hide .box-3 {
+  top: -220px;
+  opacity: 1;
+  position: relative;
+  line-height: 220px;
+  text-align: center;
+  font-size: 50px; }
+  .item-list .item.show-hide .box-3 img {
+    position: absolute;
+    left: 0;
+    top: 0; }

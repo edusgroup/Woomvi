@@ -7,45 +7,6 @@
                 overflow: hidden;
             }
 
-            /*.course-list .item {
-                float: left;
-                line-height: 0;
-                margin-right: 20px;
-                position: relative;
-            }
-
-            .course-list .item .preview{
-
-            }
-
-            .course-list .item h2{
-                font-size: 16px;
-                font-weight: bold;
-            }
-
-            .course-list .item p.description{
-                font-size: 14px;
-            }
-
-            .course-list .item.locked .locked {
-                background: url('/res/img/raznoe/lock.png');
-            }
-
-            .course-list .item:hover .access{
-                bottom: 45px;
-            }
-
-            .course-list .item .access{
-                width: 41px;
-                height: 62px;
-                position: absolute;
-                bottom: 35px;
-                right: 50px;
-            }
-
-            .course-list .item.time .time {
-                background: url('/res/img/raznoe/time.png');
-            }*/
 
             .course-list .item {
                 float: left;
@@ -105,6 +66,30 @@
                 font-size: 12px;
                 line-height: 14px;
             }
+
+            .course-list .item.locked .locked {
+                background: url('/res/img/raznoe/lock.png');
+                display: block;
+            }
+
+            .course-list .item:hover .access{
+                bottom: 12px;
+
+            }
+
+            .course-list .item .access{
+                width: 41px;
+                height: 62px;
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                display: none;
+            }
+
+            .course-list .item.time .time {
+                background: url('/res/img/raznoe/time.png');
+                display: block;
+            }
         </style>
 
         <div id="maincontentcontainer">
@@ -127,7 +112,7 @@
                     </div>
 
                     <div class="item noshadow">
-                        <a href="{{ route('grammar.index', courseData.url ) }}">
+                        <a href="{{ route('material.abstract.choose', courseData.url ) }}?_from={{ thisPath }}">
                             <img src="/res/img/empty.png" class="preview"/>
                         </a>
                     </div>

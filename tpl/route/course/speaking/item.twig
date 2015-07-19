@@ -2,21 +2,83 @@
 
 {% extends "global/index.twig" %}
 
+{% block head %}
+    <link href="/res/bower_package/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet"/>
+    <link href="/res/sass/bin/test-card.css" rel="stylesheet"/>
+    <link href="/res/sass/bin/course/card.css" rel="stylesheet"/>
+{% endblock %}
+
 {% block footer %}
-    <script src="/res/plugin/jplayer/jquery.jplayer.min.js"></script>
-    <script src="/res/js/course/card.js"></script>
+    <script src="/res/js/loadjs.js"></script>
+    <script>
+        loadJsList([
+            '/res/bower_package/jplayer/dist/jplayer/jquery.jplayer.js',
+            '/res/bower_package/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js',
+            '/res/js/course/Card.js'
+        ]);
+    </script>
 {% endblock %}
 
 {% block content %}
     {% spaceless %}
-        <link rel="stylesheet" href="/res/css/course/card.css" media="all">
+
+        <style>
+            .item-list .item.show-hide .box-3{
+                line-height: 220px;
+                text-align: center;
+                font-size: 50px;
+            }
+
+
+
+
+        </style>
 
         <div id="maincontentcontainer">
-            <div id="maincontent">
+            <div id="maincontent" class="container">
 
-                <div id="wumvi-card-box">
-                    {% for id,item in cardList %}
-                        {% include 'route/course/card/item.twig' %}
+                {% include 'global/breadcrumbs/breadcrumbs.twig' %}
+
+                <div class="item-list">
+                    {% for num, item in speakingList.list %}
+                        <div class="item show-hide" data-num="{{ num }}" data-url="/mp3/">
+                            <div class="text-box">
+                                <div class="box box-1">
+                                    <div class="question-text">
+                                        <div class="caption">Описание</div>
+                                        {{ item.description }}
+                                    </div>
+                                </div>
+                                <div class="box box-2">
+                                    <div class="answer-text">
+                                        <div class="caption">{{ item.title }}</div>
+                                        <ul>
+                                            {% for eng, trans in item.sample %}
+                                                <li>
+                                                    <span class="eng">{{ eng }}</span>
+                                                    -
+                                                    <span class="trans">{{ trans }}</span>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="box box-3">
+                                    <div class="card-box">
+                                        {{ item.title }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-button">
+
+                                <a href="#" class="item-btn play">Воспроизвести</a>
+                                <a href="#" class="item-btn translate" data-text="Показать англ.">Показать перевод</a>
+                                <a href="#" class="item-btn hide" data-text="Скрыть">Показать</a>
+                            </div>
+
+                            <div class="status"></div>
+                        </div>
                     {% endfor %}
                 </div>
 

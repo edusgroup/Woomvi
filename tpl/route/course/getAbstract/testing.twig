@@ -16,18 +16,12 @@
 
 {% block content %}
 
-    <style>
-        .test-box .item-list .item .question-header{
-            background: url('/res/img/bg-item.png') no-repeat top center #fff;
-        }
-    </style>
-
-
     <div id="maincontentcontainer">
-        <div id="maincontent">
+        <div id="maincontent" class="container">
             <div id="wumvi-abstract-testing" class="test-box">
                 {% include 'global/testing/list.twig' %}
             </div>
         </div>
     </div>
+
 {% endblock %}

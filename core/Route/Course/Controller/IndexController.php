@@ -3,6 +3,7 @@
 namespace Site\Route\Course\Controller;
 
 use Flame\Classes\Http\Response\Html;
+use Flame\Classes\RequestHttp;
 use Site\Common\Controller\BaseController;
 
 class IndexController extends BaseController
@@ -29,16 +30,17 @@ class IndexController extends BaseController
         $courseData= $courseService->getCourseData($courseName);
         $this->ifNullInvokeError4xx($courseData);
 
-        $user = $this->getUser($this->fabric('user.dao'));
-
         $isDemoCategory = $courseService->isDemo('category', $courseName);
 
-        $openCourse = $courseService->getEventsByName('', $user->getId());
+        $openCourse = $courseService->getEventsByName('', $this->user->getId());
         if (!isset($openCourse['grammar'][$courseName]) && !$isDemoCategory) {
             die('Not open yet');
         }
 
         $vars['courseData'] = $courseService->getOpenCategory($courseData, $openCourse);
+
+        $request = new RequestHttp();
+        $vars['thisPath'] = $request->getPath();
 
         return new Html('route/course/list.twig', $vars, $this);
     }

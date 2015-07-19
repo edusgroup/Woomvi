@@ -2,10 +2,12 @@
 
 namespace Site\Common\Traits;
 
+use \Site\Common\Classes\User as UserModel;
+
 trait User
 {
-    /** @var \Site\Common\Classes\User $user */
-    private $user;
+    /** @var UserModel $user */
+    protected $user;
 
     public function getUser($userDao)
     {
@@ -13,7 +15,7 @@ trait User
             return $this->user;
         }
 
-        $this->user = new \Site\Common\Classes\User();
+        $this->user = new UserModel();
         $this->user->init($userDao);
         return $this->user;
     }

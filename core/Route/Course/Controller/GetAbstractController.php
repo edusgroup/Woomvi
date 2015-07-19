@@ -63,4 +63,10 @@ class GetAbstractController extends BaseController
 
         return new Html('route/course/getAbstract/testing.twig', $params, $this);
     }
+
+    public function chooseAction($path)
+    {
+        $params[''] = null;
+        return new Html('route/course/getAbstract/choose.twig', $params, $this);
+    }
 }
