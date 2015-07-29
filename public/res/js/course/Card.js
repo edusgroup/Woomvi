@@ -15,7 +15,7 @@ wumvi.Card = function () {
 
     this.$playerBox = jQuery("#player-box");
 
-    this.$itemRoot.find('.box').perfectScrollbar();
+    this.$root.find('.box').perfectScrollbar();
 
     this.$playerBox.jPlayer({
         swfPath: "/res/bower_package/jplayer/dist/jplayer",

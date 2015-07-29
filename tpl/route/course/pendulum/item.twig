@@ -338,8 +338,25 @@
 
     </style>
 
+    <style>
+        #slider {
+            background-image: url('/res/img/slider/slider-bg-01.jpg');
+        }
+    </style>
+
+    <div id="slider">
+        <div class="sliderinner">
+            <a href="#" title="Как правильно учить граммитку?">
+                <img src="/res/img/slider/pendulume.png" title="Как правильно учить граммитку?"
+                     alt="Как правильно учить граммитку?"/>
+            </a>
+        </div>
+    </div>
+
     <div id="maincontentcontainer">
-        <div id="maincontent">
+        <div id="maincontent" class="container">
+
+            {% include 'global/breadcrumbs/breadcrumbs.twig' %}
 
             <div id="wumvi-pendulum" class="type-pendulum">
                 <div class="content">

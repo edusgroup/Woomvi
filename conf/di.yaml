@@ -24,6 +24,10 @@ class:
     class: \Site\Route\Course\Service\CourseService
     param: @course.dao
 
+  course.service.index:
+      class: \Site\Route\Course\Service\IndexService
+      param: @course.service
+
   material.dao:
     class: \Site\Route\Course\Dao\MaterialDao
     param: @db

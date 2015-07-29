@@ -32,6 +32,19 @@ class MaterialDao extends Dao
     }
 
     /**
+     * Получаем все доступные книги для абстрактов
+     *
+     * @param array $choosedCourse
+     */
+    public function getAvailableBookList($choosedCourse)
+    {
+        return $this->driver->table(self::TABLE_SITE_GET_ABSTRACT)->selectAll(
+            [],
+            ['id' => ['$nin' => $choosedCourse]]
+        );
+    }
+
+    /**
      *
      *
      * @param string $abstractId ID

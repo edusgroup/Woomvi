@@ -9,12 +9,13 @@ wumvi.Login = function () {
     //this.$registrBtn = jQuery('#registration');
     this.$forgotPwdBtn = jQuery('#forgot-pwd');
 
+    this.$preloaderBox = jQuery('#login-box .preloader');
+    this.$warningErrorBox = jQuery('.warning-box.error:first');
+
     this.init();
 };
 
 wumvi.Login.prototype.init = function () {
-
-
     this.initEvent();
 };
 
@@ -35,17 +36,22 @@ wumvi.Login.prototype.initEvent = function () {
 wumvi.Login.prototype.loginBtnClick = function(){
     var that = this;
 
+    this.$warningErrorBox.hide();
+
     var login = this.$emailInput.val().trim();
     if (login == ''){
-        alert('Введите логин');
+        this.$warningErrorBox.show().html(wLangRes['enter-login']);
         return false;
     }
 
     var pwd = this.$pwdInput.val().trim();
     if (pwd == ''){
-        alert('Введите пароль');
+        this.$warningErrorBox.show().html(wLangRes['enter-pwd']);
         return false;
     }
+
+    that.$preloaderBox.show();
+
 
     var url = jQuery('#urlList').data('login-url-ajax');
     var data = {'login': login, 'pwd': pwd};
@@ -58,14 +64,14 @@ wumvi.Login.prototype.loginBtnClick = function(){
     }).done(function(data, textStatus, jqXHR){
         that.onAuthDone(data, textStatus, jqXHR);
     }).fail(function(jqXHR, textStatus, errorThrown){
-
+        that.$warningErrorBox.show().html(wLangRes['someError']);
+    }).always(function(){
+        that.$preloaderBox.hide();
     });
 
 };
 
 wumvi.Login.prototype.onAuthDone = function(data, textStatus, jqXHR){
-    console.log(data);
-
     var urlFrom = jQuery('#userData').data('url-from');
     if (urlFrom != '') {
         window.location.href = urlFrom;

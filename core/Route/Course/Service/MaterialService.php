@@ -2,12 +2,14 @@
 
 namespace Site\Route\Course\Service;
 
+use Site\Route\Course\Dao\MaterialDao;
+
 class MaterialService
 {
     private $materialDao;
 
     /**
-     * @param \Site\Route\Course\Dao\MaterialDao $materialDao
+     * @param MaterialDao $materialDao
      */
     public function __construct($materialDao)
     {
@@ -25,7 +27,7 @@ class MaterialService
     {
         $data = $this->materialDao->getVideoData($videoId);
         if (!$data) {
-            return null;
+            return [];
         }
 
         return $data;
@@ -35,7 +37,7 @@ class MaterialService
     {
         $data = $this->materialDao->getTestList($videoId, $group);
         if (!$data) {
-            return null;
+            return [];
         }
 
         return $data['list'];
@@ -45,7 +47,7 @@ class MaterialService
     {
         $data = $this->materialDao->getGetAbstractData($absctractId);
         if (!$data) {
-            return null;
+            return [];
         }
 
         return $data;
@@ -56,22 +58,42 @@ class MaterialService
         /** @var \MongoCursor $data */
         $data = $this->materialDao->getCardData($groupName);
         if (!$data) {
-            return null;
+            return [];
         }
 
         return $data;
     }
 
-    public function getSpeakingData($speaingId)
+    /**
+     * Получаем все доступные книги для абстрактов
+     *
+     * @param array $openCourse
+     *
+     * @return array Список книг
+     */
+    public function getAvailableBookList($openCourse)
+    {
+        $choosedCourse = [];
+        foreach ($openCourse[CourseService::GET_ABSTRACT] as $item) {
+            $choosedCourse[] = $item['name'];
+        }
+
+        $data = $this->materialDao->getAvailableBookList($choosedCourse);
+        if (!$data) {
+            return [];
+        }
+
+        return iterator_to_array($data);
+    }
+
+    public function getSpeakingData($speakingId)
     {
         /** @var \MongoCursor $data */
-        $data = $this->materialDao->getSpeakingData($speaingId);
+        $data = $this->materialDao->getSpeakingData($speakingId);
         if (!$data) {
-            return null;
+            return [];
         }
 
         return $data;
     }
-
-
 }

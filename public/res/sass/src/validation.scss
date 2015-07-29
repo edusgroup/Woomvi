@@ -1,0 +1,60 @@
+$color-wrong: #ee5132;
+$color-good: #78c382;
+$offset-y-error-box: 29px;
+
+@mixin validationInput($color){
+  input{
+    border: 1px solid $color;
+    color: $color;
+
+  }
+
+  input:focus{
+    border: 2px solid $color;
+    color: $color;
+    outline: none;
+  }
+
+  input::-webkit-input-placeholder {color:$color;}
+  input::-moz-placeholder          {color:$color;}/* Firefox 19+ */
+  input:-moz-placeholder           {color:$color;}/* Firefox 18- */
+  input:-ms-input-placeholder      {color:$color;}
+}
+
+
+
+.validation-box {
+  .error-msg{
+    display: none;
+  }
+
+  .input-wrong{
+    @include validationInput($color-wrong);
+
+    .error-msg{
+      position: absolute;
+      right: 3px;
+      background: red;
+      color: white;
+      font-weight: bold;
+      display: inline-block;
+      padding: 0 14px;
+      border-radius: 6px 6px 0 0;
+      font-size: 12px;
+      height: $offset-y-error-box;
+      line-height: $offset-y-error-box;
+    }
+
+    input{
+      margin-top: $offset-y-error-box;
+    }
+  }
+
+   // @todo выкинуть
+  .input-good{
+    @include validationInput($color-good);
+  }
+
+
+  
+}

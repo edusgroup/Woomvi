@@ -37,6 +37,11 @@
                 border: 0;
             }
 
+            .course-list .item .preview{
+                width: 220px;
+                height: 320px;;
+            }
+
             .course-list .item a{
                 display: block;
                 overflow: hidden;
@@ -90,7 +95,20 @@
                 background: url('/res/img/raznoe/time.png');
                 display: block;
             }
+
+            .course-list .item .refreach{
+                background: url('/res/img/raznoe/reopen.png');
+                display: block;
+                width: 62px;
+                height: 62px;
+                position: absolute;
+                right: 16px;
+                bottom: 16px;
+
+            }
         </style>
+
+
 
         <div id="maincontentcontainer">
             <div id="maincontent" class="container">
@@ -111,11 +129,28 @@
                         </a>
                     </div>
 
-                    <div class="item noshadow">
-                        <a href="{{ route('material.abstract.choose', courseData.url ) }}?_from={{ thisPath }}">
-                            <img src="/res/img/empty.png" class="preview"/>
-                        </a>
-                    </div>
+                    {% if not courseData.data.getabstract %}
+                        <div class="item noshadow">
+                            <a href="{{ route('course.choose.book', courseName ) }}">
+                                <img src="/res/img/empty.png" class="preview"/>
+                            </a>
+                        </div>
+                    {% endif %}
+
+                    {# GetAbstract ---------------------------------------- #}
+                    {% for key, item in courseData.data.getabstract %}
+                        <div class="item">
+                            <a href="{{ route('material.getabstract', courseName, key) }}">
+                                <img src="/res/img/course/abstract/{{ key }}.jpg" class="preview"/>
+                                <div class="text dark">
+                                    <div class="caption">{{ item.name }}</div>
+                                    <div class="description">Summary</div>
+                                    <div class="info"></div>
+                                </div>
+                            </a>
+                            <a href="{{ route('course.choose.book', courseName ) }}" class="refreach"></a>
+                        </div>
+                    {% endfor %}
 
                     {# Видео ---------------------------------------- #}
                     {% for key, item in courseData.data.video %}
@@ -237,28 +272,6 @@
                         </div>
                     {% endfor %} -->
 
-
-
-                    {# GetAbstract ---------------------------------------- #}
-                    {% for key, item in courseData.data.getabstract %}
-                        {% set class = 'locked' %}
-                        {% if item.isInit %}
-                            {% set class = item.isOpen ? '' : 'time' %}
-                        {% endif %}
-                        <div class="item {{ class }}">
-                            <a href="{{ route('material.getabstract', key) }}">
-                                <img src="/res/img/course/abstract/{{ key }}.jpg" class="preview"/>
-                                <div class="text dark">
-                                    <div class="caption">{{ item.info }}</div>
-                                    <div class="description">Summary</div>
-                                    <div class="info"></div>
-                                </div>
-
-                                <div class="locked access"></div>
-                                <div class="time access"></div>
-                            </a>
-                        </div>
-                    {% endfor %}
 
                     {# Глаголы ---------------------------------------- #}
                     {% for id, item in courseData.data.verbs %}

@@ -7,92 +7,130 @@
 
 {% block content %}
     <style>
-        .item-list .item .preview{
-            float: left;
-            height: 150px;
-            width: 150px;
-        }
 
-        .item-list .item .text-box{
-            float: right;
-            height: 150px;
-            width: 400px;
-            padding: 10px 0;
-        }
 
-        .item-list .item {
-            float: left;
-            overflow: hidden;
-            margin: 0 20px 20px 0;
-
+        #maincontentcontainer{
             background: #fff;
-            position: relative;
-
-            -webkit-box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1);
-            -moz-box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1);
-            box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1);
-
-            border: 1px solid #cdcdcd;
-
-            cursor: pointer;
         }
 
-        .item-list .item:hover{
-            -webkit-box-shadow: 2px 3px 0px 0px rgba(0, 0, 0, 0.1);
-            -moz-box-shadow: 2px 3px 0px 0px rgba(0, 0, 0, 0.1);
-            box-shadow: 2px 3px 0px 0px rgba(0, 0, 0, 0.1);
-            top: -1px;
-            left: -1px;
+        .main-caption{
+            margin-bottom: 30px;
+            font-size: 20px;
         }
 
-        .item-list{
-            clear: both;
-            overflow: hidden;
-            margin-left: -20px;
+        #slider {
+            background: url('/res/img/slider/slide-bg3-3.jpg') center;
+            background-size: cover;
         }
 
-        .item-list .item .text-box .caption{
+        .span_12.col {
+            margin-bottom: 30px;
+        }
+
+        table td.description{
+            vertical-align: top;
+            padding: 0 10px;
+        }
+
+        table td.description .caption{
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        table td.description .description{
             font-size: 18px;
+            line-height: 24px;
+            margin-bottom: 20px;
+        }
+
+        table td.description .info{
+            color: #8a8a8a;
+            margin-bottom: 18px;
+        }
+
+        .category{
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .btn{
+            width: 100%;
+            display: block;
+            border: 1px solid #e6e5e6;
+            color: #8a8a8a;
+            padding: 10px 0;
             font-weight: bold;
-            margin-bottom: 5px;
-            line-height: 22px;
         }
 
-        .item-list .item .text-box .caption .author{
-            color: #6e6e6e;
-            font-size: 13px;
+        .btn:hover{
+            background: #93dc82;
+            color: #FFF;
+            border-color: #5fdf41;
+
+            -webkit-box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.15);
+            -moz-box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.15);
+            box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.15);
+
+            text-shadow: 1px 1px 1px rgba(23, 123, 0, 1);
         }
 
-        .item-list .item .text-box .description{
-            font-size: 13px;
-            color: #6e6e6e;
+        .demoMode .notice{
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
         }
+
     </style>
+
+    <div id="slider">
+        <div class="sliderinner">
+            <a href="#" title="Как правильно учить граммитку?">
+                <img src="/res/img/slider/get-abstract.png" title="Как правильно учить граммитку?"
+                     alt="Как правильно учить граммитку?"/>
+            </a>
+        </div>
+    </div>
 
     <div id="maincontentcontainer">
         <div id="maincontent" class="container">
-            <div id="choose-abstract">
-                <div class="item-list">
-                    {% for i in range(0,4) %}
-                        <div class="item">
-                            <div class="preview">
-                                <img src="/res/img/course/abstract/choose/eat-that-frog.png"/>
-                            </div>
-                            <div class="text-box">
-                                <div class="caption">Eat that frog <span class="author">(Brian Tracy)</span></div>
-                                <div class="description">
-                                    С помощью данной книги вы сможете правильно планировать день.
-                                    Фокусировать внимание на значимых задачах. Получать более высокие результаты.
-                                    Книга польностью избавлена от воды и содержит чистый и натуральный сок знаний.
-                                </div>
-                            </div>
-                            <div class="btn">
+            {% include 'global/breadcrumbs/breadcrumbs.twig' %}
 
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
+            <h1 class="main-caption">Книги начального уровня</h1>
+
+            <div class="row">
+                {% for key, book in bookList %}
+                    <div class="span_12 col {{ isDemoMode ? 'demoMode' }}">
+                        <table>
+                            <tr>
+                                <td class="preview">
+                                    <img src="{{ repository('/res/img/course/abstract/choose/' ~ book.id ~ '.png') }}"/>
+                                </td>
+                                <td class="description">
+                                    <div class="caption">Eat that frog</div>
+                                    <div class="info">
+                                        <span class="author">Brian Tracy</span>
+                                        <span class="category">Категория: Личностный рост</span>
+                                    </div>
+                                    <div class="description">
+                                        С помощью данной книги вы сможете правильно планировать день.
+                                        Фокусировать внимание на значимых задачах. Получать более высокие результаты.
+                                        Книга польностью избавлена от воды и содержит чистый и натуральный сок знаний.
+                                    </div>
+                                    <div>
+                                        {% if isDemoMode %}
+                                            <div class="notice">Чтобы посмотреть книгу, необходимо авторизоваться</div>
+                                            <a href="{{ route('user.login') }}?_from={{ documentUrl }}" class="btn">Авторизоваться</a>
+                                        {% else %}
+                                            <a href="{{ route('course.choose.book.logic', courseName ) }}?book-id={{ book.id }}" class="btn">Выбрать</a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endfor %}
             </div>
+
         </div>
     </div>
 {% endblock %}

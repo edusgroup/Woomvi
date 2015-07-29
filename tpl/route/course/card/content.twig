@@ -9,8 +9,16 @@
 {% endblock %}
 
 {% block footer %}
-    <script src="/res/bower_package/jplayer/dist/jplayer/jquery.jplayer.js"></script>
-    <script src="/res/js/course/Card.js"></script>
+    <script src="/res/js/loadjs.js"></script>
+    <script src="/res/bower_package/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js"></script>
+    <script>
+        jQuery(document).ready(function(){
+            loadJsList([
+                '/res/bower_package/jplayer/dist/jplayer/jquery.jplayer.js',
+                '/res/js/course/Card.js'
+            ]);
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -22,8 +30,10 @@
         <div id="maincontent" class="container">
             <div id="wumvi-card-box">
 
+                {% include 'global/breadcrumbs/breadcrumbs.twig' %}
+
                 <div class="item-list">
-                    {% for id,item in cardList %}
+                    {% for key, item in cardList.list %}
                         {% include 'route/course/card/item.twig' %}
                     {% endfor %}
                 </div>

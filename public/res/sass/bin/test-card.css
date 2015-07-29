@@ -2,8 +2,8 @@
   overflow: hidden;
   margin-left: -25px; }
   .item-list .item {
-    height: 280px;
-    width: 550px;
+    height: 180px;
+    width: 370px;
     margin: 0 0 25px 25px;
     padding: 20px 20px 0px 20px;
     float: left;
@@ -14,9 +14,9 @@
     box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.1);
     border: 1px solid #cdcdcd; }
     .item-list .item .text-box {
-      height: 220px;
+      height: 140px;
       overflow: hidden;
-      font-size: 18px;
+      font-size: 14px;
       line-height: 26px; }
       .item-list .item .text-box .caption {
         display: block;
@@ -33,16 +33,16 @@
       opacity: 0;
       /*background: dodgerblue;*/ }
     .item-list .item.show-block-1 .box-1 {
-      top: -220px;
+      top: -140px;
       opacity: 0; }
     .item-list .item.show-block-1 .box-2 {
-      top: -220px;
+      top: -140px;
       opacity: 1; }
   .item-list .panel-button {
     background: #333333;
     /*border-top: 1px solid #f5f5f5;
     padding: 4px 8px;*/
-    height: 40px;
+    height: 20px;
     clear: both;
     position: absolute;
     left: 0;
@@ -52,18 +52,18 @@
     .item-list .panel-button .item-btn {
       float: right;
       background-color: #0096ff;
-      height: 40px;
+      height: 20px;
       color: white;
-      line-height: 40px;
+      line-height: 20px;
       text-decoration: none;
       padding: 0 20px;
       min-width: 80px; }
 
 .item-list .item .box {
-  height: 220px;
+  height: 140px;
   position: relative;
-  -webkit-transition: all 0.2s linear 0s;
+  /*-webkit-transition: all 0.2s linear 0s;
   -moz-transition: all 0.2s linear 0s;
   -o-transition: all 0.4s linear 0s;
-  transition: all 0.4s linear 0s;
+  transition: all 0.4s linear 0s;*/
   top: 0; }

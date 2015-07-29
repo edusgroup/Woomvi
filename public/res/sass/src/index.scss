@@ -1,0 +1,250 @@
+body, a, h2, h1, h3{
+  /*font: 13px/20px 'OpenSansRegular';*/
+  font: 15px/18px Helvetica Neue Light, Arial, Tahoma, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 10px;
+  padding: 0;
+  line-height: 1em;
+  font-weight: normal;
+  color: #313538;
+}
+
+
+
+h2 {
+  /*font: 22px 'OpenSansSemiboldRegular';*/
+}
+
+
+.menu-view .headline{
+  height: 25px;
+}
+
+.menu-view .menu-box{
+
+  background-color: #4baf4d;
+  background-color: #f5f5f5;
+  box-shadow: 0px 0px 2px 0px #777;
+  position: relative;
+  z-index: 1;
+  clear: both;
+}
+
+.menu-view .menu-box.small{
+  height: 52px;
+}
+
+.menu-view .menu-box.big{
+  height: 80px;
+}
+
+.menu-view .menu-box nav{
+  float: right;
+}
+
+.menu-view .menu-box .menu-link-nav{
+  display: inline-block;
+  font-size: 120%;
+  color: #fff;
+  color: #303030;
+  text-align: center;
+  position: relative;
+  text-decoration: none;
+}
+
+.menu-view .menu-box .menu-link-nav:hover{
+  background: #93dc82;
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0, 122, 0, 1);
+}
+
+.menu-view .menu-box.small .menu-link-nav{
+  height: 52px;
+  padding-top: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+}
+
+.menu-view .menu-box.big .menu-link-nav{
+  height: 30px;
+  padding-top: 50px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.container{
+  max-width: 1200px;
+}
+
+.menu-view .menu-box .logo{
+  float: left;
+}
+
+.menu-view .menu-box .logo img{
+  margin-top: 10px;
+}
+
+#slider{
+  height: 430px;
+  padding-top: 20px;
+}
+
+#slider .sliderinner{
+  text-align: center;
+}
+
+#maincontentcontainer{
+  background: #f8f8f8;
+}
+
+#maincontent{
+  padding: 20px 0 40px 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+#maincontent .header{
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/*#maincontent .header .back{
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-image: url('/res/img/back.png');
+    width: 44px;
+    height: 44px;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 53px;
+}
+
+#maincontent .header .back:hover {
+    background-position: 0 -44px;
+}*/
+
+
+.breadcrumbs{
+  margin: 0 0 20px 0;
+}
+
+.breadcrumbs .item{
+  font-size: 13px;
+  color: #878787;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.breadcrumbs .item:hover{
+  color: #070707;
+}
+
+.breadcrumbs .item.back{
+  margin-right: 30px;
+}
+
+
+
+
+
+
+
+
+
+.open-next-level-box{
+  text-align: center;
+}
+
+.open-next-level-box .btn{
+  text-decoration: none;
+
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+
+  display: inline-block;
+  position: relative;
+  overflow: visible;
+
+  font-weight: 700;
+  text-align: center;
+
+  cursor: pointer;
+
+  border: 1px solid #aaa;
+  padding: 20px 30px;
+  border-radius: 100px;;
+
+  font-size: 23px;
+  color: #aaa;
+}
+
+.open-next-level-box .btn:hover{
+  background: #93d600;
+  color: white;
+  border: 1px solid #649200;
+}
+
+.menu-view .headline{
+  overflow: hidden;
+  clear: both;
+}
+
+.menu-view .headline .list{
+  float: right;
+  overflow: hidden;
+}
+
+.menu-view .headline .list li{
+  float: left;
+}
+
+.menu-view .headline .list a{
+  font-size: 13px;
+  color: #878787;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 5px;
+  line-height: 25px;
+}
+
+.menu-view .headline .list li.login a{
+  font-weight: bold;
+}
+
+.preloader{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url('/res/img/preloader.gif') center center no-repeat rgba(255, 255, 255, 0.8);
+  top: 0;
+  left: 0;
+  display: none;
+}

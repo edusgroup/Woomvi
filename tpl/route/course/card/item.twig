@@ -2,26 +2,24 @@
     <div class="text-box">
         <div class="box box-1">
             <div class="question-text">
-                <div class="caption">Threaten</div>
-                <ul>
-                    <li>- Hello, we are from Russia.</li>
-                    <li>- Why are you <strong>threatening</strong>?</li>
-                </ul>
+                <div class="caption">{{ item.name }}</div>
+                <div>
+                    {{ item.text|raw }}
+                </div>
             </div>
         </div>
         <div class="box box-2">
             <div class="answer-text">
-                <div class="caption">Угрожать</div>
-                <ul>
-                    <li>- Привет, мы из России.</li>
-                    <li>- Почему вы <strong>угрожаете</strong>?</li>
-                </ul>
+                <div class="caption">{{ item.nameTranslate }}</div>
+                <div>
+                    {{ item.textTranslate|raw }}
+                </div>
             </div>
         </div>
         <div class="box box-3">
             <div class="card-box">
-                <img src="/res/img/course/card/bg/01/threaten.png"/>
-                Threaten
+                <img src="/res/img/course/card/bg/01/{{ key }}.png"/>
+                {{ item.name }}
             </div>
         </div>
     </div>

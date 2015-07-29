@@ -63,7 +63,50 @@ class IndexController extends BaseController
         $param['fromUrl'] = $fromUrl;
         unset($fromUrl);
 
+        $confirmKey = trim($request->get('key'));
+        if ($confirmKey) {
+
+        }
+
         return new Html('global/user/login.twig', $param, $this);
+    }
+
+    public function registrationAjaxAction()
+    {
+        $request = new RequestHttp();
+        if (!$request->isPost()) {
+            return new Json('', Json::STATUS_ERROR, 'is not post request');
+        }
+
+        $login = $request->post('login');
+        $pwd = $request->post('pwd');
+        $name = $request->post('name');
+
+        /** @var UserService $userService */
+        $userService = $this->fabric('user.service');
+
+        $status = $userService->registration($login, $pwd, $name);
+        switch($status) {
+            case UserService::REGISTRATION_STATUS_EMAIL_EXISTS:
+                return new Json('', Json::STATUS_ERROR, 'user-with-email-exists');
+        }
+
+        $key = md5($status . time());
+
+        $confirmUrl = 'http://' .
+            $request->getHost() .
+            $this->getRoutePath('user.login') .
+            '?key=' . $key;
+
+        // @todo Сделать оптравку email
+
+        return new Json('', Json::STATUS_SUCCESS);
+    }
+
+    public function registrationEmailAction()
+    {
+        $param[''] = '';
+        return new Html('global/user/regEmail.twig', $param, $this);
     }
 
     public function kabinetAction()
@@ -74,7 +117,6 @@ class IndexController extends BaseController
     public function registrationAction()
     {
         $param[''] = '';
-
         return new Html('global/user/registration.twig', $param, $this);
     }
 

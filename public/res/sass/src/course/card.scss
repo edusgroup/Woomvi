@@ -1,4 +1,5 @@
 $colorButton: transparent;
+$cardHeight: 180px;
 
 .item-list {
   .item {
@@ -13,7 +14,7 @@ $colorButton: transparent;
     }
 
     .card-box {
-      height: 220px;
+      height: $cardHeight;
     }
 
     .box-3{
@@ -27,16 +28,16 @@ $colorButton: transparent;
         display: none;
       }
       .box-1 {
-        top: -220px;
+        top: -$cardHeight;
         opacity: 0;
       }
 
       .box-3{
-        top: -220px;
+        top: -$cardHeight;
         opacity: 1;
         position: relative;
 
-        line-height: 220px;
+        line-height: $cardHeight;
         text-align: center;
         font-size: 50px;
 

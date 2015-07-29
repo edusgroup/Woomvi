@@ -3,28 +3,39 @@
 namespace Site\Route\Course\Controller;
 
 use Flame\Classes\Http\Response\Html;
+use Flame\Classes\RequestHttp;
 use Site\Common\Controller\BaseController;
 use Site\Route\Course\Service\CourseService;
+use Site\Route\Course\Service\MaterialService;
 
+/**
+ * Контроллер обработки данных по книгам
+ *
+ * @package Site\Route\Course\Controller
+ * @author Kozlenko Vitaliy
+ * @version 1.1
+ */
 class GetAbstractController extends BaseController
 {
     /**
      * Обработка отображения
      *
      * @param string $path Полный путь из URL
+     * @param string $courseName Название курса
      * @param string $itemName Название абстракта
      *
      * @return Html Респонс
      * @throws \Flame\Classes\Di\Exception\DiException
      */
-    public function indexAction($path, $itemName)
+    public function indexAction($path, $courseName, $itemName)
     {
-        $response = $this->checkRight(CourseService::GET_ABSTRACT, $itemName);
+        // Проверка прав доступа
+        $response = $this->checkRight(CourseService::GET_ABSTRACT, $itemName, $courseName);
         if ($response !== null) {
             return $response;
         }
 
-        /** @var \Site\Route\Course\Service\MaterialService $materialService */
+        /** @var MaterialService $materialService */
         $materialService = $this->fabric('material.service');
 
         $params['abstractData'] = $materialService->getGetAbstractData($itemName);
@@ -45,12 +56,13 @@ class GetAbstractController extends BaseController
 
     public function testingAction($path, $itemName)
     {
+        // Проверка прав доступа
         $response = $this->checkRight(CourseService::GET_ABSTRACT, $itemName);
         if ($response !== null) {
             return $response;
         }
 
-        /** @var \Site\Route\Course\Service\MaterialService $materialService */
+        /** @var MaterialService $materialService */
         $materialService = $this->fabric('material.service');
 
         $params['testList'] = $materialService->getTestList($itemName, CourseService::GET_ABSTRACT);
@@ -62,11 +74,5 @@ class GetAbstractController extends BaseController
         $params['getabstractName'] = $itemName;
 
         return new Html('route/course/getAbstract/testing.twig', $params, $this);
-    }
-
-    public function chooseAction($path)
-    {
-        $params[''] = null;
-        return new Html('route/course/getAbstract/choose.twig', $params, $this);
     }
 }

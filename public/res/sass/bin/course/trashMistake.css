@@ -6,9 +6,9 @@
   display: block; }
 
 .item-list .item .text-box input.select-text {
-  height: 30px;
-  padding: 4px;
-  font-size: 18px;
+  height: 18px;
+  padding: 0px;
+  font-size: 14px;
   width: auto;
   text-align: center;
   border: 1px solid #cdcdcd;

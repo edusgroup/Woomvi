@@ -95,6 +95,18 @@ course.category:
   vars:
     courseName: @courseName
 
+course.choose.book:
+  controller: \Site\Route\Course\Controller\IndexController::chooseBookAction
+  regexp: /course/{courseName}/choosebook/$
+  vars:
+    courseName: @courseName
+
+course.choose.book.logic:
+  controller: \Site\Route\Course\Controller\IndexController::chooseBookLogicAction
+  regexp: /course/{courseName}/choosebook/logic/$
+  vars:
+    courseName: @courseName
+
 material.card:
   controller: \Site\Route\Course\Controller\CardController::indexAction
   regexp: /card/{itemName}/$
@@ -125,15 +137,12 @@ course.joke:
   vars:
     itemName: @itemName
 
-material.abstract.choose:
-  controller: \Site\Route\Course\Controller\GetAbstractController::chooseAction
-  regexp: /getabstract/choose/$
-
 material.getabstract:
   controller: \Site\Route\Course\Controller\GetAbstractController::indexAction
-  regexp: /getabstract/{itemName}/$
+  regexp: /getabstract/{courseName}/{itemName}/$
   vars:
     itemName: @itemName
+    courseName: @courseName
 
 material.getabstract.test:
   controller: \Site\Route\Course\Controller\GetAbstractController::testingAction
@@ -194,6 +203,10 @@ user.login-auth:
 user.registration:
   controller: \Site\Route\User\Controller\IndexController::registrationAction
   regexp: /user/registration/$
+
+user.registration.ajax:
+  controller: \Site\Route\User\Controller\IndexController::registrationAjaxAction
+  regexp: /user/registration/ajax/$
 
 user.forgot-pwd:
   controller: \Site\Route\User\Controller\IndexController::forgotpwdAction

@@ -101,4 +101,10 @@ class CourseDao extends Dao
         $data = ['$set' => ["course.$type.$key" => $match]];
         return $this->driver->table(self::TABLE_SITE_EVENTS)->update($data, ['userId' => $userId]);
     }
+
+    public function chooseBook($bookId, $courseName, $userId)
+    {
+        $data['course.getabstract.' . $courseName . '.name'] = $bookId;
+        return $this->driver->table(self::TABLE_SITE_EVENTS)->update(['$set' => $data], ['userId' => $userId]);
+    }
 }

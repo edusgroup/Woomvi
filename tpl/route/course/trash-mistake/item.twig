@@ -20,8 +20,26 @@
 {% endblock %}
 
 {% block content %}
+
+    <style>
+        #slider {
+            background-image: url('/res/img/slider/slider-bg-01.jpg');
+        }
+    </style>
+
+    <div id="slider">
+        <div class="sliderinner">
+            <a href="#" title="Как правильно учить граммитку?">
+                <img src="/res/img/slider/mistake.png" title="Как правильно учить граммитку?"
+                     alt="Как правильно учить граммитку?"/>
+            </a>
+        </div>
+    </div>
+
     <div id="maincontentcontainer">
         <div id="maincontent" class="container">
+
+            {% include 'global/breadcrumbs/breadcrumbs.twig' %}
 
             <div class="header">
                 <a href="" class="back"></a>

@@ -1,0 +1,54 @@
+.validation-box .error-msg {
+  display: none; }
+
+.validation-box .input-wrong {
+  /* Firefox 19+ */
+  /* Firefox 18- */ }
+  .validation-box .input-wrong input {
+    border: 1px solid #ee5132;
+    color: #ee5132; }
+  .validation-box .input-wrong input:focus {
+    border: 2px solid #ee5132;
+    color: #ee5132;
+    outline: none; }
+  .validation-box .input-wrong input::-webkit-input-placeholder {
+    color: #ee5132; }
+  .validation-box .input-wrong input::-moz-placeholder {
+    color: #ee5132; }
+  .validation-box .input-wrong input:-moz-placeholder {
+    color: #ee5132; }
+  .validation-box .input-wrong input:-ms-input-placeholder {
+    color: #ee5132; }
+  .validation-box .input-wrong .error-msg {
+    position: absolute;
+    right: 3px;
+    background: red;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    padding: 0 14px;
+    border-radius: 6px 6px 0 0;
+    font-size: 12px;
+    height: 29px;
+    line-height: 29px; }
+  .validation-box .input-wrong input {
+    margin-top: 29px; }
+
+.validation-box .input-good {
+  /* Firefox 19+ */
+  /* Firefox 18- */ }
+  .validation-box .input-good input {
+    border: 1px solid #78c382;
+    color: #78c382; }
+  .validation-box .input-good input:focus {
+    border: 2px solid #78c382;
+    color: #78c382;
+    outline: none; }
+  .validation-box .input-good input::-webkit-input-placeholder {
+    color: #78c382; }
+  .validation-box .input-good input::-moz-placeholder {
+    color: #78c382; }
+  .validation-box .input-good input:-moz-placeholder {
+    color: #78c382; }
+  .validation-box .input-good input:-ms-input-placeholder {
+    color: #78c382; }

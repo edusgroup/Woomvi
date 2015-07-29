@@ -54,13 +54,15 @@ class CourseService
      * Получаем список вопросов по TrashMistake
      *
      * @param string $groupName название группы вопросов
+     *
+     * @return array
      */
     public function getTrashMistakeData($groupName)
     {
         /** @var \MongoCursor $data */
         $data = $this->courseDao->getTrashMistakeData($groupName);
         if (!$data) {
-            return null;
+            return [];
         }
 
         $data = iterator_to_array($data);
@@ -80,12 +82,16 @@ class CourseService
         return $data;
     }
 
+    /**
+     * @param $courseName
+     * @return array
+     */
     public function getCourseData($courseName)
     {
         /** @var array $data */
         $data = $this->courseDao->getCourseData($courseName);
         if (!$data) {
-            return null;
+            return [];
         }
 
         return $data;
@@ -113,40 +119,58 @@ class CourseService
         return iterator_to_array($data);
     }
 
-    public function getOpenCategory($courseData, $categoryList)
+    public function getOpenCategory($courseData, $openCourse, $courseName)
     {
-        foreach ([
-                     self::PENDULUM,
-                     self::TRASH_MISTAKE,
-                     self::QUESTION_ANSWER,
-                     self::GET_ABSTRACT,
-                     self::SPEAKING,
-                     self::CARD,
-                     self::VIDEO,
-                     self::EXAM
-                 ] as $type) {
+        $typeList = [
+            self::PENDULUM,
+            self::TRASH_MISTAKE,
+            self::QUESTION_ANSWER,
+            // self::GET_ABSTRACT,
+            self::SPEAKING,
+            self::CARD,
+            self::VIDEO,
+            self::EXAM
+        ];
+
+        if (isset($openCourse[self::GET_ABSTRACT][$courseName])) {
+            $blockName = $openCourse[self::GET_ABSTRACT][$courseName]['name'];
+            $courseData['data'][self::GET_ABSTRACT] = [
+                $blockName => [
+                    'name' => ';askldjf;sld'
+                ]
+            ];
+        }
+
+        foreach ($typeList as $type) {
             foreach ($courseData['data'][$type] as $key => &$item) {
                 if ($this->isDemo($type, $key)) {
                     $item = ['info' => $item, 'isInit' => true, 'isOpen' => true];
                     continue;
                 }
 
-                $isOpen = isset($categoryList[$type][$key]);
+                $isOpen = isset($openCourse[$type][$key]);
                 $item = ['info' => $item, 'isInit' => $isOpen];
                 if ($isOpen) {
-                    $item['isOpen'] = $categoryList[$type][$key]['open'];
+                    $item['isOpen'] = $openCourse[$type][$key]['open'];
                 }
             }
         }
+        unset($typeList);
 
         return $courseData;
     }
 
+    /**
+     * @param string $name
+     * @param string $userId
+     * @param array $fields
+     * @return array|null
+     */
     public function getEventsByName($name, $userId, $fields = [])
     {
         $list = $this->courseDao->getEventsByName($name, $userId, $fields);
         if (!$list) {
-            return null;
+            return [];
         }
 
         return array_map(function ($item) {
@@ -172,7 +196,7 @@ class CourseService
                 [self::GRAMMAR, 'be-have'],
                 [self::VIDEO, 'christmas-tree'],
                 ['category', 'be-have'],
-                [self::GET_ABSTRACT, 'eat-that-frog']
+                // [self::GET_ABSTRACT, 'eat-that-frog']
             ]
         );
     }
@@ -208,5 +232,10 @@ class CourseService
         }
 
         return true;
+    }
+
+    public function chooseBook($bookId, $courseName, $userId)
+    {
+        $this->courseDao->chooseBook($bookId, $courseName, $userId);
     }
 }

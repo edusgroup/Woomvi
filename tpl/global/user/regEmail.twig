@@ -1,0 +1,51 @@
+{% extends "global/index.twig" %}
+
+{% block footer %}
+    <script src="/res/js/loadjs.js"></script>
+    <script>
+        jQuery(document).ready(function(){
+            loadJsList([
+
+            ]);
+        });
+    </script>
+{% endblock %}
+
+{% block head%}
+
+{% endblock %}
+
+{% block content %}
+    <div id="maincontentcontainer">
+        <div id="maincontent" class="container">
+            <div class="row">
+                <div class="span_12 col img">
+                    <img src="/res/img/i-miss-you.png"/>
+                </div>
+                <div class="span_12 col">
+                    <div class="login-box">
+                        <div class="caption">Вход</div>
+                        <div class="form-item"><input type="email" name="login" placeholder="Введите email"/></div>
+                        <div class="form-item"><input type="password" name="pwd" placeholder="Введите пароль"/></div>
+                        <div class="form-item"><a href="#" class="submit">Войти</a></div>
+
+                        <div class="regist">
+                            <a href="{{ route('user.registration') }}" id="registration">Зарегистрироваться</a>
+                            /
+                            <a href="{{ route('user.forgot-pwd') }}" id="forgot-pwd">Восстановить пароль</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="urlList"
+            data-login-url-ajax="{{ route('user.login-auth') }}",
+            ></div>
+    <div id="userData"
+            data-url-from="{{ fromUrl }}"
+            ></div>
+{% endblock %}

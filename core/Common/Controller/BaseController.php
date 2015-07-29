@@ -12,7 +12,9 @@ use \Site\Common\Classes\User as UserModel;
 
 class BaseController extends BaseAbstractController
 {
-    const TPL_USER_NOT_AUTH = 'global/user/notAuth.twig';
+    const TPL_USER_NOT_AUTH = 'global/user/page-no-auth.twig';
+    const TPL_USER_NOT_OPEN = 'global/user/page-no-open.twig';
+    const TPL_USER_NOT_TIME = 'global/user/page-no-time.twig';
 
     use User;
     use Twig;
@@ -63,11 +65,11 @@ class BaseController extends BaseAbstractController
         return new Html('route/course/testing.twig', $vars, $this);
     }
 
-    public function checkRight($type, $key)
+    public function checkRight($courseType, $itemName, $courseName = '')
     {
         /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');
-        $isDemoCategory = $courseService->isDemo($type, $key);
+        $isDemoCategory = $courseService->isDemo($courseType, $itemName);
         if ($isDemoCategory) {
             return null;
         }
@@ -80,19 +82,35 @@ class BaseController extends BaseAbstractController
             die('No money');
         }
 
-        $openCourse = $courseService->getEventsByName(
-            $type . '.' . $key,
-            $this->user->getId(),
-            ['course.' . $type => 1]
-        );
+        if ($courseType == CourseService::GET_ABSTRACT) {
+            // Получаем все открытые блоки для пользователя и если есть выбранную книгу
+            $bookKey = 'course.' . $courseType . '.' . $courseName;
+            $openCourse = $courseService->getEventsByName(
+                $courseType . '.' . $courseName,
+                $this->user->getId(),
+                [$bookKey => 1]
+            );
 
-
-        if (!$openCourse) {
-            die('Not access');
+            if (isset($openCourse[CourseService::GET_ABSTRACT][$courseName]['name'])) {
+                $bookName = $openCourse[CourseService::GET_ABSTRACT][$courseName]['name'];
+                $openCourse = $bookName != $itemName ? [] : [$courseType => [$itemName => ['open' => true]]];
+            } else {
+                $openCourse = [];
+            }
+        } else {
+            $openCourse = $courseService->getEventsByName(
+                $courseType . '.' . $itemName,
+                $this->user->getId(),
+                ['course.' . $courseType => 1]
+            );
         }
 
-        if (!$openCourse[$type][$key]['open']) {
-            die('Not open yet');
+        if (!$openCourse) {
+            return new Html(self::TPL_USER_NOT_OPEN, [], $this);
+        }
+
+        if (!$openCourse[$courseType][$itemName]['open']) {
+            return new Html(self::TPL_USER_NOT_TIME, [], $this);
         }
 
         return null;

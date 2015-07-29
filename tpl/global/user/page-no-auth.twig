@@ -1,0 +1,41 @@
+{% extends "global/index.twig" %}
+
+{% block head%}
+    <link href="/res/sass/bin/user.registration.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+
+
+
+    <div id="maincontentcontainer">
+        <div id="maincontent" class="container">
+
+            {% include 'global/breadcrumbs/breadcrumbs.twig' %}
+
+            <div class="row">
+                <div class="span_12 col img">
+                    <img src="/res/img/page-lock.png"/>
+                </div>
+                <div class="span_12 col">
+                    <div class="login-box validation-box">
+                        <div class="caption">Вход</div>
+                        <div class="form-item"><input type="email" name="login" placeholder="Введите email"/></div>
+                        <div class="form-item"><input type="password" name="pwd" placeholder="Введите пароль"/></div>
+                        <div class="form-item"><a href="#" class="submit">Войти</a></div>
+
+                        <div class="regist">
+                            <a href="{{ route('user.registration') }}" id="registration">Зарегистрироваться</a>
+                            /
+                            <a href="{{ route('user.forgot-pwd') }}" id="forgot-pwd">Восстановить пароль</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

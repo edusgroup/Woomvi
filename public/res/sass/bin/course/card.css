@@ -6,7 +6,7 @@
   background-color: transparent; }
 
 .item-list .item .card-box {
-  height: 220px; }
+  height: 180px; }
 
 .item-list .item .box-3 {
   opacity: 0;
@@ -17,14 +17,14 @@
   display: none; }
 
 .item-list .item.show-hide .box-1 {
-  top: -220px;
+  top: -180px;
   opacity: 0; }
 
 .item-list .item.show-hide .box-3 {
-  top: -220px;
+  top: -180px;
   opacity: 1;
   position: relative;
-  line-height: 220px;
+  line-height: 180px;
   text-align: center;
   font-size: 50px; }
   .item-list .item.show-hide .box-3 img {

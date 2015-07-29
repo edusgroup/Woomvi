@@ -18,4 +18,3 @@ class IndexController extends \Site\Common\Controller\BaseController
 
     }
 }
-
