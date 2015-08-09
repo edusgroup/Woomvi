@@ -131,6 +131,12 @@ course.pendulum.nextlevel:
   vars:
     itemName: @itemName
 
+course.check:
+  controller: \Site\Route\Course\Controller\CheckController::indexAction
+  regexp: /check/{itemName}/$
+  vars:
+    itemName: @itemName
+
 course.joke:
   controller: \Site\Route\Course\Controller\JokeController::indexAction
   regexp: /joke/{itemName}/$
@@ -212,3 +218,6 @@ user.forgot-pwd:
   controller: \Site\Route\User\Controller\IndexController::forgotpwdAction
   regexp: /user/forgotpwd/$
 
+test:
+  controller: \Site\Route\Test\Controller\IndexController::indexAction
+  regexp: /test/

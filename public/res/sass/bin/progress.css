@@ -1,0 +1,40 @@
+.progress-box {
+  text-align: center; }
+  .progress-box.hide {
+    display: none; }
+  .progress-box .item {
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border: 1px solid #9ea2a7;
+    margin-right: 10px;
+    cursor: pointer; }
+    .progress-box .item.progress_none, .progress-box .item.progress_current {
+      background: #c9ced4; }
+    .progress-box .item.progress_done {
+      background: #69c86e; }
+    .progress-box .item.end {
+      margin-right: 0; }
+
+.progress-box.square .item {
+  width: 60px;
+  height: 10px;
+  margin: 0; }
+
+.progress-box.square .item.progress_done {
+  border: 1px solid #59aa5d;
+  border-right: 0;
+  border-radius: 0; }
+
+.progress-box.square .item.progress_current, .progress-box.square .item.progress_none {
+  border: 1px solid #a7aeb4;
+  border-radius: 0; }
+
+.progress-box.square .item.begin {
+  border-radius: 10px 0 0 10px; }
+
+.progress-box.square .item.end {
+  border-radius: 0 10px 10px 0; }

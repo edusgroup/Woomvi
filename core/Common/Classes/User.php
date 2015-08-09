@@ -14,7 +14,7 @@ class User extends \Flame\Abstracts\User
 {
     use Session;
 
-    protected $_sum_;
+    protected $sum_;
 
     /**
      * @param UserDao $userDao
@@ -29,7 +29,7 @@ class User extends \Flame\Abstracts\User
         $this->isAuth = true;
         $userData = $userDao->getUserData($userId);
         foreach (['id', 'sum', 'email', 'login'] as $name) {
-            $this->{'_' . $name . '_'} = $userData[$name];
+            $this->{$name . '_'} = $userData[$name];
         }
     }
-} 
+}

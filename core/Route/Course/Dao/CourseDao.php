@@ -40,7 +40,7 @@ class CourseDao extends Dao
      */
     public function getTrashMistakeData($groupName)
     {
-        return $this->driver->table(self::TABLE_SITE_TRASH_MISTAKE)->selectAll([], ['group' => $groupName]);
+        return $this->driver->table(self::TABLE_SITE_TRASH_MISTAKE)->selectFirst([], ['id' => $groupName]);
     }
 
     public function getCourseData($courseName)
@@ -50,12 +50,15 @@ class CourseDao extends Dao
 
     public function getQuestionList($groupName)
     {
-        return $this->driver->table(self::TABLE_SITE_QUESTION)->selectAll([], ['group' => $groupName]);
+        return $this->driver->table(self::TABLE_SITE_QUESTION)->selectFirst([], ['group' => $groupName]);
     }
 
     public function getPendulumList($groupName)
     {
-        return $this->driver->table(self::TABLE_SITE_PENDULUM)->selectAll([], ['group' => $groupName]);
+        return $this->driver->table(self::TABLE_SITE_PENDULUM)->selectFirst(
+            ['list' => 1],
+            ['group' => $groupName]
+        );
     }
 
     public function getEventsByName($name, $userId, $fields = [])

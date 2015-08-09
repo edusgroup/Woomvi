@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block footer %}
-    <script src="/res/js/loadjs.js"></script>
     <script src="/res/bower_package/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js"></script>
     <script>
         jQuery(document).ready(function(){
@@ -23,7 +22,9 @@
 
 {% block content %}
     <style>
-
+        .word-highlight{
+            font-weight: bold;
+        }
     </style>
 
     <div id="maincontentcontainer">
@@ -40,8 +41,8 @@
 
 
                 <div class="next-level-box">
-                      <a href="{{ route('material.card.nextlevel', cardName) }}" class="btn">
-                        Я выучил(а) глаголы. Открыть следующий курс
+                      <a href="{{ route('material.card.nextlevel', cardName) }}" class="btn next-btn">
+                        Всё выучино. Хочу протестироваться
                     </a>
                 </div>
             </div>

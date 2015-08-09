@@ -19,16 +19,14 @@ function loadJsList(list) {
 function loadScript(src, list, callback)
 {
     var func = arguments.callee;
-    // console.log(src);
     // callback(list, arguments.callee);
     var isReady = false;
     var scriptObj = document.createElement('script');
     scriptObj.type = 'text/javascript';
     scriptObj.src = src;
     scriptObj.onload = scriptObj.onreadystatechange = function() {
-        //console.log( this.readyState ); //uncomment this line to see which ready states are called.
-        if ( !isReady && (!this.readyState || this.readyState == 'complete') )
-        {
+        if ( !isReady && (!this.readyState || this.readyState == 'complete' || this.readyState == 'loaded') ) {
+
             isReady = true;
             callback(list, func);
         }

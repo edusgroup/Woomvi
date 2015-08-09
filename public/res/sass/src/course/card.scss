@@ -19,8 +19,14 @@ $cardHeight: 180px;
 
     .box-3{
       opacity: 0;
+      /* IE 8 */
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
       position: relative;
       top: 0;
+
+      img{
+        height: $cardHeight;
+      }
     }
 
     &.show-hide {
@@ -30,6 +36,8 @@ $cardHeight: 180px;
       .box-1 {
         top: -$cardHeight;
         opacity: 0;
+        /* IE 8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
       }
 
       .box-3{

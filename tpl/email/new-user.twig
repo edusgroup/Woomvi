@@ -1,0 +1,52 @@
+{% set ctaLink = 'http://wumvi.lo/' %}
+{% set imgUrl = 'https://gallery.mailchimp.com/585dfae71af41573be7c0ca4f/images/7956ebc6-bb75-4d72-b41e-ae17830fce02.png' %}
+
+{% extends "base/base.twig" %}
+
+{% block content %}
+    {{ subject }}
+    <table class="head" cellspacing="0" cellpadding="0" border="0" style="background:#ffffff;">
+        <tbody>
+        <tr>
+            <td cellspacing="0" cellpadding="0" border="0" style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; color:#555c65; padding: 0; border-top:0;" align="center" width="600">
+                <div>
+                    {#<div align="center" style="background: #c4c5c2; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 30px; font-weight: normal; line-height: 40px; margin: 0; padding: 0;">
+                        <br>
+                        <a class="post-title" href="http://www.helpscout.net/blog/customer-service-books/#subscriber" style="color: #fff; text-decoration: none;">
+                            On Writing: 5 Books Every Customer Support Team Should Read
+                        </a>
+                    </div>#}
+                    <a class="post-image" href="{{ ctaLink }}" style="display:block; width:600px; height:315px;">
+                        <img alt="{{ lang.subject }}" border="0" label="{{ lang.subject }}" src="{{ imgUrl }}" style="display:block;" width="600">
+                    </a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="post-content" bgcolor="#ffffff" cellspacing="0" cellpadding="0" border="0" style="border-bottom: 1px solid #e4e5e7;">
+                    <tbody>
+                    <tr>
+                        <td class="content-padding" width="90" colspan="2"></td>
+                        <td class="content" width="420" style="padding-top: 15px">
+
+                            <p class="description" style="color: #414751; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15.5px; line-height: 28px; text-align: center; margin-bottom: 0;">
+                                {{ lang.description }}
+                            </p>
+                        </td>
+                        <td class="content-padding" width="90" colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" align="center" style="padding: 20px 0 50px 0">
+                            <div>
+                                <a class="button" href="{{ ctaLink }}" style="background-color:#3197D1;border-radius:4px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:15px;font-weight:normal;line-height:40px;text-align:center;text-decoration:none;width:150px;-webkit-text-size-adjust:none;">{{ lang.btnCaption }} →</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

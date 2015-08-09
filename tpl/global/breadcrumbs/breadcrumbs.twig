@@ -1,17 +1,18 @@
 {% spaceless %}
-    <div class="breadcrumbs">
-        <a href="../" class="item back"> &#8592; Назад</a>
+    {% if breadcrumbs %}
+        <div class="breadcrumbs">
+            <div class="container">
+                <span class="arrow">/</span>
+                <a href="/" class="item">Главная</a>
+                {% for item in breadcrumbs %}
 
-        <span class="arrow">/</span>
-        <a href="/" class="item">Главная</a>
-        <span class="arrow">/</span>
+                    <span class="arrow">/</span>
+                    <a href="{{ item.url }}" class="item">{{ item.name }}</a>
+                {% endfor %}
 
-        <a href="/course/" class="item">Курсы</a>
-        <span class="arrow">/</span>
-
-        <a href="/course/be-have/" class="item">Be-have</a>
-        <span class="arrow">/</span>
-
-        <span class="item">Speaking №1</span>
-    </div>
+                <span class="arrow">/</span>
+                <span class="item">{{ breadcrumbs.name }}</span>
+            </div>
+        </div>
+    {% endif %}
 {% endspaceless %}

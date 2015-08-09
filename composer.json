@@ -1,6 +1,7 @@
 {
 "require": {
 "twig/twig": "1.18.*",
-"symfony/yaml": "~2.6"
+"symfony/yaml": "~2.6",
+        "swiftmailer/swiftmailer": "@stable"
 }
 }

@@ -182,7 +182,7 @@
 
                         <div class="item {{ class }}">
                             <a href="{{ route('course.pendulum', id) }}">
-                                <img src="/res/img/pendulum.jpg" class="preview"/>
+                                <img src="/res/img/course/list/pendulum.jpg" class="preview"/>
                                 <div class="text dark">
                                     <div class="caption">Маятник №{{ item.info }}</div>
                                     <div class="description">Be-have</div>
@@ -203,7 +203,7 @@
                         {% endif %}
                         <div class="item {{ class }}">
                             <a href="{{ route('course.trash-mistake', id) }}">
-                                <img src="/res/img/trash.jpg" class="preview"/>
+                                <img src="/res/img/course/list/trash.jpg" class="preview"/>
 
                                 <div class="text dark">
                                     <div class="caption">Trash mistake №{{ item.info }}</div>
@@ -225,7 +225,7 @@
                         {% endif %}
                         <div class="item {{ class }}">
                             <a href="{{ route('course.question-answer', id) }}">
-                                <img src="/res/img/question.jpg" class="preview"/>
+                                <img src="/res/img/course/list/question.jpg" class="preview"/>
                                 <div class="text dark">
                                     <div class="caption">Вопрос ответ №{{ item.info }}</div>
                                     <div class="description">Тест грамматики</div>
@@ -238,29 +238,8 @@
                         </div>
                     {% endfor %}
 
-                    {# Экзамен ---------------------------------------- #}
-                    {% for id, item in courseData.data.exam %}
-                        {% set class = 'locked' %}
-                        {% if item.isInit %}
-                            {% set class = item.isOpen ? '' : 'time' %}
-                        {% endif %}
-                        <div class="item {{ class }}">
-                            <a href="{{ route('course.exam', id) }}">
-                                <img src="/res/img/exam.jpg" class="preview"/>
-                                <div class="text dark">
-                                    <div class="caption">Экзамен на Be-have</div>
-                                    <div class="description">Экзамен</div>
-                                    <div class="info"></div>
-                                </div>
-                                <div class="locked access" title="Доступ закрыт"></div>
-                                <div class="time access" title="Ожидается открытие"></div>
-                            </a>
-                        </div>
-                    {% endfor %}
 
-                </div>
 
-                <div class="course-list">
 
                     <!--{% for name in courseData.data.joke %}
                         <div class="item">
@@ -281,7 +260,7 @@
                         {% endif %}
                         <div class="item {{ class }}">
                             <a href="{{ route('material.card', id) }}">
-                                <img src="/res/img/verb.jpg" class="preview"/>
+                                <img src="/res/img/course/list/verb.jpg" class="preview"/>
                                 <div class="text dark">
                                     <div class="caption">Новые глаголы №{{ item.info }}</div>
                                     <div class="description">Глаголы</div>
@@ -302,7 +281,7 @@
                         {% endif %}
                         <div class="item {{ class }}">
                             <a href="{{ route('course.speaking', id) }}">
-                                <img src="/res/img/speaking.jpg" class="preview"/>
+                                <img src="/res/img/course/list/speaking.jpg" class="preview"/>
                                 <div class="text dark">
                                     <div class="caption">Speaking №{{ item.info }}</div>
                                     <div class="description">Устойчивые выражения</div>
@@ -311,6 +290,47 @@
 
                                 <div class="locked access"></div>
                                 <div class="time access"></div>
+                            </a>
+                        </div>
+                    {% endfor %}
+
+                    {# Устойчивые выражения ---------------------------------------- #}
+                    {% for id, item in courseData.data.check %}
+                        {% set class = 'locked' %}
+                        {% if item.isInit %}
+                            {% set class = item.isOpen ? '' : 'time' %}
+                        {% endif %}
+                        <div class="item {{ class }}">
+                            <a href="{{ route('course.check', id) }}">
+                                <img src="/res/img/course/list/check.jpg" class="preview"/>
+                                <div class="text dark">
+                                    <div class="caption">Speaking №{{ item.info }}</div>
+                                    <div class="description">Устойчивые выражения</div>
+                                    <div class="info"></div>
+                                </div>
+
+                                <div class="locked access"></div>
+                                <div class="time access"></div>
+                            </a>
+                        </div>
+                    {% endfor %}
+
+                    {# Экзамен ---------------------------------------- #}
+                    {% for id, item in courseData.data.exam %}
+                        {% set class = 'locked' %}
+                        {% if item.isInit %}
+                            {% set class = item.isOpen ? '' : 'time' %}
+                        {% endif %}
+                        <div class="item {{ class }}">
+                            <a href="{{ route('course.exam', id) }}">
+                                <img src="/res/img/exam.jpg" class="preview"/>
+                                <div class="text dark">
+                                    <div class="caption">Экзамен на Be-have</div>
+                                    <div class="description">Экзамен</div>
+                                    <div class="info"></div>
+                                </div>
+                                <div class="locked access" title="Доступ закрыт"></div>
+                                <div class="time access" title="Ожидается открытие"></div>
                             </a>
                         </div>
                     {% endfor %}

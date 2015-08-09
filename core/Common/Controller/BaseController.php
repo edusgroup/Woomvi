@@ -26,7 +26,7 @@ class BaseController extends BaseAbstractController
 
     public function preInitCommon($methodName, $matches)
     {
-        $this->initMenuCommon($methodName, $matches);
+        // $this->initMenuCommon($methodName, $matches);
     }
 
     public function preRenderCommon(\Twig_Environment $twig, &$tplName, &$varible)
@@ -35,18 +35,12 @@ class BaseController extends BaseAbstractController
         $varible['isAuth'] = $this->user->isAuth() ? 1 : 0;
     }
 
-    protected function initMenuCommon()
-    {
-
-    }
-
     public function nextLevel($path, $courseName, $type)
     {
         $response = $this->checkRight($type, $courseName);
         if ($response !== null) {
             return $response;
         }
-
 
         /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');

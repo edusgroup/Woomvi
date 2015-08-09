@@ -51,6 +51,8 @@ $item-list-margin-left: 25px;
 
     .box-2{
       opacity: 0;
+      /* IE 8 */
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
       /*background: dodgerblue;*/
     }
 
@@ -58,6 +60,8 @@ $item-list-margin-left: 25px;
       .box-1 {
         top: -$item-box-height;
         opacity: 0;
+        /* IE 8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
       }
 
       .box-2{

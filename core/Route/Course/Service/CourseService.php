@@ -65,19 +65,18 @@ class CourseService
             return [];
         }
 
-        $data = iterator_to_array($data);
-        foreach ($data as &$item) {
-            $item = preg_replace_callback('/\#([^#]+)\#(\d+#)?/', function ($matches) {
+        array_walk($data['list'], function (&$item) {
+            $item['wrongText'] = preg_replace_callback('/\#([^#]+)\#(\d+#)?/', function ($matches) {
                 $input = '<input type="text" name="text" class="select-text" value="' . $matches[1] . '"';
 
                 $size = isset($matches[2]) ? $matches[2] : null;
                 if ($size) {
                     $size = trim($size, '#');
-                    $input .= ' size="'.$size.'" maxlength="'.$size.'"';
+                    $input .= ' size="' . $size . '" maxlength="' . $size . '"';
                 }
                 return $input . '/>';
-            }, $item);
-        }
+            }, $item['wrongText']);
+        });
 
         return $data;
     }
@@ -116,7 +115,7 @@ class CourseService
             return null;
         }
 
-        return iterator_to_array($data);
+        return $data['list'];
     }
 
     public function getOpenCategory($courseData, $openCourse, $courseName)

@@ -48,3 +48,7 @@ class:
   testing.service:
     class: \Site\Route\Course\Service\TestingService
     param: @testing.dao
+
+  email.transport:
+    class: \Site\Common\Classes\EmailTransport
+    param: ['127.0.0.1', 25, @siteRoot, @httpHost, @lang]

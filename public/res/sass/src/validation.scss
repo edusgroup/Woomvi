@@ -40,6 +40,8 @@ $offset-y-error-box: 29px;
       display: inline-block;
       padding: 0 14px;
       border-radius: 6px 6px 0 0;
+      -moz-border-radius: 6px 6px 0 0;
+      -webkit-border-radius: 6px 6px 0 0;
       font-size: 12px;
       height: $offset-y-error-box;
       line-height: $offset-y-error-box;

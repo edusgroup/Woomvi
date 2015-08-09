@@ -15,7 +15,8 @@
   text-align: center;
   border: 1px solid #cdcdcd;
   border-radius: 4px;
-
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
 }
 
 .item-list .item .status{
@@ -30,6 +31,8 @@
 
 .item-list .item:hover .status{
   opacity: 0.1;
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
 }
 
 .item-list .item.show-block-1 .status{
