@@ -11,6 +11,7 @@ class MaterialDao extends Dao
     const TABLE_SITE_GET_ABSTRACT = 'siteGetAbstract';
     const TABLE_SITE_CARD = 'siteCard';
     const TABLE_SITE_SPEAKING = 'siteSpeaking';
+    const TABLE_SITE_CHECK = 'siteTestBlock';
 
     /**
      *
@@ -36,11 +37,11 @@ class MaterialDao extends Dao
      *
      * @param array $choosedCourse
      */
-    public function getAvailableBookList($choosedCourse)
+    public function getAvailableBookList()
     {
-        return $this->driver->table(self::TABLE_SITE_GET_ABSTRACT)->selectAll(
+        return $this->driver->table(self::TABLE_SITE_GET_ABSTRACT)->selectFirst(
             [],
-            ['id' => ['$nin' => $choosedCourse]]
+            ['name' => 'list-of-book']
         );
     }
 
@@ -51,19 +52,51 @@ class MaterialDao extends Dao
      *
      * @return array
      */
-    public function getGetAbstractData($abstractId)
+    public function getBookInfo($abstractId)
     {
-        return $this->driver->table(self::TABLE_SITE_GET_ABSTRACT)->selectFirst([], ['id' => $abstractId]);
+        return $this->driver->table(self::TABLE_SITE_GET_ABSTRACT)->selectFirst(
+            ['list.id.$' => 1],
+            ['list.id' => $abstractId]
+        );
     }
 
-    public function getCardData($cardId)
+    public function getCardData($cardId, $userLevelComplexity)
     {
-        return $this->driver->table(self::TABLE_SITE_CARD)->selectFirst([], ['id' => $cardId]);
+        $level = $this->getLevel($userLevelComplexity);
+        return $this->driver->table(self::TABLE_SITE_CARD)->selectFirst(
+            $level,
+            ['id' => $cardId]
+        );
     }
 
-    public function getSpeakingData($speakingId)
+    public function getCheckList($checkTestId, $userLevelComplexity)
     {
-        return $this->driver->table(self::TABLE_SITE_SPEAKING)->selectFirst([], ['id' => $speakingId]);
+        $level = $this->getLevel($userLevelComplexity);
+        $level['error-count.' . $userLevelComplexity] = true;
+        return $this->driver->table(self::TABLE_SITE_CHECK)->selectFirst(
+            $level,
+            ['id' => $checkTestId]
+        );
     }
 
+    public function getSpeakingData($speakingId, $userLevelComplexity)
+    {
+        $level = $this->getLevel($userLevelComplexity);
+        return $this->driver->table(self::TABLE_SITE_SPEAKING)->selectFirst(
+            $level,
+            ['id' => $speakingId]
+        );
+    }
+
+    private function getLevel($level)
+    {
+        switch ($level) {
+            case 1:
+                return ["list.level-1" => true];
+            case 2:
+                return ["list.level-1" => true, "list.level-2" => true];
+        }
+
+        return [];
+    }
 }

@@ -50,7 +50,16 @@ class CourseDao extends Dao
 
     public function getQuestionList($groupName)
     {
-        return $this->driver->table(self::TABLE_SITE_QUESTION)->selectFirst([], ['group' => $groupName]);
+        $list = $this->driver->table(self::TABLE_SITE_QUESTION)->selectFirst([], ['group' => $groupName]);
+        if (!$list) {
+            return [];
+        }
+
+        return $this->mapping($list['list'], [
+            // '#key' => 'id',
+            'questionText' => 'question',
+            'answerText' => 'answer'
+        ]);
     }
 
     public function getPendulumList($groupName)
@@ -105,7 +114,7 @@ class CourseDao extends Dao
         return $this->driver->table(self::TABLE_SITE_EVENTS)->update($data, ['userId' => $userId]);
     }
 
-    public function chooseBook($bookId, $courseName, $userId)
+    public function setChoosenBook($bookId, $courseName, $userId)
     {
         $data['course.getabstract.' . $courseName . '.name'] = $bookId;
         return $this->driver->table(self::TABLE_SITE_EVENTS)->update(['$set' => $data], ['userId' => $userId]);

@@ -1,24 +1,25 @@
 {% extends "global/index.twig" %}
 
 {% block head %}
-    {#<link href="/res/sass/bin/test-card.css" rel="stylesheet"/>
-    <link href="/res/sass/bin/course/trashMistake.css" rel="stylesheet"/>
-    <link href="/res/bower_package/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet"/>#}
-
     <link href="/res/sass/bin/progress.css" rel="stylesheet"/>
+    <link href="/res/sass/bin/content-slide-box.css" rel="stylesheet"/>
+    <link href="/res/sass/bin/course/trashMistake.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block footer %}
     <script src="/res/js/loadjs.js"></script>
     <script>
         jQuery(document).ready(function(){
-            loadJsList([
-                //'/res/bower_package/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js',
+            var loader = new wumvi.LoadScript([
                 '/res/js/wumvi/Utils.js',
                 '/res/js/ProgressBar.js',
-                '/res/js/course/TrashMistake.js'
-
-            ]);
+                '/res/js/wumvi/ContentSlideBox.js',
+                '/res/js/wumvi/TrashMistake/TrashMistake.js',
+                '/res/js/wumvi/TrashMistake/Form.js',
+                '/res/js/wumvi/TrashMistake/Event.js'
+            ], function(){
+               var trashMistake = new wumvi.TrashMistake();
+            });
         });
     </script>
 {% endblock %}
@@ -38,6 +39,11 @@
                      alt="Как правильно учить граммитку?"/>
             </a>
         </div>
+
+        <div class="header">
+            <a href="" class="back"></a>
+            <img src="/res/img/course/mistake/caption.png"/>
+        </div>
     </div>
 
     <div id="maincontentcontainer">
@@ -45,143 +51,37 @@
 
             {% include 'global/breadcrumbs/breadcrumbs.twig' %}
 
-            <div class="header">
-                <a href="" class="back"></a>
-                <img src="/res/img/course/mistake/caption.png"/>
-            </div>
-
-            <style>
-                .contentBox{
-                    width: 800px;
-                    padding: 50px;
-                    height: 337px;
-                    background: #fff;
-                    margin: 0 auto;
-                    border-radius: 6px;
-
-                    border: 1px solid #dfe6eb;
-
-                    -webkit-box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
-                    -moz-box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
-                    box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
-                    border: 1px solid #cdcdcd;
-
-                }
-
-                #progressRound{
-                    padding: 20px 0;
-                }
-
-                .contentBox .item{
-                    height: 237px;
-                    overflow: hidden;
-                    display: none;
-                    font-size: 20px;
-                    line-height: 26px;;
-                }
-
-                .contentBox .item.show{
-                    display: block;
-                }
-
-                .contentBox .panel-button{
-                    position: absolute;
-                    bottom: 16px;
-                    text-align: center;
-                    width: 100%;
-                    left: 0;
-                }
-
-                .contentBox{
-                    position: relative;
-                }
-
-                .contentBox .panel-button .item-btn{
-                    margin-left: 10px;
-                    text-decoration: none;
-                    color: #5f5e5e;
-                    font-weight: bold;
-                    display: inline-block;
-                }
-
-                .contentBox .panel-button .item-btn:hover{
-                    color: #65a6f7;
-                    margin-bottom: 1px;
-                }
-
-                .contentBox .panel-button .item-btn.answer, .contentBox .panel-button .item-btn.next{
-                    display: none;
-                }
-
-                .contentBox .panel-button.answer .item-btn.answer{
-                    display: inline-block;
-                }
-
-                .contentBox .panel-button.next .item-btn.next{
-                    display: inline-block;
-                }
-
-                .contentBox .item .answer-text, .contentBox .item .right-text{
-                    display: none;
-                }
-
-                .contentBox .item .wrong-text{
-                    text-align: center;
-                    margin-top: 20px;
-                    font-size: 24px;
-                }
-
-                .progress-box .item.wrong{
-                    background: url('/res/img/progress-wrong.png');
-                    border: 0;
-                }
-
-                .progress-box .item.right{
-                    background: url('/res/img/progress-right.png');
-                    border: 0;
-                }
-
-
-            </style>
-
-            <div>
-                <div class="contentBox" id="wumvi-trash-mistake">
-                    {% for key, item in trashMistakeList.list %}
-                        <div class="item item-{{ key }}" data-id="{{ item.id }}" id="item-tm-{{ key }}" data-regexp="{{ item.regexp }}">
-                            <div class="text-box">
-                                <div class="box box-1">
-                                    <div class="question-text">
-                                        {{ item.questionText }}
-                                    </div>
-                                    <div class="wrong-text">
-                                        {{ item.wrongText|raw }}
-                                    </div>
+            <div class="content-slide-box" id="wumvi-trash-mistake">
+                {% for key, item in trashMistakeList.list %}
+                    <div class="item item-{{ key }}" data-id="{{ item.id }}" id="item-tm-{{ key }}" data-regexp="{{ item.regexp }}">
+                        <div class="text-box">
+                            <div class="box box-1">
+                                <div class="question-text">
+                                    {{ item.questionText }}
                                 </div>
-                                <div class="box box-2">
-                                    <div class="answer-text">
-                                        <div class="caption">Ответ</div>
-                                        {{ item.answerText }}
-                                    </div>
-                                    <div class="right-text">
-                                        {{ item.rightText }}
-                                    </div>
+                                <div class="wrong-text">
+                                    {{ item.wrongText|raw }}
                                 </div>
                             </div>
-
-
-
-                            <div class="status"></div>
+                            <div class="box box-2">
+                                <div class="answer-text">
+                                    {{ item.answerText }}
+                                </div>
+                                <div class="right-text">
+                                    {{ item.rightText }}
+                                </div>
+                            </div>
                         </div>
-                    {% endfor %}
-
-                    <div class="panel-button">
-                        <a href="#" class="item-btn answer" id="showAnswer" data-text="Показать вопрос">Показать ответ</a>
-                        <a href="#" class="item-btn check" id="checkAnswer">Проверить</a>
-                        <a href="#" class="item-btn next" id="nextQuestion">Далее</a>
                     </div>
+                {% endfor %}
+
+                <div class="panel-button">
+                    <a href="#" class="item-btn answer" id="showAnswer" data-text="Показать вопрос">Показать ответ</a>
+                    <a href="#" class="item-btn check" id="checkAnswer">Проверить</a>
+                    <a href="#" class="item-btn next" id="nextQuestion">Далее</a>
                 </div>
-                <div class="progress-box" id="progressRound" data-count="{{ trashMistakeList.list|length }}"></div>
             </div>
+            <div class="progress-box" id="progressRound" data-count="{{ trashMistakeList.list|length }}"></div>
 
             <div class="open-next-level-box">
                 <a href="{{ route('course.trash-mistake.nextlevel', trashMistakeName) }}" class="btn">

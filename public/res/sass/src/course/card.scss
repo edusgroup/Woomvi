@@ -1,61 +1,60 @@
-$colorButton: transparent;
-$cardHeight: 180px;
+.content-slide-box{
+  padding: 0;
+  clear: both;
+}
 
-.item-list {
-  .item {
+.content-slide-box .word-list-box{
+  width: 200px;
+  border-right: 1px solid #cdcdcd;
+  height: inherit;
+  float: left;
+  /* overflow-y: scroll; */
+}
 
-    .item-btn.hide{
-      background-color: $colorButton;
-    }
+.content-slide-box .word-list-box{
+  padding: 10px 0;
+  overflow: auto;
+}
 
-    .item-btn.translate{
-      display: none;
-      background-color: $colorButton;
-    }
+.content-slide-box .word-list-box li{
+  padding: 3px 10px;
+}
 
-    .card-box {
-      height: $cardHeight;
-    }
+.content-slide-box .word-list-box li{
+  cursor: pointer;
 
-    .box-3{
-      opacity: 0;
-      /* IE 8 */
-      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-      position: relative;
-      top: 0;
+}
 
-      img{
-        height: $cardHeight;
-      }
-    }
+.content-slide-box .word-list-box li:hover, .content-slide-box .word-list-box li.select{
+  background: #f4f7f9;
+}
 
-    &.show-hide {
-      .box-2 {
-        display: none;
-      }
-      .box-1 {
-        top: -$cardHeight;
-        opacity: 0;
-        /* IE 8 */
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-      }
+.word-card-box{
+  width: 598px;
+  height: 335px;
+  float: right;
+  position: relative;
+  padding: 10px 20px;
+}
 
-      .box-3{
-        top: -$cardHeight;
-        opacity: 1;
-        position: relative;
+.card-box .name{
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 
-        line-height: $cardHeight;
-        text-align: center;
-        font-size: 50px;
+.content-slide-box .panel-button .item-btn.next{
+  visibility: visible;
+}
 
-        img{
-          position: absolute;
-          left: 0;
-          top: 0;
-        }
-      }
+.item-card .card-box .translate-card{
+  display: none;
+}
 
-    }
-  }
+.item-card.translate-mode .card-box .translate-card{
+  display: block;
+}
+
+.item-card.translate-mode .card-box .main-card{
+  display: none;
 }

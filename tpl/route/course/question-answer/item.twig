@@ -1,17 +1,23 @@
 {% extends "global/index.twig" %}
 
 {% block head %}
-    <link href="/res/sass/bin/test-card.css" rel="stylesheet"/>
-    <link href="/res/bower_package/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet"/>
+    <link href="/res/sass/bin/progress.css" rel="stylesheet"/>
+    <link href="/res/sass/bin/content-slide-box.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block footer %}
     <script src="/res/js/loadjs.js"></script>
     <script>
-        loadJsList([
-            '/res/bower_package/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js',
-            '/res/js/course/CourseTesting.js'
-        ]);
+        jQuery(document).ready(function(){
+            var loader = new wumvi.LoadScript([
+                '/res/js/ProgressBar.js',
+                '/res/js/wumvi/ContentSlideBox.js',
+                '/res/js/wumvi/QuestionAnswer/QuestionAnswer.js',
+                '/res/js/wumvi/QuestionAnswer/Form.js'
+            ], function(){
+                var questionAnswer = new wumvi.QuestionAnswer();
+            });
+        });
     </script>
 {% endblock %}
 
@@ -31,57 +37,70 @@
         </div>
     </div>
 
+    <div class="header">
+        <img src="/res/img/course/question/caption.png"/>
+    </div>
+
 
     <div id="maincontentcontainer">
         <div id="maincontent" class="container">
 
+                <style>
 
-            <div id="wumvi-question-answer" class="test-box">
-                <div class="header">
-                    <img src="/res/img/course/question/caption.png"/>
-                </div>
+                    .item .box-1{
+                        display: table;
+                        width: 100%;
+                        height: inherit;
+                    }
+
+                    .item .box-1 .question-text{
+                        display: table-cell;
+                        vertical-align: middle;
+                        height: inherit;
+                    }
+
+                    .question-text{
+                        text-align: center;
+                        line-height: 50px;
+                        font-size: 40px;
+                    }
+
+                    .content-slide-box .panel-button .item-btn.next, .content-slide-box .panel-button .item-btn.answer{
+                        visibility: visible;
+                    }
+                </style>
 
 
-                <div class="item-list">
-                    {% for item in questionList.list %}
-                        <div class="item" data-id="{{ item._id }}">
-                            <div class="text-box">
-                                <div class="box box-1">
-                                    <div class="question-text">
-                                        {{ item.questionText }}
-                                    </div>
-                                    <div class="wrong-text">
-                                        {{ item.wrongText|raw }}
-                                    </div>
-                                </div>
-                                <div class="box box-2">
-                                    <div class="answer-text">
-                                        <div class="caption">Ответ</div>
-                                        {{ item.answerText }}
-                                    </div>
-                                    <div class="right-text">
-                                        {{ item.rightText }}
-                                    </div>
+                <div class="content-slide-box" id="question-answer-box">
+                    {% for item in questionList %}
+                        <div class="item">
+                            <div class="box box-1">
+                                <div class="question-text">
+                                    {{ item.question|raw }}
                                 </div>
                             </div>
-
-                            <div class="panel-button">
-                                <a href="#" class="item-btn answer" data-text="Показать вопрос">Показать ответ</a>
+                            <div class="box box-2">
+                                <div class="answer-text">
+                                    {{ item.answer|raw }}
+                                </div>
                             </div>
-
-                            <div class="status"></div>
                         </div>
                     {% endfor %}
-                </div>
 
+                    <div class="panel-button">
+                        <a href="#" class="item-btn answer" id="showAnswer" data-text="Показать вопрос">Показать ответ</a>
+                        <a href="#" class="item-btn check" id="soundExample">Озвучить</a>
+                        <a href="#" class="item-btn next" id="nextQuestion">Далее</a>
+                    </div>
+                </div>
+                <div class="progress-box" id="progressRound" data-count="{{ questionList.length }}"></div>
 
                 <div class="next-level-box">
-                    <a href="{{ route('course.trash-mistake.nextlevel', questionName) }}" class="btn">
+                    <a href="{{ route('course.question-answer.nextlevel', questionName) }}" class="btn">
                         Я прошёл все тесты. Открыть следующий курс
                     </a>
                 </div>
 
-            </div>
         </div>
     </div>
 {% endblock %}

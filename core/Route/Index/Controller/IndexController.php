@@ -17,4 +17,11 @@ class IndexController extends \Site\Common\Controller\BaseController
     {
 
     }
+
+    public function errorAction()
+    {
+        $request = new RequestHttp();
+        $num = $request->getVar('n');
+        return new Html('global/error-page.twig', ['errorNum' => $num], $this);
+    }
 }

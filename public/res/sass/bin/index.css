@@ -103,7 +103,7 @@ h2 {
   -webkit-border-radius: 4px;
   text-decoration: none; }
 
-#maincontent .header {
+#slider .small-banner {
   text-align: center;
   margin-bottom: 20px;
   position: relative; }
@@ -212,7 +212,7 @@ h2 {
   border-radius: 12px;
   border: 1px solid #dfe6eb;
   opacity: 0.5;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; }
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; }
   .fixed-info-panel:hover {
     opacity: 1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)"; }

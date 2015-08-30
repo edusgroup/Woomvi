@@ -1,33 +1,35 @@
+"use strict";
+/* global ProgressRound */
 /**
  *  **************** PENDULUM **********************************************************
  */
-window.wumvi = window.wumvi || {};
+var wumvi = wumvi || {};
 
 wumvi.Pendulum = function () {
 
-    this.$pendulumBox = jQuery('#wumvi-pendulum');
+    this.$pendulumBox = jQuery("#wumvi-pendulum");
 
     // Кнопка старта
-    this.$startPageBtn = this.$pendulumBox.find('.start-page-btn:first');
+    this.$startPageBtn = this.$pendulumBox.find(".start-page-btn:first");
 
     // Первый экран
-    this.$startPageBox = jQuery('#wumvi-pendulum-start-screen');
+    this.$startPageBox = jQuery("#wumvi-pendulum-start-screen");
 
     // Экран тестирования
-    this.$testingBox = jQuery('#wumvi-pendulum-testing');
-    this.$questionBox = this.$testingBox.find('.questionBox')
+    this.$testingBox = jQuery("#wumvi-pendulum-testing");
+    this.$questionBox = this.$testingBox.find(".questionBox");
 
     this.showQuestionBox = false;
     this.textNum = 0;
 
-    this.progressSquare = new ProgressRound('#progressSquare', {});
-    this.progressRound = new ProgressRound('#progressRound', {});
+    this.progressSquare = new ProgressRound("#progressSquare", {});
+    this.progressRound = new ProgressRound("#progressRound", {});
 
-    this.QUESTION_CLASS = 'question-type';
-    this.ANSWER_CLASS = 'answer-type';
-    this.CAKE_CLASS = 'cake-type';
+    this.QUESTION_CLASS = "question-type";
+    this.ANSWER_CLASS = "answer-type";
+    //this.CAKE_CLASS = "cake-type";
 
-    this.countDown = 0;
+    //this.countDown = 0;
     this.intervalHandle = null;
 
     this.init_();
@@ -49,13 +51,13 @@ wumvi.Pendulum.prototype.initEvent_ = function(){
 
 wumvi.Pendulum.prototype.onTimer = function() {
     var that = this;
-    if (this.textNum == wumvi.storage.pendulumList.length) {
+    if (this.textNum === wumvi.storage.pendulumList.length) {
         this.$testingBox.removeClass(this.QUESTION_CLASS);
-        clearInterval(this.intervalHandle)
-        //$questionBox.removeClass('block text').addClass('hide');
+        clearInterval(this.intervalHandle);
+        //$questionBox.removeClass("block text").addClass("hide");
         //$testingBox.hide();
-        //$endBox.css({'display': 'table'});
-        //$startPageBtn.html($startPageBtn.data('text2'));
+        //$endBox.css({"display": "table"});
+        //$startPageBtn.html($startPageBtn.data("text2"));
         //
         //setTimeout(function () {
         //    $endBox.hide();
@@ -68,14 +70,14 @@ wumvi.Pendulum.prototype.onTimer = function() {
     var time;
     // Если true, значит показываем текст вопроса
     if (this.showQuestionBox) {
-        clearInterval(this.intervalHandle)
+        clearInterval(this.intervalHandle);
         that.progressSquare.next();
 
-        var text = '“' + wumvi.storage.pendulumList[this.textNum]['questionText'] + '”';
+        var text = "“" + wumvi.storage.pendulumList[this.textNum].questionText + "”";
 
-        this.$questionBox.find('.text').html(text);
+        this.$questionBox.find(".text").html(text);
         this.$testingBox.addClass(this.QUESTION_CLASS).removeClass(this.ANSWER_CLASS);
-        time = wumvi.storage.pendulumList[this.textNum]['timeBegin'];
+        time = wumvi.storage.pendulumList[this.textNum].timeBegin;
 
         setTimeout(function(){
             that.onTimer();
@@ -85,15 +87,15 @@ wumvi.Pendulum.prototype.onTimer = function() {
     } else {
         this.$testingBox.removeClass(this.QUESTION_CLASS).addClass(this.ANSWER_CLASS);
 
-        time = wumvi.storage.pendulumList[this.textNum]['timeEnd'];
+        time = wumvi.storage.pendulumList[this.textNum].timeEnd;
 
         setTimeout(function(){
             that.progressRound.next();
             setTimeout(function(){
-                that.onTimer()
+                that.onTimer();
             }, 100);
         }, time * 1000);
-        this.textNum++;
+        this.textNum += 1;
 
         this.progressRound.setPosition(0);
 
@@ -101,8 +103,6 @@ wumvi.Pendulum.prototype.onTimer = function() {
             that.progressRound.next();
         }, 1000);
     }
-
-
 
     this.showQuestionBox = !this.showQuestionBox;
 };
@@ -114,12 +114,10 @@ wumvi.Pendulum.prototype.onTimer = function() {
 */
 wumvi.Pendulum.prototype.onStartPageBtnClick = function() {
     // Скрываем начальный блок
-    this.$startPageBox.addClass('hide');
-    this.$testingBox.removeClass('hide').addClass();
+    this.$startPageBox.addClass("hide");
+    this.$testingBox.removeClass("hide").addClass();
 
     this.showQuestionBox = true;
     this.onTimer();
     return false;
 };
-
-new wumvi.Pendulum();

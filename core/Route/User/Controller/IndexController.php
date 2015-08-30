@@ -51,16 +51,21 @@ class IndexController extends BaseController
         echo '<br/>userExit';
     }
 
-    public function loginAction()
+    public function loginFormAction()
     {
         $request = new RequestHttp();
         $fromUrl = $request->get('_from');
+
+        if ($this->user->isAuth()) {
+            $url = $this->getRoutePath('user.kabinet');
+            return $this->redirectToUrl($url);
+        }
 
         if (substr($fromUrl, 0, 4) == 'http' && !preg_match('#^https?://wumvi\.(com|lo|ru)/#si', $fromUrl)) {
             $fromUrl = '';
         }
 
-        $param['fromUrl'] = $fromUrl;
+        $params['fromUrl'] = $fromUrl;
         unset($fromUrl);
 
         $confirmKey = trim($request->get('key'));
@@ -68,7 +73,11 @@ class IndexController extends BaseController
 
         }
 
-        return new Html('global/user/login.twig', $param, $this);
+        $uniqId = md5(uniqid());
+        $this->setSession(OAuthController::OAUTH_SESSION_NAME, $uniqId);
+        $params['oauthId'] = $uniqId;
+
+        return new Html('global/user/login.twig', $params, $this);
     }
 
     public function registrationAjaxAction()
@@ -116,8 +125,8 @@ class IndexController extends BaseController
 
     public function registrationAction()
     {
-        $param[''] = '';
-        return new Html('global/user/registration.twig', $param, $this);
+        $params[''] = '';
+        return new Html('global/user/registration.twig', $params, $this);
     }
 
     public function forgotpwdAction()

@@ -2,9 +2,14 @@
 
 namespace Site\Route\Course\Service;
 
+use Flame\Classes\Model\Collection;
+use Site\Route\Course\Dao\CourseDao;
+use Site\Route\Course\Model\QuestionAnswer;
+
 class CourseService
 {
     private $courseDao;
+    private $materialService;
 
     const GRAMMAR = 'grammar';
     const PENDULUM = 'pendulum';
@@ -15,13 +20,15 @@ class CourseService
     const CARD = 'verbs';
     const SPEAKING = 'speaking';
     const EXAM = 'exam';
+    const CHECK = 'check';
 
     /**
-     * @param \Site\Route\Course\Dao\CourseDao $courseDao
+     * @param CourseDao $courseDao
      */
-    public function __construct($courseDao)
+    public function __construct(CourseDao $courseDao, MaterialService $materialService)
     {
         $this->courseDao = $courseDao;
+        $this->materialService = $materialService;
     }
 
     /*public function getCategoryNum($categoryUrl)
@@ -104,7 +111,7 @@ class CourseService
             return null;
         }
 
-        return $data;
+        return new Collection($data, new QuestionAnswer());
     }
 
     public function getPendulumList($groupName)
@@ -133,9 +140,11 @@ class CourseService
 
         if (isset($openCourse[self::GET_ABSTRACT][$courseName])) {
             $blockName = $openCourse[self::GET_ABSTRACT][$courseName]['name'];
+            /*$bookInfo = $this->materialService->getBookInfo($blockName);*/
+
             $courseData['data'][self::GET_ABSTRACT] = [
                 $blockName => [
-                    'name' => ';askldjf;sld'
+                    'name' => 'none' // $bookInfo['title']
                 ]
             ];
         }
@@ -233,8 +242,8 @@ class CourseService
         return true;
     }
 
-    public function chooseBook($bookId, $courseName, $userId)
+    public function setChoosenBook($bookId, $courseName, $userId)
     {
-        $this->courseDao->chooseBook($bookId, $courseName, $userId);
+        $this->courseDao->setChoosenBook($bookId, $courseName, $userId);
     }
 }

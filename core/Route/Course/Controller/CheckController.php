@@ -6,6 +6,7 @@ use Flame\Classes\Di\Exception\DiException;
 use Flame\Classes\Http\Response\Html;
 use Site\Common\Controller\BaseController;
 use Site\Route\Course\Service\CourseService;
+use Site\Route\Course\Service\MaterialService;
 
 class CheckController extends BaseController
 {
@@ -20,17 +21,24 @@ class CheckController extends BaseController
      */
     public function indexAction($path, $itemName)
     {
-        $response = $this->checkRight(CourseService::CARD, $itemName);
+        $response = $this->checkRight(CourseService::CHECK, $itemName);
         if ($response !== null) {
             return $response;
         }
 
-        /** @var \Site\Route\Course\Service\MaterialService $materialService */
+        /** @var MaterialService $materialService */
         $materialService = $this->fabric('material.service');
 
-        $params[''] = '';
+        $userLevelComplexity = $this->user->getLevelOfComplexity();
+        $data = $materialService->getCheckList($itemName, $userLevelComplexity);
+        $checkList = $data['list'];
+        $this->ifNullInvokeError4xx($checkList, 'Card ' . htmlspecialchars($itemName) . ' not found');
 
-        return new Html('route/course/card/content.twig', $params, $this);
+        $params['checkList'] = $checkList;
+        $params['errorCount'] = $data['error-count'];
+        unset($checkList);
+
+        return new Html('route/course/check/content.twig', $params, $this);
     }
 
     public function nextLevelAction($path, $courseName)

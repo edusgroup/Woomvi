@@ -1,12 +1,15 @@
 {% extends "global/index.twig" %}
 
 {% block footer %}
+    <script src="/res/js/loadjs.js"></script>
     <script>
         jQuery(document).ready(function(){
-            loadJsList([
+            var loader = new wumvi.LoadScript([
                 '/res/js/ProgressBar.js',
-                '/res/js/course/Pendulum.js'
-            ]);
+                '/res/js/wumvi/Pendulum/Pendulum.js'
+            ], function(){
+                var pendulum = new wumvi.Pendulum();
+            });
         });
     </script>
 {% endblock %}

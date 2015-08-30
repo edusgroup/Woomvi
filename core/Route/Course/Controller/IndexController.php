@@ -66,6 +66,7 @@ class IndexController extends BaseController
             $openCourse = $data['openCourse'];
             unset($data);
             $params['courseName'] = $courseName;
+            $params['courseLevelOpened'] = $this->user->getCourseLevelOpened();
         } else {
             $openCourse[CourseService::GET_ABSTRACT] = [];
             $params['isDemoMode'] = true;
@@ -98,17 +99,26 @@ class IndexController extends BaseController
             return $this->redirectToUrl($urlCourse);
         }
 
-        //if (isset($openCourse[CourseService::GET_ABSTRACT][$courseName]['name'])) {
-        //    return $this->redirectToUrl($urlCourse);
-        //}
+        $request = new RequestHttp();
+        $bookId = $request->get('book-id');
+
+        // @todo Удалить этот код, когда книги будут готовы. Так же удалить из шаблона проверку.
+        // И сделать доступными все книги
+        // Временный хак, пока книги не доделаю. Такая же проверка стоит в шаблоне
+        // Для первого уровня доступна только одна книга.
+        if ($this->user->getCourseLevelOpened() == 1 and $bookId != 'eat-that-frog') {
+            return $this->redirectToUrl($urlCourse);
+        }
+
+        // Проверяем, а книжка то выбрана или нет.
+        if (isset($openCourse[CourseService::GET_ABSTRACT][$courseName]['name'])) {
+            return $this->redirectToUrl($urlCourse);
+        }
 
         /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');
-
-        $request = new RequestHttp();
-        $bookId = $request->get('book-id');
         if ($bookId) {
-            $courseService->chooseBook($bookId, $courseName, $this->user->getId());
+            $courseService->setChoosenBook($bookId, $courseName, $this->user->getId());
         }
 
         return $this->redirectToUrl($urlCourse);

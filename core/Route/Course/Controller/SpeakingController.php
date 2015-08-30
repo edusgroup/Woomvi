@@ -25,13 +25,17 @@ class SpeakingController extends BaseController
         /** @var \Site\Route\Course\Service\MaterialService $materialService */
         $materialService = $this->fabric('material.service');
 
-        $cardList = $materialService->getSpeakingData($itemName);
+        $userLevelComplexity = $this->user->getLevelOfComplexity();
+
+        $cardList = $materialService->getSpeakingData($itemName, $userLevelComplexity);
         $this->ifNullInvokeError4xx($cardList, 'Speaking ' . htmlspecialchars($itemName) . ' not found');
 
-        $vars['speakingList'] = $cardList;
+        $params['speakingList'] = $cardList;
         unset($cardList);
 
-        return new Html('route/course/speaking/item.twig', $vars, $this);
+        $params['itemName'] = $itemName;
+
+        return new Html('route/course/speaking/item.twig', $params, $this);
     }
 
     public function nextLevelAction($path, $courseName)

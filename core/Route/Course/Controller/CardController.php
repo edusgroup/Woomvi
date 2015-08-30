@@ -27,7 +27,9 @@ class CardController extends BaseController
         /** @var \Site\Route\Course\Service\MaterialService $materialService */
         $materialService = $this->fabric('material.service');
 
-        $cardList = $materialService->getCardData($itemName);
+        $userLevelComplexity = $this->user->getLevelOfComplexity();
+
+        $cardList = $materialService->getCardData($itemName, $userLevelComplexity);
         $this->ifNullInvokeError4xx($cardList, 'Card ' . htmlspecialchars($itemName) . ' not found');
 
         $params['cardList'] = $cardList;

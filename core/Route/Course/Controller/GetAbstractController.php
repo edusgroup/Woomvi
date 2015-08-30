@@ -38,13 +38,16 @@ class GetAbstractController extends BaseController
         /** @var MaterialService $materialService */
         $materialService = $this->fabric('material.service');
 
-        $params['abstractData'] = $materialService->getGetAbstractData($itemName);
+        $params['abstractData'] = $materialService->getBookInfo($itemName);
         $this->ifNullInvokeError4xx(
             $params['abstractData'],
             'AbstractData ' . htmlspecialchars($itemName) . ' not found'
         );
 
         $params['abstractName'] = $itemName;
+
+        $filename = 'book/' . $itemName . '/book-lvl' . $this->user->getLevelOfComplexity() . '.html';
+        $params['contentFile'] = $this->getFileFormData($filename);
 
         return new Html('route/course/getAbstract/item.twig', $params, $this);
     }

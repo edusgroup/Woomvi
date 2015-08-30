@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Блок управления прогресс дискретным прогресс баром
  * @param {string} objId ID DOM объета для jQuery
@@ -10,28 +11,32 @@ var ProgressRound = function(objId, options) {
     };
     jQuery.extend(this.options, options);
 
+    /**
+     * Прогресс бар
+     * @type {!jQuery}
+     */
     this.$progressBox = jQuery(objId);
 
-    if (this.options.count == 0) {
-        this.options.count = parseInt(this.$progressBox.data('count'));
+    if (this.options.count === 0) {
+        this.options.count = parseInt(this.$progressBox.data("count"));
     }
 
-    if (this.$progressBox.length == 0) {
-        throw Error('Object ' + objId + ' not found');
+    if (this.$progressBox.length === 0) {
+        throw Error("Object " + objId + " not found");
     }
 
     this.current = 0;
 
     /** @var {string} Класс, когда структура уже пройдена */
-    this.CLASS_DONE = 'progress_done';
+    this.CLASS_DONE = "progress_done";
     /** @var {string} Класс, когда структура уже текущая */
-    this.CLASS_CURRENT = 'progress_current';
+    this.CLASS_CURRENT = "progress_current";
     /** @var {string} Класс, когда структура еще не пройдена */
-    this.CLASS_NONE = 'progress_none';
+    this.CLASS_NONE = "progress_none";
 
-    this.CLASS_ITEM_BOX = 'item';
+    this.CLASS_ITEM_BOX = "item";
 
-    this.ID_ITEM_PROGRESS = 'item-progress-';
+    this.ID_ITEM_PROGRESS = "item-progress-";
 
     this.init_();
 };
@@ -41,11 +46,11 @@ ProgressRound.prototype.initEvent_ = function(){
 };
 
 ProgressRound.prototype.hide = function(){
-    this.$progressBox.addClass('hide');
+    this.$progressBox.addClass("hide");
 };
 
 ProgressRound.prototype.show = function(){
-    this.$progressBox.removeClass('hide');
+    this.$progressBox.removeClass("hide");
 };
 
 ProgressRound.prototype.setTypeDone = function(num) {
@@ -54,26 +59,26 @@ ProgressRound.prototype.setTypeDone = function(num) {
 };
 
 ProgressRound.prototype.rebuild = function(count) {
-    if (count == 0) {
-        throw Error('Count of object must be more zero');
+    if (count === 0) {
+        throw Error("Count of object must be more zero");
     }
 
-    this.$progressBox.html('');
+    this.$progressBox.html("");
 
     this.options.count = count;
 
-    for (var i = 0; i < count; i++) {
-        var div = document.createElement('div');
-        div.className = this.CLASS_ITEM_BOX + ' ' + this.CLASS_ITEM_BOX + '-' + i;
-        div.setAttribute('data-num', i);
-        div.setAttribute('id', this.ID_ITEM_PROGRESS + i);
+    for (var i = 0; i < count; i += 1) {
+        var div = document.createElement("div");
+        div.className = this.CLASS_ITEM_BOX + " " + this.CLASS_ITEM_BOX + "-" + i;
+        div.setAttribute("data-num", i);
+        div.setAttribute("id", this.ID_ITEM_PROGRESS + i);
         this.$progressBox.append(div);
     }
 
     // Получаем список структур
-    this.$roundList = this.$progressBox.find('.' + this.CLASS_ITEM_BOX);
-    this.$roundList.first().addClass('begin');
-    this.$roundList.last().addClass('end');
+    this.$roundList = this.$progressBox.find("." + this.CLASS_ITEM_BOX);
+    this.$roundList.first().addClass("begin");
+    this.$roundList.last().addClass("end");
 
     this.$roundList.addClass(this.CLASS_NONE);
     this.setTypeCurrent(0);
@@ -101,7 +106,7 @@ ProgressRound.prototype.setTypeCurrent = function(num) {
  */
 ProgressRound.prototype.next = function() {
     this.setTypeDone(this.current);
-    this.current++;
+    this.current += 1;
     this.setTypeCurrent(this.current);
 };
 
@@ -112,7 +117,7 @@ ProgressRound.prototype.next = function() {
  */
 ProgressRound.prototype.setPosition = function(num) {
     this.clear();
-    for (var i = 0; i < num - 1; i++) {
+    for (var i = 0; i < num - 1; i += 1) {
         this.$roundList.eq(i).addClass(this.CLASS_DONE).removeClass(this.CLASS_NONE);
     }
 

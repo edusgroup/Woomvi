@@ -3,19 +3,22 @@
 {% extends "global/index.twig" %}
 
 {% block head %}
-    <link href="/res/bower_package/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet"/>
-    <link href="/res/sass/bin/test-card.css" rel="stylesheet"/>
+    <link href="/res/sass/bin/content-slide-box.css" rel="stylesheet"/>
     <link href="/res/sass/bin/course/card.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block footer %}
     <script src="/res/js/loadjs.js"></script>
     <script>
-        loadJsList([
-            '/res/bower_package/jplayer/dist/jplayer/jquery.jplayer.js',
-            '/res/bower_package/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js',
-            '/res/js/course/Card.js'
-        ]);
+        jQuery(document).ready(function(){
+            var loader = new wumvi.LoadScript([
+                '/res/bower_package/jplayer/dist/jplayer/jquery.jplayer.js',
+                '/res/js/wumvi/ContentSlideBox.js',
+                '/res/js/wumvi/Speaking/Speaking.js',
+            ], function(){
+                var speaking = new wumvi.Speaking();
+            });
+        });
     </script>
 {% endblock %}
 
@@ -23,15 +26,27 @@
     {% spaceless %}
 
         <style>
-            .item-list .item.show-hide .box-3{
-                line-height: 220px;
-                text-align: center;
-                font-size: 50px;
+            .content-slide-box .item{
+                font-size: 16px;
+                line-height: 22px;
             }
 
+            .content-slide-box .item .description{
 
+                margin-bottom: 10px;
+            }
 
+            .content-slide-box .item .caption{
+                font-size: 18px;
+                line-height: 24px;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
 
+            .content-slide-box .item{
+                height: 291px;
+                overflow: auto;
+            }
         </style>
 
         <div id="maincontentcontainer">
@@ -39,50 +54,49 @@
 
                 {% include 'global/breadcrumbs/breadcrumbs.twig' %}
 
-                <div class="item-list">
-                    {% for num, item in speakingList.list %}
-                        <div class="item show-hide" data-num="{{ num }}" data-url="/mp3/">
-                            <div class="text-box">
-                                <div class="box box-1">
-                                    <div class="question-text">
-                                        <div class="caption">Описание</div>
-                                        {{ item.description }}
-                                    </div>
-                                </div>
-                                <div class="box box-2">
-                                    <div class="answer-text">
-                                        <div class="caption">{{ item.title }}</div>
-                                        <ul>
-                                            {% for eng, trans in item.sample %}
-                                                <li>
-                                                    <span class="eng">{{ eng }}</span>
-                                                    -
-                                                    <span class="trans">{{ trans }}</span>
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="box box-3">
-                                    <div class="card-box">
-                                        {{ item.title }}
-                                    </div>
-                                </div>
+                {% set resurl = resurl('/res/sound/speaking/' ~ itemName ~ '/%name.%ext', 'snd') %}
+                <div class="content-slide-box" id="wumvi-card-box" data-resurl="{{ resurl }}">
+                    <div class="word-list-box">
+                        <ul>
+                            {% for cardKey, cardItem in speakingList %}
+                                <li data-id="{{ cardKey }}">{{ cardItem.title }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="word-card-box">
+                        {% for cardKey, cardItem in speakingList %}
+                            <div class="item item-card" data-id="{{ cardKey }}" id="speaking-{{ cardKey }}">
+                                <div class="caption">{{ cardItem.title }}</div>
+                                <div class="description">{{ cardItem.description }}</div>
+                                <ul>
+                                    {% for eng, trans in cardItem.sample %}
+                                        <li>
+                                            <span class="eng">{{ eng }}</span>
+                                            -
+                                            <span class="trans">{{ trans }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
                             </div>
+                        {% endfor %}
 
-                            <div class="panel-button">
-
-                                <a href="#" class="item-btn play">Воспроизвести</a>
-                                <a href="#" class="item-btn translate" data-text="Показать англ.">Показать перевод</a>
-                                <a href="#" class="item-btn hide" data-text="Скрыть">Показать</a>
-                            </div>
-
-                            <div class="status"></div>
+                        <div class="panel-button">
+                            <a href="#" class="item-btn">&nbsp;</a>
+                            <a href="#" class="item-btn check" id="playSound">Озвучить</a>
+                            <a href="#" class="item-btn">&nbsp;</a>
                         </div>
-                    {% endfor %}
+                    </div>
+                </div>
+
+                <div class="open-next-level-box">
+                    <a href="{{ route('course.trash-mistake.nextlevel', trashMistakeName) }}" class="btn">
+                        Я прошёл все тесты. Открыть следующий курс
+                    </a>
                 </div>
 
             </div>
         </div>
+
+        <div id="player-box"></div>
     {% endspaceless %}
 {% endblock %}

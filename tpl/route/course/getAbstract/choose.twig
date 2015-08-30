@@ -74,10 +74,20 @@
             text-shadow: 1px 1px 1px rgba(23, 123, 0, 1);
         }
 
-        .demoMode .notice{
-            font-weight: bold;
+
+        .warning-box {
+            margin: 30px 0;
+            padding: 12px;
             text-align: center;
-            margin-bottom: 10px;
+        }
+
+        .warning-box.warning{
+            color: #9F6000;
+            background-color: #FEEFB3;
+        }
+
+        .warning-box.warning a, .warning-box.warning a.active{
+            color: #9F6000;
         }
 
     </style>
@@ -96,6 +106,13 @@
             {% include 'global/breadcrumbs/breadcrumbs.twig' %}
 
             <h1 class="main-caption">Книги начального уровня</h1>
+
+            {% if isDemoMode %}
+                <div class="warning-box warning">
+                    Чтобы посмотреть книгу, необходимо
+                    <a href="{{ route('user.login') }}?_from={{ documentUrl }}">авторизоваться</a>
+                </div>
+            {% endif %}
 
             <div class="row">
                 {% for key, book in bookList %}
@@ -118,8 +135,10 @@
                                     </div>
                                     <div>
                                         {% if isDemoMode %}
-                                            <div class="notice">Чтобы посмотреть книгу, необходимо авторизоваться</div>
                                             <a href="{{ route('user.login') }}?_from={{ documentUrl }}" class="btn">Авторизоваться</a>
+                                        {# Костыль, пока другие книги не будут доделаны #}
+                                        {% elseif courseLevelOpened == 1 and book.id != 'eat-that-frog' %}
+                                            <div style="text-align: center; font-weight: bold">Книга доступна с второго урока</div>
                                         {% else %}
                                             <a href="{{ route('course.choose.book.logic', courseName ) }}?book-id={{ book.id }}" class="btn">Выбрать</a>
                                         {% endif %}

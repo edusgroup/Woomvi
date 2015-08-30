@@ -1,6 +1,7 @@
 index:
   controller: \Site\Route\Index\Controller\IndexController::indexAction
   regexp:
+
 main.article:
   controller: \Site\Route\MainArticle\Controller\IndexController::indexAction
   regexp: /main/{itemName}/
@@ -190,8 +191,24 @@ teacher.info:
   vars:
     teacherId: @teacherId
 
+user.oauth.mailru:
+  controller: \Site\Route\User\Controller\OAuthController::mailruAction
+  regexp: /login/oauth20/mailru/{oauthId}/
+  vars:
+    oauthId: (\w+)
+
+user.oauth.vk:
+  controller: \Site\Route\User\Controller\OAuthController::vkAction
+  regexp: /login/oauth20/vk/{oauthId}/
+  vars:
+    oauthId: (\w+)
+
+user.oauth.yandex:
+  controller: \Site\Route\User\Controller\OAuthController::yandexAction
+  regexp: /login/oauth20/yandex/
+
 user.login:
-  controller: \Site\Route\User\Controller\IndexController::loginAction
+  controller: \Site\Route\User\Controller\IndexController::loginFormAction
   regexp: /user/login/$
 
 user.exit:
@@ -221,3 +238,7 @@ user.forgot-pwd:
 test:
   controller: \Site\Route\Test\Controller\IndexController::indexAction
   regexp: /test/
+
+error-page:
+  controller: \Site\Route\Index\Controller\IndexController::errorAction
+  regexp: /error/

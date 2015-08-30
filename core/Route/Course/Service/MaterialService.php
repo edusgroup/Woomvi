@@ -2,7 +2,12 @@
 
 namespace Site\Route\Course\Service;
 
+use Flame\Classes\Model\Collection;
+use Flame\Classes\Utils\ArrayHelp;
 use Site\Route\Course\Dao\MaterialDao;
+use Site\Route\Course\Model\Card;
+use Site\Route\Course\Model\CheckTest;
+use Site\Route\Course\Model\Speaking;
 
 class MaterialService
 {
@@ -43,20 +48,9 @@ class MaterialService
         return $data['list'];
     }
 
-    public function getGetAbstractData($absctractId)
+    public function getBookInfo($absctractId)
     {
-        $data = $this->materialDao->getGetAbstractData($absctractId);
-        if (!$data) {
-            return [];
-        }
-
-        return $data;
-    }
-
-    public function getCardData($groupName)
-    {
-        /** @var \MongoCursor $data */
-        $data = $this->materialDao->getCardData($groupName);
+        $data = $this->materialDao->getBookInfo($absctractId);
         if (!$data) {
             return [];
         }
@@ -78,22 +72,63 @@ class MaterialService
             $choosedCourse[] = $item['name'];
         }
 
-        $data = $this->materialDao->getAvailableBookList($choosedCourse);
+        $data = $this->materialDao->getAvailableBookList();
         if (!$data) {
             return [];
         }
 
-        return iterator_to_array($data);
-    }
-
-    public function getSpeakingData($speakingId)
-    {
-        /** @var \MongoCursor $data */
-        $data = $this->materialDao->getSpeakingData($speakingId);
-        if (!$data) {
-            return [];
-        }
+        $data = array_filter($data['list'], function ($item) use ($choosedCourse) {
+            return !in_array($item['id'], $choosedCourse);
+        });
 
         return $data;
+    }
+
+    public function getSpeakingData($speakingId, $userLevelComplexity)
+    {
+        $data = $this->materialDao->getSpeakingData($speakingId, $userLevelComplexity);
+        if (!$data) {
+            return null;
+        }
+        $data = $this->levelComplexityMerge($data['list']);
+        return new Collection($data, new Speaking());
+    }
+
+    public function getCardData($groupName, $userLevelComplexity)
+    {
+        $data = $this->materialDao->getCardData($groupName, $userLevelComplexity);
+        if (!$data) {
+            return null;
+        }
+
+        $data = $this->levelComplexityMerge($data['list']);
+        return new Collection($data, new Card());
+    }
+
+    public function getCheckList($checkTestId, $userLevelComplexity)
+    {
+        $data = $this->materialDao->getCheckList($checkTestId, $userLevelComplexity);
+        if (!$data) {
+            return null;
+        }
+
+        $return['error-count'] = $data['error-count'][$userLevelComplexity];
+
+        $data = $this->levelComplexityMerge($data['list']);
+        $data = (new ArrayHelp())->shuffleAssoc($data);
+
+        $return['list'] = new Collection($data, new CheckTest());
+
+        return $return;
+    }
+
+    private function levelComplexityMerge($listFull)
+    {
+        $result = [];
+        foreach ($listFull as $itemList) {
+            $result = array_merge($result, $itemList);
+        }
+
+        return $result;
     }
 }

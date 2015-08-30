@@ -22,7 +22,7 @@ class:
     param: @db
   course.service:
     class: \Site\Route\Course\Service\CourseService
-    param: @course.dao
+    param: [@course.dao, @material.service]
 
   course.service.index:
       class: \Site\Route\Course\Service\IndexService
@@ -52,3 +52,23 @@ class:
   email.transport:
     class: \Site\Common\Classes\EmailTransport
     param: ['127.0.0.1', 25, @siteRoot, @httpHost, @lang]
+
+  oauth2.mailru:
+    class: \Flame\Classes\OAuth\OAuthBase\Mailru\OAuthMailru
+    param: [736936, 'b5e94da57d9d7ef536e2c31460c89b96', 'https://connect.mail.ru/oauth/token']
+  social.mailru:
+    class: \Flame\Classes\Social\Mailru\Mailru
+    param: [736936, 'b5e94da57d9d7ef536e2c31460c89b96']
+
+  oauth2.vk:
+    class: \Flame\Classes\OAuth\OAuthBase\Vk\OAuthVk
+    param: [5051972, 'FMITk8ugvgIR5KssKLEI', 'https://oauth.vk.com/access_token']
+  social.vk:
+    class: \Flame\Classes\Social\Vk\Vk
+    param: [5051972, 'FMITk8ugvgIR5KssKLEI']
+
+  oauth2.yandex:
+    class: \Flame\Classes\OAuth\OAuthBase\Yandex\OAuthYandex
+    param: ['83fc6f87e945422ca50a6f16460f3c22', '242a4e5c3d3b43c6bf99e0ed32b49d5a', 'https://oauth.yandex.ru/token']
+  social.yandex:
+    class: \Flame\Classes\Social\Yandex\Yandex

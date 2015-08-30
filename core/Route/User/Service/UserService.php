@@ -2,6 +2,7 @@
 
 namespace Site\Route\User\Service;
 
+use Site\Common\Classes\User;
 use Site\Route\User\Dao\UserDao;
 
 /**
@@ -52,6 +53,44 @@ class UserService
     }
 
     /**
+     * @param string $oauthKey
+     * @param string $oauthUId
+     * @param string $userName
+     * @param string $email
+     * @param array $customParam
+     */
+    public function oauthRegistrUser($oauthKey, $oauthUId, $userName, $email, $customParam = [])
+    {
+        // Проверяем, а может уже есть пользователь в таблице с OAuth регистрациями
+        $userOAuthInfo = $this->userDao->getUserOuterIdByOAuthId($oauthKey, $oauthUId);
+        if ($userOAuthInfo) {
+            $userDb = $this->userDao->getUserByInnerId($userOAuthInfo['_id']);
+            return $userDb['id'];
+        }
+
+        // Если пользователь найден и у него почта подтверждена, то надо просто привязать данные oauth
+        $userDb = $this->userDao->getUserByEmail($email);
+        if ($userDb && $userDb['emailConfirm']) {
+            $this->userDao->updateOAuthData($userDb['_id'], $oauthKey, $oauthUId, $email, $customParam);
+            return $userDb['id'];
+        }
+
+        // @todo Написать поиск email в списке user-oauth записей
+
+        // Создём нового пользователя
+        $pwd = md5(uniqid());
+        $userDb = $this->userDao->registration($email ?: '', $pwd, $userName, $oauthUId);
+        $userDbInnerId = $userDb['_id'];
+        $userDbOuterId = md5($userDbInnerId);
+        $this->userDao->setOutId($userDbInnerId, $userDbOuterId);
+
+        // Создаём запись о oauth
+        $this->userDao->updateOAuthData($userDbInnerId, $oauthKey, $oauthUId, $email, $customParam);
+
+        return $userDbOuterId;
+    }
+
+    /**
      * Регистрирует пользователя
      *
      * @param string $email Email пользователя
@@ -72,5 +111,22 @@ class UserService
         $this->userDao->setOutId($data['_id'], $outerId);
 
         return $outerId;
+    }
+
+    /**
+     * @param string $oauthKey
+     * @param \MongoId $userDbInnerId
+     * @param string $oauthUId
+     * @param string $email
+     * @param array $customParam
+     */
+    public function updateOAuth($oauthKey, $userDbInnerId, $oauthUId, $email, $customParam)
+    {
+        $userOAuthInfo = $this->userDao->getUserOuterIdByOAuthId($oauthKey, $oauthUId);
+        if ($userOAuthInfo) {
+            return;
+        }
+        // Создаём запись о oauth
+        $this->userDao->updateOAuthData($userDbInnerId, $oauthKey, $oauthUId, $email, $customParam);
     }
 }
