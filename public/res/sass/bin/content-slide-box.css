@@ -1,0 +1,87 @@
+@charset "UTF-8";
+.content-slide-box {
+  width: 800px;
+  padding: 50px;
+  height: 337px;
+  background: #fff;
+  margin: 0 auto;
+  border-radius: 6px;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #cdcdcd;
+  position: relative; }
+
+.content-slide-box .item {
+  height: 237px;
+  overflow: hidden;
+  display: none;
+  font-size: 20px;
+  line-height: 26px; }
+
+.content-slide-box .item.show {
+  display: block; }
+
+.content-slide-box .panel-button {
+  position: absolute;
+  bottom: 16px;
+  text-align: center;
+  width: 100%;
+  left: 0;
+  clear: both;
+  overflow: hidden; }
+
+.content-slide-box .panel-button .item-btn {
+  text-decoration: none;
+  color: #5f5e5e;
+  font-weight: bold;
+  display: block;
+  float: left;
+  width: 33%; }
+
+.content-slide-box .panel-button .item-btn:hover {
+  color: #65a6f7;
+  border: 1px dotted #3e4046;
+  margin-bottom: -1px; }
+
+#progressRound {
+  padding: 20px 0; }
+
+/** Кнопки */
+.content-slide-box .panel-button .item-btn.answer, .content-slide-box .panel-button .item-btn.next {
+  visibility: hidden; }
+
+/** Показываем кнопки */
+.content-slide-box .panel-button.show .item-btn.answer, .content-slide-box .panel-button.show .item-btn.next {
+  visibility: visible; }
+
+.content-slide-box .item .answer-text, .content-slide-box .item .right-text {
+  display: none; }
+
+.content-slide-box .item.answer-mode .answer-text, .content-slide-box .item.answer-mode .right-text {
+  display: block; }
+
+.content-slide-box .item.answer-mode .question-text, .content-slide-box .item.answer-mode .wrong-text {
+  display: none; }
+
+.content-slide-box .item .wrong-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 24px; }
+
+.progress-box .item.wrong {
+  background: url("/res/img/progress-wrong.png");
+  border: 0; }
+
+.progress-box .item.right {
+  background: url("/res/img/progress-right.png");
+  border: 0; }
+
+.content-slide-box .item .right-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 24px; }
+
+.content-slide-box .panel-button .item-btn.next.hide {
+  visibility: hidden; }

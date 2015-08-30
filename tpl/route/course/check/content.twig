@@ -1,0 +1,153 @@
+{% extends "global/index.twig" %}
+
+{% block head %}
+    <link href="/res/sass/bin/progress.css" rel="stylesheet"/>
+    <link href="/res/sass/bin/content-slide-box.css" rel="stylesheet"/>
+    <link href="/res/sass/bin/course/checktest.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block footer %}
+    <script src="/res/js/loadjs.js"></script>
+    <script>
+        jQuery(document).ready(function(){
+            var loader = new wumvi.LoadScript([
+                '/res/js/wumvi/Utils.js',
+                '/res/js/ProgressBar.js',
+                '/res/js/wumvi/ContentSlideBox.js',
+                '/res/js/wumvi/CheckTest/CheckTest.js',
+                '/res/js/wumvi/CheckTest/Form.js'
+            ], function(){
+                var trashMistake = new wumvi.CheckTest();
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <style>
+        #slider {
+            background-image: url('/res/img/slider/slider-bg-01.jpg');
+        }
+
+        .question-text{
+            margin-bottom: 20px;
+        }
+
+        .content-slide-box{
+            background: url('/res/img/course/check/panel-bg.png') bottom right no-repeat #fff;
+        }
+
+        .content-slide-box .check-list{
+            margin-left: 20px;
+        }
+
+        .content-slide-box .check-list label.right{
+            color: #72e778;
+        }
+
+        .content-slide-box .check-list label.error{
+            color: #d14b51;
+        }
+
+
+
+        #error-panel{
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        #wumvi-check-test .question-list{
+            display: block;
+        }
+
+        #wumvi-check-test.too-many-errors .question-list{
+            display: block;
+        }
+
+        #wumvi-check-test.too-many-errors .question-list{
+            display: none;
+        }
+
+        #wumvi-check-test .too-many-error-box{
+            display: none;
+            width: 100%;
+        }
+
+        #wumvi-check-test .too-many-error-box .text{
+            vertical-align: middle;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        #wumvi-check-test.too-many-errors .too-many-error-box{
+            height: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        #wumvi-check-test.too-many-errors{
+            padding: 20px;
+        }
+    </style>
+
+
+
+    <div id="maincontentcontainer">
+        <div id="maincontent" class="container">
+
+            {% include 'global/breadcrumbs/breadcrumbs.twig' %}
+
+            <div class="content-slide-box" id="wumvi-check-test">
+                <div class="question-list">
+                    {% for key, itemCheck in checkList %}
+                        <div class="item item-{{ key }}" data-id="{{ key }}" data-aid="{{ itemCheck.answerId }}">
+                            <div class="question-text">
+                                {{ itemCheck.text }}
+                            </div>
+                            <ul class="check-list">
+                                {% for questionId, questionText in itemCheck.list %}
+                                    <li>
+                                        <label>
+                                            <input type="radio" name="{{ key }}" value="{{ questionId }}"/>
+                                            {{ questionText }}
+                                        </label>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <table class="too-many-error-box">
+                    <tr>
+                        <td class="text">
+                            Слишком много ошибок.<br/> Может стоит поучить лучше?
+                        </td>
+                        <td>
+                            <img src="/res/img/course/check/lola-upset.png"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <div id="error-panel">
+                    Разрешено допустить ошибок:
+                    <span id="error-lost" data-count="{{ errorCount }}">{{ errorCount }}</span>
+                    из
+                    <span id="error-count">{{ errorCount }}</span>
+                </div>
+            </div>
+
+            <div class="progress-box" id="progressRound" data-count="{{ checkList.length }}"></div>
+
+            <div class="open-next-level-box">
+                <a href="{{ route('course.trash-mistake.nextlevel', trashMistakeName) }}" class="btn">
+                    Я прошёл все тесты. Открыть следующий курс
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

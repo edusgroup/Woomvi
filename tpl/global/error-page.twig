@@ -1,0 +1,19 @@
+{% extends "global/index.twig" %}
+
+
+{% block content %}
+    <style>
+        #error-box{
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+
+    <div id="maincontentcontainer">
+        <div id="maincontent" class="container">
+            <div id="error-box">
+                Ошибка №{{ errorNum }} на стороне сервера. Попробуйте еще раз или свяжитесь с поддержкой.
+            </div>
+        </div>
+    </div>
+{% endblock %}
