@@ -1,0 +1,67 @@
+<div class="login-box">
+    <div class="caption">Введите логин и пароль</div>
+
+    <div class="warning-box error"></div>
+
+    <div class="form-item"><input type="text" name="login" placeholder="Введите email"/></div>
+    <div class="form-item"><input type="password" name="pwd" placeholder="Введите пароль"/></div>
+
+    <div class="form-item"><a href="#" class="submit" style="display: none">Выслать ссылку еще раз</a></div>
+    <div class="form-item"><a href="#" class="submit">Войти</a></div>
+
+    <div class="regist">
+        <a href="{{ route('user.registration') }}" id="registration">Зарегистрироваться</a>
+        /
+        <a href="{{ route('user.forgot-pwd') }}" id="forgot-pwd">Восстановить пароль</a>
+    </div>
+
+    <style>
+        .enter-with .item:hover{
+            opacity: 1;
+        }
+
+        .enter-with .item{
+            display: inline-block;
+            margin: 0 8px 8px 0;
+            opacity: 0.2;
+        }
+
+        .caption2{
+            font-size: 16px;
+            line-height: 18px;
+            margin: 24px 0 20px 0;
+            color: #7a8195;
+            font-weight: bold;
+        }
+    </style>
+
+    <div class="caption2">или войдите через:</div>
+    <div class="enter-with">
+        <a href="https://oauth.vk.com/authorize?client_id=5051972&redirect_uri=http://wumvi.com/login/oauth20/vk/{{ oauthId }}/&display=page&scope=4194304&response_type=code&v=5.37" class="item">
+            <img src="/res/img/user/login/vk.png" alt="Войти через Вконтакте" title="Войти через Вконтакте"/>
+        </a>
+
+        <a href="https://connect.mail.ru/oauth/authorize?client_id=736936&response_type=code&redirect_uri=http://wumvi.com/login/oauth20/mailru/{{ oauthId }}/" class="item">
+            <img src="/res/img/user/login/mail.ru.png" alt="Войти через Mail.ru" title="Войти через Mail.ru"/>
+        </a>
+
+        <a href="https://oauth.yandex.ru/authorize?response_type=code&client_id=83fc6f87e945422ca50a6f16460f3c22&state={{ oauthId }}" class="item">
+            <img src="/res/img/user/login/ya.png" alt="Войти через Яндекс" title="Войти через Яндекс"/>
+        </a>
+
+        <a href="https://www.facebook.com/dialog/oauth?client_id=809563755826505&redirect_uri=http://wumvi.com/login/oauth20/facebook/{{ oauthId }}/&response_type=code&&scope=email" class="item">
+            <img src="/res/img/user/login/fb.png" alt="Войти через Facebook" title="Войти через Facebook"/>
+        </a>
+
+        <a href="https://connect.ok.ru/oauth/authorize?client_id=1152562176&response_type=code&redirect_uri=http://wumvi.com/login/oauth20/ok/&state={{ oauthId }}" class="item">
+            <img src="/res/img/user/login/ok.png" alt="Войти через Однокласники" title="Войти через Однокласники"/>
+        </a>
+
+        <a href="https://accounts.google.com/o/oauth2/auth?redirect_uri=http://wumvi.com/login/oauth20/google/&state={{ oauthId }}&response_type=code&client_id=98088286069-d5sp9m43jt0ltquoe92t30pmnhmeirb4.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile" title="Войти через Google" class="item">
+            <img src="/res/img/user/login/google.png" alt="Войти через Google" title="Войти через Google"/>
+        </a>
+    </div>
+
+
+    <div class="preloader"></div>
+</div>
