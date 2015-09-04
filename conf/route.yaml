@@ -207,6 +207,20 @@ user.oauth.yandex:
   controller: \Site\Route\User\Controller\OAuthController::yandexAction
   regexp: /login/oauth20/yandex/
 
+user.oauth.ok:
+  controller: \Site\Route\User\Controller\OAuthController::odnoklassnikiAction
+  regexp: /login/oauth20/ok/
+
+user.oauth.fb:
+  controller: \Site\Route\User\Controller\OAuthController::facebookAction
+  regexp: /login/oauth20/facebook/{oauthId}/
+  vars:
+      oauthId: (\w+)
+
+user.oauth.google:
+  controller: \Site\Route\User\Controller\OAuthController::googleAction
+  regexp: /login/oauth20/google/
+
 user.login:
   controller: \Site\Route\User\Controller\IndexController::loginFormAction
   regexp: /user/login/$

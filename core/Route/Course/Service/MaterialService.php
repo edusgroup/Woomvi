@@ -68,8 +68,10 @@ class MaterialService
     public function getAvailableBookList($openCourse)
     {
         $choosedCourse = [];
-        foreach ($openCourse[CourseService::GET_ABSTRACT] as $item) {
-            $choosedCourse[] = $item['name'];
+        if (isset($openCourse[CourseService::GET_ABSTRACT])) {
+            foreach ($openCourse[CourseService::GET_ABSTRACT] as $item) {
+                $choosedCourse[] = $item['name'];
+            }
         }
 
         $data = $this->materialDao->getAvailableBookList();

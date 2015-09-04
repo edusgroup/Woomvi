@@ -44,76 +44,12 @@
                     <img src="/res/img/i-miss-you.png"/>
                 </div>
                 <div class="span_12 col">
-                    <div class="login-box">
-                        <div class="caption">Введите логин и пароль</div>
-
-                        <div class="warning-box error"></div>
-
-                        <div class="form-item"><input type="text" name="login" placeholder="Введите email"/></div>
-                        <div class="form-item"><input type="password" name="pwd" placeholder="Введите пароль"/></div>
-
-                        <div class="form-item"><a href="#" class="submit" style="display: none">Выслать ссылку еще раз</a></div>
-                        <div class="form-item"><a href="#" class="submit">Войти</a></div>
-
-                        <div class="regist">
-                            <a href="{{ route('user.registration') }}" id="registration">Зарегистрироваться</a>
-                            /
-                            <a href="{{ route('user.forgot-pwd') }}" id="forgot-pwd">Восстановить пароль</a>
-                        </div>
-
-                        <style>
-                            .enter-with .item:hover{
-                                opacity: 1;
-                            }
-
-                            .enter-with .item{
-                                display: inline-block;
-                                margin-left: 8px;
-                                opacity: 0.2;
-                            }
-
-                            .caption2{
-                                font-size: 16px;
-                                line-height: 18px;
-                                margin: 24px 0 20px 0;
-                                color: #7a8195;
-                                font-weight: bold;
-                            }
-                        </style>
-
-                        <div class="caption2">или войдите через:</div>
-                        <div class="enter-with">
-                            <a href="https://oauth.vk.com/authorize?client_id=5051972&redirect_uri=http://wumvi.com/login/oauth20/vk/{{ oauthId }}/&display=page&scope=4194304&response_type=code&v=5.37" class="item">
-                                <img src="/res/img/user/login/vk.png" alt="Войти через Вконтакте" title="Войти через Вконтакте"/>
-                            </a>
-
-                            <a href="https://connect.mail.ru/oauth/authorize?client_id=736936&response_type=code&redirect_uri=http://wumvi.com/login/oauth20/mailru/{{ oauthId }}/" class="item">
-                                <img src="/res/img/user/login/mail.ru.png" alt="Войти через Вконтакте" title="Войти через Вконтакте"/>
-                            </a>
-
-                            <a href="https://oauth.yandex.ru/authorize?response_type=code&client_id=83fc6f87e945422ca50a6f16460f3c22" class="item">
-                                <img src="/res/img/user/login/gplus.png" alt="Войти через Вконтакте" title="Войти через Вконтакте"/>
-                            </a>
-
-                            <a href="#" class="item">
-                                <img src="/res/img/user/login/fb.png" alt="Войти через Вконтакте" title="Войти через Вконтакте"/>
-                            </a>
-                        </div>
-
-
-                        <div class="preloader"></div>
-                    </div>
-
-
+                    {% include 'global/user/block/loginForm.twig' %}
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="urlList"
-            data-login-url-ajax="{{ route('user.login-auth') }}",
-            ></div>
-    <div id="userData"
-            data-url-from="{{ fromUrl }}"
-            ></div>
+    <div id="urlList" data-login-url-ajax="{{ route('user.login-auth') }}"></div>
+    <div id="userData" data-url-from="{{ fromUrl }}"></div>
 {% endblock %}

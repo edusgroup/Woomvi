@@ -72,3 +72,24 @@ class:
     param: ['83fc6f87e945422ca50a6f16460f3c22', '242a4e5c3d3b43c6bf99e0ed32b49d5a', 'https://oauth.yandex.ru/token']
   social.yandex:
     class: \Flame\Classes\Social\Yandex\Yandex
+
+  oauth2.ok:
+    class: \Flame\Classes\OAuth\OAuthBase\Ok\OAuthOk
+    param: [1152562176, 'AFEF49B88235BAC0558B0086', 'https://api.odnoklassniki.ru/oauth/token.do']
+  social.ok:
+    class: \Flame\Classes\Social\Ok\OkSocial
+    param: [1152562176, 'AFEF49B88235BAC0558B0086', 'CBAFLDLFEBABABABA']
+
+  oauth2.facebook:
+    class: \Flame\Classes\OAuth\OAuthBase\Facebook\OAuthFacebook
+    param: [809563755826505, '19e0f27652fa15bac96fc4d73fcca1da', 'https://graph.facebook.com/oauth/access_token']
+  social.facebook:
+    class: \Flame\Classes\Social\Facebook\FbSocial
+    param: [809563755826505, '19e0f27652fa15bac96fc4d73fcca1da']
+
+  oauth2.google:
+    class: \Flame\Classes\OAuth\OAuthBase\Google\OAuthGoogle
+    param: ['98088286069-d5sp9m43jt0ltquoe92t30pmnhmeirb4.apps.googleusercontent.com', 'iT6lK83QqbLAQ3KyKCxziISy', 'https://accounts.google.com/o/oauth2/token']
+  social.google:
+    class: \Flame\Classes\Social\Google\GoogleSocial
+    param: []
