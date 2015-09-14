@@ -256,3 +256,11 @@ test:
 error-page:
   controller: \Site\Route\Index\Controller\IndexController::errorAction
   regexp: /error/
+
+pay-list:
+  controller: \Site\Route\Pay\Controller\IndexController::listAction
+  regexp: /user/pay/list/
+
+user.pay.history:
+  controller: \Site\Route\Pay\Controller\IndexController::historyAction
+  regexp: /user/pay/history/

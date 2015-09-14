@@ -41,7 +41,8 @@ class IndexController extends BaseController
         $params['courseData'] = $courseService->getOpenCategory(
             $data['courseData'],
             $data['openCourse'],
-            $courseName
+            $courseName,
+            self::TIME_HOUR_UNBLOCK_COUNT
         );
         unset($data);
 

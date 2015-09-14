@@ -13,7 +13,9 @@
 		"jquery-ui": "1.11",
         "jquery-mousewheel": "3.1",
 		"perfect-scrollbar": "0.6",
-		"jplayer": "2.9"
+		"jplayer": "2.9",
+	  	"mediaelement": "2",
+		"jquery.countdown": "2"
 	},
 	"devDependencies": {
 

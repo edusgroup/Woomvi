@@ -8,6 +8,7 @@
                 var loader = new wumvi.LoadScript([
                     '/res/js/wumvi/Login.js'
                 ], function(){
+                    var loign = new wumvi.Login();
             });
         });
     </script>
@@ -41,7 +42,7 @@
         <div id="maincontent" class="container">
             <div class="row">
                 <div class="span_12 col img">
-                    <img src="/res/img/i-miss-you.png"/>
+                    <img src="/res/img/auth-form.png"/>
                 </div>
                 <div class="span_12 col">
                     {% include 'global/user/block/loginForm.twig' %}

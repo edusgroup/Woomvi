@@ -4,11 +4,13 @@
     <script src="/res/js/loadjs.js"></script>
     <script>
         jQuery(document).ready(function(){
-            loadJsList([
-                '/res/bower_package/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js',
+            "use strict";
+            var loader = new wumvi.LoadScript([
                 '/res/js/wumvi/Validation.js',
                 '/res/js/wumvi/Registration.js'
-            ]);
+            ], function(){
+                var registration = new wumvi.Registration();
+            });
         });
     </script>
 {% endblock %}
@@ -25,8 +27,6 @@
             text-align: center;
             padding-top: 40px;
         }
-
-
     </style>
 
     <div id="maincontentcontainer">
@@ -70,10 +70,6 @@
         </div>
     </div>
 
-    <div id="urlList"
-            data-registration-url-ajax="{{ route('user.registration.ajax') }}",
-            ></div>
-    <div id="userData"
-            data-url-from="{{ fromUrl }}"
-            ></div>
+    <div id="urlList" data-registration-url-ajax="{{ route('user.registration.ajax') }}"></div>
+    <div id="userData" data-url-from="{{ fromUrl }}"></div>
 {% endblock %}

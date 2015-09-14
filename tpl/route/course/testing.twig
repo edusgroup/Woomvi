@@ -1,13 +1,70 @@
 {% extends "global/index.twig" %}
 
-{% block content %}
+{% block head%}
+    <link href="/res/sass/bin/sp-page.css" rel="stylesheet"/>
+{% endblock %}
 
+{% block footer %}
+    <script src="/res/js/loadjs.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            "use strict";
+            var loader = new wumvi.LoadScript([
+                '/res/bower_package/jquery.countdown/dist/jquery.countdown.min.js'
+            ], function () {
+                var $countDownBox = jQuery('#countdown-box');
+                var dateEnd = /** @type {string} */ ($countDownBox.data('time'));
+                $countDownBox.countdown(dateEnd, function (event) {
+                    jQuery(this).html(event.strftime('%H:%M:%S'));
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% include 'global/breadcrumbs/breadcrumbs.twig' %}
+
+    <style>
+        .message{
+            color: #7a8195;
+            margin: 60px 0;
+            font-size: 18px;
+            line-height: 22px;
+        }
+
+        .message p{
+            margin-bottom: 20px;
+        }
+    </style>
 
     <div id="maincontentcontainer">
         <div id="maincontent" class="container">
-            Письмо получите через 12 часов
-            <br/>
-            <a href="{{ route('course.category', courseName) }}">К списку</a>
+            <div class="row">
+                <div class="span_14 col img">
+                    <img src="/res/img/sppage/no-block.png"/>
+                </div>
+                <div class="span_10 col">
+                    <div class="form-panel">
+                        <div class="caption">Разблакировка уровня</div>
+
+                        <div class="message">
+                            <p>Чтобы предотвратить 5 минутную память, следующий уровень разблокируется через 16 часов.</p>
+                            <p>Мы сообщим о разблокировки сообщением на email.</p>
+                            <p>Мы запустили серию email тестирования, чтобы держать вас в тонусе.</p>
+                        </div>
+
+                        <div>Разблокировка через:</div>
+                        <div id="countdown-box">
+
+                        </div>
+
+                        <a href="{{ route('course.category', courseName) }}" class="submit">
+                            К списку заданий
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

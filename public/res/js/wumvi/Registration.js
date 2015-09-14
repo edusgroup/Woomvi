@@ -1,17 +1,17 @@
+"use strict";
+
 wumvi = window.wumvi || {};
 
 wumvi.Registration = function () {
-    var that = this;
+    this.$emailInput = jQuery("input[name=\"login\"]");
+    this.$pwdInput = jQuery("input[name=\"pwd\"]");
+    this.$nameInput = jQuery("input[name=\"name\"]");
 
-    this.$emailInput = jQuery('input[name="login"]');
-    this.$pwdInput = jQuery('input[name="pwd"]');
-    this.$nameInput = jQuery('input[name="name"]');
+    this.$loginBtn = jQuery("a.submit");
+    //this.$registrBtn = jQuery("#registration");
+    this.$forgotPwdBtn = jQuery("#forgot-pwd");
 
-    this.$loginBtn = jQuery('a.submit');
-    //this.$registrBtn = jQuery('#registration');
-    this.$forgotPwdBtn = jQuery('#forgot-pwd');
-
-    this.$preloaderBox = jQuery('#login-box .preloader');
+    this.$preloaderBox = jQuery("#login-box .preloader");
 
     this.validation = new wumvi.Validation();
 
@@ -20,24 +20,24 @@ wumvi.Registration = function () {
 
 wumvi.Registration.prototype.init = function () {
     this.validation.add(
-        'name',
-        jQuery('#login-box input[name="name"]'),
+        "name",
+        jQuery("#login-box input[name=\"name\"]"),
         /^[^\s]{2,}/,
-        wLangRes['name-more-length']
+        wLangRes["name-more-length"]
     );
 
     this.validation.add(
-        'login',
-        jQuery('#login-box input[name="login"]'),
+        "login",
+        jQuery("#login-box input[name=\"login\"]"),
         this.validation.EMAIL_REGEXP,
-        wLangRes['bad-email-format']
+        wLangRes["bad-email-format"]
     );
 
     this.validation.add(
-        'pwd',
-        jQuery('#login-box input[name="pwd"]'),
+        "pwd",
+        jQuery("#login-box input[name=\"pwd\"]"),
         /^[^\s]{2,}/,
-        wLangRes['pwd-more-length']
+        wLangRes["pwd-more-length"]
     );
 
     this.initEvent();
@@ -47,7 +47,7 @@ wumvi.Registration.prototype.initEvent = function () {
     var that = this;
 
     this.$forgotPwdBtn.click(function(){
-        alert(wLangRes['in-development']);
+        alert(wLangRes["in-development"]);
         return false;
     });
 
@@ -67,34 +67,33 @@ wumvi.Registration.prototype.loginBtnClick = function(){
     var pwd = this.$pwdInput.val().trim();
     var name = this.$nameInput.val().trim();
 
-    var url = jQuery('#urlList').data('registration-url-ajax');
-    var data = {'login': login, 'pwd': pwd, 'name': name};
+    var url = jQuery("#urlList").data("registration-url-ajax");
+    var data = {"login": login, "pwd": pwd, "name": name};
 
     this.$preloaderBox.show();
 
     jQuery.ajax({
         method: "POST",
-        dataType: 'json',
+        dataType: "json",
         url: url,
         data: data
     }).done(function(data, textStatus, jqXHR){
         that.onRegistrationDone(data, textStatus, jqXHR);
     }).fail(function(jqXHR, textStatus, errorThrown){
-        alert(wLangRes['someError']);
+        alert(wLangRes["someError"]);
     }).always(function(){
         that.$preloaderBox.hide();
     });
 };
 
 wumvi.Registration.prototype.onRegistrationDone = function(data, textStatus, jqXHR){
-    if (data['$ret'] != 1) {
-        alert(wLangRes[data['$msg']] ? wLangRes[data['$msg']] : data['$msg']);
+    if (data["$ret"] !== 1) {
+        alert(wLangRes[data["$msg"]] ? wLangRes[data["$msg"]] : data["$msg"]);
         return;
     }
 
-    //data['email']
-    jQuery('#maincontent .login-form-box').hide();
-    jQuery('#maincontent .email-result-box').show();
+    //data["email"]
+    jQuery("#maincontent .login-form-box").hide();
+    jQuery("#maincontent .email-result-box").show();
 };
 
-new wumvi.Registration();

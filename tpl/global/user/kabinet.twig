@@ -1,0 +1,56 @@
+{% extends "global/index.twig" %}
+
+{% block content %}
+    {% spaceless %}
+        <style>
+            .item-box{
+                width: 30%;
+                height: 150px;
+                background: #fff;
+                padding: 15px;
+                position: relative;
+            }
+
+            .sum-caption{
+                font-size: 24px;
+                line-height: 28px;
+            }
+
+            .sum-amount{
+                font-size: 24px;
+                line-height: 28px;
+            }
+
+            .fin-pay-list{
+                position: absolute;
+                bottom: 5px;
+                left: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .fin-pay-list a{
+                font-size: 12px;
+            }
+        </style>
+
+
+
+        <div id="maincontentcontainer">
+            <div id="maincontent" class="container">
+
+                <h1>Личный кабинет</h1>
+
+                <div class="sum-box item-box">
+                    <div class="sum-caption">Сумма на счету:</div>
+                    <div class="sum-amount">{{ userMoneyAmount }} руб.</div>
+                    <div class="fin-pay-list">
+                        <a href="{{ route('user.pay.history') }}">история платежи</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}

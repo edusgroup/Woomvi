@@ -1,0 +1,141 @@
+{% extends "global/index.twig" %}
+
+{% block content %}
+    {% spaceless %}
+        <style>
+            #payment-box{
+                margin: 0 0 20px -15px;
+            }
+
+            #payment-box .pay-item{
+                float: left;
+                margin: 0 0 15px 15px;
+                cursor: pointer;
+            }
+
+            #payment-box .pay-item img{
+                border-radius: 8px;
+                border: 2px solid #e4f0f9;
+
+                -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15);
+                -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15);
+                box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15);
+            }
+
+            #payment-box .pay-item img:hover{
+                border: 2px solid #d4e9f9;
+            }
+
+            #payment-box{
+                overflow: hidden;
+            }
+
+            .caption-1{
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .caption-2{
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .caption-3{
+                font-size: 18px;
+            }
+
+            .pay-btn-box{
+
+            }
+
+
+            .btn, button, input[type="button"], input[type="reset"], input[type="submit"], button[type="submit"] {
+                color: #6D6E70;
+                border: 1px solid #CDCCCB;
+                background-color: #fff;
+                text-shadow: 0 1px 1px rgba(0,0,0,0.07);
+                padding: 8px 20px;
+                margin-left: 15px;
+                -webkit-border-radius: 2px;
+                -moz-border-radius: 2px;
+                -ms-border-radius: 2px;
+                -o-border-radius: 2px;
+                border-radius: 2px;
+                background-position: center center;
+                background-repeat: repeat-x;
+                -webkit-box-shadow: 0 1px 0 0 rgba(255,255,255,0.2) inset,0 -1px 0 0 rgba(0,0,0,0.05) inset;
+                box-shadow: 0 1px 0 0 rgba(255,255,255,0.2) inset,0 -1px 0 0 rgba(0,0,0,0.05) inset;
+            }
+
+            .btn-success, input[type="submit"].btn-success, button.btn-success {
+                color: #fff;
+                border: 1px solid #699f30;
+                background-color: #83ca38;
+            }
+
+            .btn-success:hover, .btn-success.hover, input[type="submit"].btn-success:hover, input[type="submit"].btn-success.hover, button.btn-success:hover, button.btn-success.hover {
+                background-color: #76b336;
+                color: #ebebeb;
+            }
+
+
+            .price-list{
+                margin-bottom: 40px;
+            }
+
+            .price-list .item{
+                font-size: 20px;
+                margin-bottom: 20px;
+                line-height: 20px;
+                vertical-align: middle;
+            }
+
+            .price-list .item input[type="radio"] {
+                width: 20px;
+                height: 20px;
+                margin: 0 10px 0 0;
+                padding: 0;
+            }
+        </style>
+
+        <div id="maincontentcontainer">
+            <div id="maincontent" class="container">
+
+
+                <div class="caption-2">Выберите сумму:</div>
+
+                <div class="price-list">
+                    <div class="item">
+                        <input type="radio" name="price" value="year" id="price-year" checked/>
+                        <label for="price-year">5000 рублей за год (экономия 1000 руб.)</label>
+                    </div>
+                    <div class="item">
+                        <input type="radio" name="price" value="one" id="price-one"/>
+                        <label for="price-one">500 рублей за месяц</label>
+                    </div>
+                </div>
+
+                <div class="caption-2">Оплатить с помощью:</div>
+
+                <div id="payment-box">
+                    <div class="pay-item" data-id="card">
+                        <img src="/res/img/pay/pay-master.jpg"/>
+                    </div>
+
+                    <div class="pay-item" data-id="yamoney">
+                        <img src="/res/img/pay/pay-ya-money.jpg"/>
+                    </div>
+
+                    <div class="pay-item" data-id="webmoney">
+                        <img src="/res/img/pay/pay-webmoney.jpg"/>
+                    </div>
+
+                    <div class="pay-item" data-id="robokassa">
+                        <img src="/res/img/pay/robokassa.jpg"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}

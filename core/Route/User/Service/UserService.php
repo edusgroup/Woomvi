@@ -22,6 +22,7 @@ class UserService
     /** Время жизни сессии пользовател. 12 лет. */
     const COOKIE_AUTH_LIFE = 378432000; // 12 * 365 * 24 * 60 * 60;
 
+    /** @var UserDao Dao для пользователя */
     private $userDao;
 
     /**
@@ -29,9 +30,19 @@ class UserService
      *
      * @param UserDao $userDao
      */
-    public function __construct($userDao)
+    public function __construct(UserDao $userDao)
     {
         $this->userDao = $userDao;
+    }
+
+    public function checkConfirmKey($confirmKey)
+    {
+        $userData = $this->userDao->checkConfirmKey($confirmKey);
+        if (!$userData) {
+            return null;
+        }
+
+        return $userData['id'];
     }
 
     /**
@@ -79,7 +90,8 @@ class UserService
 
         // Создём нового пользователя
         $pwd = md5(uniqid());
-        $userDb = $this->userDao->registration($email ?: '', $pwd, $userName, $oauthUId);
+        $emailForReg = $email ?: '';
+        $userDb = $this->userDao->registration($emailForReg, $pwd, $userName, '', $oauthUId);
         $userDbInnerId = $userDb['_id'];
         $userDbOuterId = md5($userDbInnerId);
         $this->userDao->setOutId($userDbInnerId, $userDbOuterId);
@@ -96,17 +108,18 @@ class UserService
      * @param string $email Email пользователя
      * @param string $pwd Пароль пользователя
      * @param string $userName Имя пользователя
+     * @param string $confirmKey Ключ подтвердения
      *
      * @return string Результат регистрации. @see self::REGISTRATION_STATUS_*
      */
-    public function registration($email, $pwd, $userName)
+    public function registration($email, $pwd, $userName, $confirmKey)
     {
         $user = $this->userDao->getUserByEmail($email);
         if ($user) {
             return self::REGISTRATION_STATUS_EMAIL_EXISTS;
         }
 
-        $data = $this->userDao->registration($email, $pwd, $userName);
+        $data = $this->userDao->registration($email, $pwd, $userName, $confirmKey);
         $outerId = md5($data['_id']);
         $this->userDao->setOutId($data['_id'], $outerId);
 

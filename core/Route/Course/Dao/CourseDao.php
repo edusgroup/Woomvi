@@ -108,7 +108,7 @@ class CourseDao extends Dao
     public function addEvent($type, $key, $userId, $match = [])
     {
         $match['time'] = time();
-        $match['open'] = false;
+        // $match['open'] = false;
 
         $data = ['$set' => ["course.$type.$key" => $match]];
         return $this->driver->table(self::TABLE_SITE_EVENTS)->update($data, ['userId' => $userId]);

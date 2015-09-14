@@ -34,6 +34,44 @@ class EmailTransport
         $this->httpHost = $httpHost;
     }
 
+    /**
+     * @param string $html
+     * @param string $subject
+     * @param string $email
+     * @return bool|string
+     */
+    public function sendText($html, $subject, $email)
+    {
+
+        $swiftMessage = new \Swift_Message($subject);
+
+        $swiftMessage->setFrom(['vk@wumvi.com' => 'Wumvi Lola'])
+            ->setTo($email)
+            ->setBody($html, 'text/html');
+
+        try {
+            $msgResponse = $this->mailer->send($swiftMessage, $failures);
+
+            //var_dump($msgResponse, $failures);
+            if ($msgResponse) {
+                return $failures;
+            }
+        } catch (\Exception $ex) {
+            //var_dump($ex->getMessage());
+            return $ex->getMessage();
+        }
+
+        return false;
+    }
+
+    /**
+     * Отправка сообщения
+     *
+     * @param string $template
+     * @param Email $emailData
+     * @return bool|string
+     * @throws \Exception
+     */
     public function send($template, Email $emailData)
     {
         $tplLangUri = $this->siteRoot . 'tpl/lang/' . $this->lang . '/email/' . $template . '.json';
@@ -49,24 +87,6 @@ class EmailTransport
         $html = $template->render($params);
 
         $subject = isset($params['lang']->subject) ? $params['lang']->subject : 'Not set subject';
-        $swiftMessage = new \Swift_Message($subject);
-
-        $swiftMessage->setFrom(['vk@wumvi.com' => 'Wumvi Lola'])
-            ->setTo($emailData->email)
-            ->setBody($html, 'text/html');
-
-        try {
-            $msgResponse = $this->mailer->send($swiftMessage, $failures);
-
-            var_dump($msgResponse, $failures);
-            if ($msgResponse) {
-                return $failures;
-            }
-        } catch (\Exception $ex) {
-            var_dump($ex->getMessage());
-            return $ex->getMessage();
-        }
-
-        return false;
+        return $this->sendText($html, $subject, $emailData->email);
     }
 }

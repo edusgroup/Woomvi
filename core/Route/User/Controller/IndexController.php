@@ -7,6 +7,7 @@ use Flame\Classes\Http\Response\Html;
 use Flame\Classes\Http\Response\Json;
 
 use Flame\Classes\RequestHttp;
+use Site\Common\Classes\EmailTransport;
 use Site\Common\Controller\BaseController;
 use Site\Route\User\Service\UserService;
 
@@ -25,13 +26,12 @@ class IndexController extends BaseController
 
         $request = new RequestHttp();
 
-        $email = 'www.dft@mail.ru';//$request->post('login');
-        $pwd = 'pwd';//$request->post('pwd');
+        $email = $request->post('login');
+        $pwd = $request->post('pwd');
 
         $userId = $userService->auth($email, $pwd);
         if ($userId) {
             $this->setSession(User::USER_SESSION_ID, $userId);
-
             return new Json(['id' => $userId]);
         }
 
@@ -45,10 +45,9 @@ class IndexController extends BaseController
             return new Json('', Json::STATUS_ERROR, 'It\' not post request');
         }*/
 
-
         $this->removeSession(User::USER_SESSION_ID);
-
-        echo '<br/>userExit';
+        $fromUrl = $request->get('_from') ?: '/';
+        return $this->redirectToUrl($fromUrl);
     }
 
     public function loginFormAction()
@@ -66,12 +65,20 @@ class IndexController extends BaseController
         }
 
         $params['fromUrl'] = $fromUrl;
-        unset($fromUrl);
 
+        // Ключ подтверждения регастриации
         $confirmKey = trim($request->get('key'));
         if ($confirmKey) {
-
+            /** @var UserService $userService */
+            $userService = $this->fabric('user.service');
+            $userOuterId = $userService->checkConfirmKey($confirmKey);
+            if ($userOuterId) {
+                $this->setSession(User::USER_SESSION_ID, $userOuterId);
+                return $this->redirectToUrl($fromUrl ?: $this->getRoutePath('user.kabinet'));
+            }
         }
+
+        unset($fromUrl);
 
         $uniqId = md5(uniqid());
         $this->setSession(OAuthController::OAUTH_SESSION_NAME, $uniqId);
@@ -94,20 +101,25 @@ class IndexController extends BaseController
         /** @var UserService $userService */
         $userService = $this->fabric('user.service');
 
-        $status = $userService->registration($login, $pwd, $name);
+        $confirmKey = md5(uniqid() . time());
+        $status = $userService->registration($login, $pwd, $name, $confirmKey);
         switch($status) {
             case UserService::REGISTRATION_STATUS_EMAIL_EXISTS:
                 return new Json('', Json::STATUS_ERROR, 'user-with-email-exists');
         }
 
-        $key = md5($status . time());
-
         $confirmUrl = 'http://' .
             $request->getHost() .
             $this->getRoutePath('user.login') .
-            '?key=' . $key;
+            '?key=' . $confirmKey;
 
-        // @todo Сделать оптравку email
+        /** @var EmailTransport $mailer */
+        $mailer = $this->fabric('email.transport');
+        $mailer->sendText(
+            'Нажмите на ссылку, чтобы подтвердить регистрацию: <a href="' . $confirmUrl . '">Подтверждаю</a>',
+            'Регистрация на Wumvi.com',
+            $login
+        );
 
         return new Json('', Json::STATUS_SUCCESS);
     }
@@ -120,7 +132,8 @@ class IndexController extends BaseController
 
     public function kabinetAction()
     {
-        echo 'Kabinet';
+        $param['userMoneyAmount'] = $this->user->getSum();
+        return new Html('global/user/kabinet.twig', $param, $this);
     }
 
     public function registrationAction()

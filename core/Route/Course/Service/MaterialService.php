@@ -55,7 +55,7 @@ class MaterialService
             return [];
         }
 
-        return $data;
+        return $data['list'][0];
     }
 
     /**

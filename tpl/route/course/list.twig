@@ -1,12 +1,30 @@
 {% extends "global/index.twig" %}
 
+{% block footer %}
+    <script src="/res/js/loadjs.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            "use strict";
+            var loader = new wumvi.LoadScript([
+                '/res/bower_package/jquery.countdown/dist/jquery.countdown.min.js'
+            ], function () {
+                jQuery('.countdown-box-js').each(function () {
+                    var dateEnd = /** @type {string} */ (jQuery(this).data('time'));
+                    jQuery(this).countdown(dateEnd, function (event) {
+                        jQuery(this).find('.time-box-js').html(event.strftime('%H:%M:%S'));
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
     {% spaceless %}
         <style>
-            .course-list{
+            .course-list {
                 overflow: hidden;
             }
-
 
             .course-list .item {
                 float: left;
@@ -22,14 +40,14 @@
 
                 overflow: hidden;
 
-                -webkit-box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
-                -moz-box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
-                box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
+                -webkit-box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.1);
+                -moz-box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.1);
+                box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.1);
 
                 border: 1px solid #cdcdcd;
             }
 
-            .course-list .item.noshadow{
+            .course-list .item.noshadow {
                 -webkit-box-shadow: none;
                 -moz-box-shadow: none;
                 box-shadow: none;
@@ -37,37 +55,36 @@
                 border: 0;
             }
 
-            .course-list .item .preview{
+            .course-list .item .preview {
                 width: 220px;
                 height: 320px;;
             }
 
-            .course-list .item a{
+            .course-list .item a {
                 display: block;
                 overflow: hidden;
                 line-height: 0;
                 font-size: 0;
             }
 
-            .course-list .item .text{
+            .course-list .item .text {
                 padding: 0 10px;
                 bottom: 20px;
                 position: absolute;
                 color: #fff;
             }
 
-            .course-list .item .text.dark{
+            .course-list .item .text.dark {
                 color: #000;
             }
 
-            .course-list .item .caption{
+            .course-list .item .caption {
                 font-size: 18px;
                 line-height: 22px;
                 /*color: #fecc33; */
-
             }
 
-            .course-list .item .description{
+            .course-list .item .description {
                 font-size: 12px;
                 line-height: 14px;
             }
@@ -77,12 +94,12 @@
                 display: block;
             }
 
-            .course-list .item:hover .access{
+            .course-list .item:hover .access {
                 bottom: 12px;
 
             }
 
-            .course-list .item .access{
+            .course-list .item .access {
                 width: 41px;
                 height: 62px;
                 position: absolute;
@@ -91,12 +108,12 @@
                 display: none;
             }
 
-            .course-list .item.time .time {
+            .course-list .item.time-flag .time-icon{
                 background: url('/res/img/raznoe/time.png');
                 display: block;
             }
 
-            .course-list .item .refreach{
+            .course-list .item .refreach {
                 background: url('/res/img/raznoe/reopen.png');
                 display: block;
                 width: 62px;
@@ -106,14 +123,40 @@
                 bottom: 16px;
 
             }
+
+            .course-list .item .countdown-box{
+                position: absolute;
+                top: 135px;
+                left: 0;
+                height: 50px;
+
+                width: 100%;
+                text-align: center;
+                background: rgba(255, 255, 255, 0.95);
+                border-top: 1px solid #cdcdcd;
+                border-bottom: 1px solid #cdcdcd;
+            }
+
+            .course-list .item .countdown-box .time-box{
+                font-size: 20px;
+                line-height: 40px;
+            }
+
+            .course-list .item:hover .countdown-box .time-box{
+                font-size: 24px;
+            }
+
+            .course-list .item .countdown-box .text-box{
+                font-size: 10px;
+                margin-top: 10px;
+            }
         </style>
-
-
 
         <div id="maincontentcontainer">
             <div id="maincontent" class="container">
 
                 <h1>{{ courseData.name }}</h1>
+
                 <h2>Грамматика</h2>
 
                 <div class="course-list">
@@ -142,6 +185,7 @@
                         <div class="item">
                             <a href="{{ route('material.getabstract', courseName, key) }}">
                                 <img src="/res/img/course/abstract/{{ key }}.jpg" class="preview"/>
+
                                 <div class="text dark">
                                     {# <div class="caption">{{ item.name }}</div> #}
                                     <div class="description">Книга</div>
@@ -156,11 +200,12 @@
                     {% for key, item in courseData.data.video %}
                         {% set class = 'locked' %}
                         {% if item.isInit %}
-                            {% set class = item.isOpen ? '' : 'time' %}
+                            {% set class = item.isOpen ? '' : 'time-flag' %}
                         {% endif %}
-                        <div class="item">
+                        <div class="item {{ class }}">
                             <a href="{{ route('material.video', key) }}">
                                 <img src="/res/img/course/video/{{ key }}.jpg" class="preview"/>
+
                                 <div class="text">
                                     <div class="caption">{{ item.info }}</div>
                                     <div class="description">Видео</div>
@@ -168,7 +213,7 @@
                                 </div>
 
                                 <div class="locked access"></div>
-                                <div class="time access"></div>
+                                <div class="time-icon access"></div>
                             </a>
                         </div>
                     {% endfor %}
@@ -177,12 +222,13 @@
                     {% for id, item in courseData.data.pendulum %}
                         {% set class = 'locked' %}
                         {% if item.isInit %}
-                            {% set class = item.isOpen ? '' : 'time' %}
+                            {% set class = item.isOpen ? '' : 'time-flag' %}
                         {% endif %}
 
                         <div class="item {{ class }}">
                             <a href="{{ route('course.pendulum', id) }}">
                                 <img src="/res/img/course/list/pendulum.jpg" class="preview"/>
+
                                 <div class="text dark">
                                     <div class="caption">Маятник №{{ item.info }}</div>
                                     <div class="description">Be-have</div>
@@ -190,8 +236,16 @@
                                 </div>
 
                                 <div class="locked access" title="Доступ закрыт"></div>
-                                <div class="time access" title="Ожидается открытие"></div>
+                                <div class="time-icon access" title="Ожидается открытие"></div>
                             </a>
+
+                            {% if not item.isOpen and item.isInit %}
+                                <div class="countdown-box-js countdown-box" data-time="{{ item.time.format('Y/m/d H:i:s') }}">
+                                    <div class="text-box">разблокировка через</div>
+                                    <div class="time-box-js time-box"></div>
+                                </div>
+                            {% endif %}
+
                         </div>
                     {% endfor %}
 
@@ -199,7 +253,7 @@
                     {% for id, item in courseData.data.trashMistake %}
                         {% set class = 'locked' %}
                         {% if item.isInit %}
-                            {% set class = item.isOpen ? '' : 'time' %}
+                            {% set class = item.isOpen ? '' : 'time-flag' %}
                         {% endif %}
                         <div class="item {{ class }}">
                             <a href="{{ route('course.trash-mistake', id) }}">
@@ -212,7 +266,7 @@
                                 </div>
 
                                 <div class="locked access" title="Доступ закрыт"></div>
-                                <div class="time access" title="Ожидается открытие"></div>
+                                <div class="time-icon access" title="Ожидается открытие"></div>
                             </a>
                         </div>
                     {% endfor %}
@@ -221,11 +275,12 @@
                     {% for id, item in courseData.data.question %}
                         {% set class = 'locked' %}
                         {% if item.isInit %}
-                            {% set class = item.isOpen ? '' : 'time' %}
+                            {% set class = item.isOpen ? '' : 'time-flag' %}
                         {% endif %}
                         <div class="item {{ class }}">
                             <a href="{{ route('course.question-answer', id) }}">
                                 <img src="/res/img/course/list/question.jpg" class="preview"/>
+
                                 <div class="text dark">
                                     <div class="caption">Вопрос ответ №{{ item.info }}</div>
                                     <div class="description">Тест грамматики</div>
@@ -233,12 +288,10 @@
                                 </div>
 
                                 <div class="locked access" title="Доступ закрыт"></div>
-                                <div class="time access" title="Ожидается открытие"></div>
+                                <div class="time-icon access" title="Ожидается открытие"></div>
                             </a>
                         </div>
                     {% endfor %}
-
-
 
 
                     <!--{% for name in courseData.data.joke %}
@@ -256,11 +309,12 @@
                     {% for id, item in courseData.data.verbs %}
                         {% set class = 'locked' %}
                         {% if item.isInit %}
-                            {% set class = item.isOpen ? '' : 'time' %}
+                            {% set class = item.isOpen ? '' : 'time-flag' %}
                         {% endif %}
                         <div class="item {{ class }}">
                             <a href="{{ route('material.card', id) }}">
                                 <img src="/res/img/course/list/verb.jpg" class="preview"/>
+
                                 <div class="text dark">
                                     <div class="caption">Новые глаголы №{{ item.info }}</div>
                                     <div class="description">Глаголы</div>
@@ -268,7 +322,7 @@
                                 </div>
 
                                 <div class="locked access" title="Доступ закрыт"></div>
-                                <div class="time access" title="Ожидается открытие"></div>
+                                <div class="time-icon access" title="Ожидается открытие"></div>
                             </a>
                         </div>
                     {% endfor %}
@@ -277,11 +331,12 @@
                     {% for id, item in courseData.data.speaking %}
                         {% set class = 'locked' %}
                         {% if item.isInit %}
-                            {% set class = item.isOpen ? '' : 'time' %}
+                            {% set class = item.isOpen ? '' : 'time-flag' %}
                         {% endif %}
                         <div class="item {{ class }}">
                             <a href="{{ route('course.speaking', id) }}">
                                 <img src="/res/img/course/list/speaking.jpg" class="preview"/>
+
                                 <div class="text dark">
                                     <div class="caption">Speaking №{{ item.info }}</div>
                                     <div class="description">Устойчивые выражения</div>
@@ -289,7 +344,7 @@
                                 </div>
 
                                 <div class="locked access"></div>
-                                <div class="time access"></div>
+                                <div class="time-icon access"></div>
                             </a>
                         </div>
                     {% endfor %}
@@ -298,11 +353,12 @@
                     {% for id, item in courseData.data.check %}
                         {% set class = 'locked' %}
                         {% if item.isInit %}
-                            {% set class = item.isOpen ? '' : 'time' %}
+                            {% set class = item.isOpen ? '' : 'time-flag' %}
                         {% endif %}
                         <div class="item {{ class }}">
                             <a href="{{ route('course.check', id) }}">
                                 <img src="/res/img/course/list/check.jpg" class="preview"/>
+
                                 <div class="text dark">
                                     <div class="caption">Speaking №{{ item.info }}</div>
                                     <div class="description">Тестирование</div>
@@ -310,7 +366,7 @@
                                 </div>
 
                                 <div class="locked access"></div>
-                                <div class="time access"></div>
+                                <div class="time-icon access"></div>
                             </a>
                         </div>
                     {% endfor %}
@@ -319,26 +375,25 @@
                     {% for id, item in courseData.data.exam %}
                         {% set class = 'locked' %}
                         {% if item.isInit %}
-                            {% set class = item.isOpen ? '' : 'time' %}
+                            {% set class = item.isOpen ? '' : 'time-flag' %}
                         {% endif %}
                         <div class="item {{ class }}">
                             <a href="{{ route('course.exam', id) }}">
                                 <img src="/res/img/exam.jpg" class="preview"/>
+
                                 <div class="text dark">
                                     <div class="caption">Экзамен на Be-have</div>
                                     <div class="description">Экзамен</div>
                                     <div class="info"></div>
                                 </div>
                                 <div class="locked access" title="Доступ закрыт"></div>
-                                <div class="time access" title="Ожидается открытие"></div>
+                                <div class="time-icon access" title="Ожидается открытие"></div>
                             </a>
                         </div>
                     {% endfor %}
 
 
                 </div>
-
-
 
 
             </div>

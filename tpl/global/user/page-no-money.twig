@@ -1,0 +1,42 @@
+{% extends "global/index.twig" %}
+
+{% block head%}
+    <link href="/res/sass/bin/sp-page.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+
+    <div id="maincontentcontainer">
+        <div id="maincontent" class="container">
+
+            {% include 'global/breadcrumbs/breadcrumbs.twig' %}
+
+            <style>
+                .current-balance{
+                    font-size: 20px;
+                    text-align: center;
+                    color: #7a8195;
+                    margin: 60px 0;
+                }
+            </style>
+
+            <div class="row">
+                <div class="span_14 col img">
+                    <img src="/res/img/sppage/no-money.png"/>
+                </div>
+                <div class="span_10 col">
+                    <div class="form-panel">
+                        <div class="caption">Недостаточно средств на счете</div>
+
+                        <div class="current-balance">Ваш баланс: {{ sum }} руб.</div>
+
+                        <a href="{{ route('pay-list') }}" class="submit">
+                            Пополнить баланс
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

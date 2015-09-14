@@ -125,7 +125,7 @@ class CourseService
         return $data['list'];
     }
 
-    public function getOpenCategory($courseData, $openCourse, $courseName)
+    public function getOpenCategory($courseData, $openCourse, $courseName, $hourCount)
     {
         $typeList = [
             self::PENDULUM,
@@ -159,10 +159,13 @@ class CourseService
                 $isOpen = isset($openCourse[$type][$key]);
                 $item = ['info' => $item, 'isInit' => $isOpen];
                 if ($isOpen) {
-                    $item['isOpen'] = $openCourse[$type][$key]['open'];
+                    $time = $openCourse[$type][$key]['time'];
+                    $item['isOpen'] = $time + $hourCount < time();
+                    $item['time'] = (new \DateTime())->setTimestamp($time + $hourCount);
                 }
             }
         }
+
         unset($typeList);
 
         return $courseData;
@@ -202,9 +205,9 @@ class CourseService
             [$type, $key],
             [
                 [self::GRAMMAR, 'be-have'],
-                [self::VIDEO, 'christmas-tree'],
+                // [self::VIDEO, 'christmas-tree'],
                 ['category', 'be-have'],
-                // [self::GET_ABSTRACT, 'eat-that-frog']
+                [self::GET_ABSTRACT, 'eat-that-frog']
             ]
         );
     }

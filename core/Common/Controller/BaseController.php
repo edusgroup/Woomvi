@@ -15,6 +15,9 @@ class BaseController extends BaseAbstractController
     const TPL_USER_NOT_AUTH = 'global/user/page-no-auth.twig';
     const TPL_USER_NOT_OPEN = 'global/user/page-no-open.twig';
     const TPL_USER_NOT_TIME = 'global/user/page-no-time.twig';
+    const TPL_USER_NO_MONEY = 'global/user/page-no-money.twig';
+
+    const TIME_HOUR_UNBLOCK_COUNT = 16 * 60 * 60;
 
     use User;
     use Twig;
@@ -73,7 +76,11 @@ class BaseController extends BaseAbstractController
         }
 
         if ($this->user->getSum() <= 0) {
-            die('No money');
+            return new Html(
+                self::TPL_USER_NO_MONEY,
+                ['sum' => $this->user->getSum()],
+                $this
+            );
         }
 
         if ($courseType == CourseService::GET_ABSTRACT) {
@@ -87,7 +94,7 @@ class BaseController extends BaseAbstractController
 
             if (isset($openCourse[CourseService::GET_ABSTRACT][$courseName]['name'])) {
                 $bookName = $openCourse[CourseService::GET_ABSTRACT][$courseName]['name'];
-                $openCourse = $bookName != $itemName ? [] : [$courseType => [$itemName => ['open' => true]]];
+                $openCourse = $bookName != $itemName ? [] : [$courseType => [$itemName => ['time' => true]]];
             } else {
                 $openCourse = [];
             }
@@ -103,7 +110,7 @@ class BaseController extends BaseAbstractController
             return new Html(self::TPL_USER_NOT_OPEN, [], $this);
         }
 
-        if (!$openCourse[$courseType][$itemName]['open']) {
+        if ($openCourse[$courseType][$itemName]['time'] + self::TIME_HOUR_UNBLOCK_COUNT > time()) {
             return new Html(self::TPL_USER_NOT_TIME, [], $this);
         }
 

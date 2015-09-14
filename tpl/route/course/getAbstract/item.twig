@@ -2,7 +2,29 @@
 
 {% extends "global/index.twig" %}
 
+{% block head%}
+    <link href="/res/bower_package/mediaelement/build/mediaelementplayer.min.css" rel="stylesheet"/>
+{% endblock %}
+
 {% block footer %}
+
+    <script src="/res/js/loadjs.js"></script>
+    <script>
+        jQuery(document).ready(function(){
+            "use strict";
+            var loader = new wumvi.LoadScript([
+                '/res/bower_package/mediaelement/build/mediaelement-and-player.min.js'
+            ], function(){
+                jQuery('.audioPlayer').mediaelementplayer({
+                    audioWidth: 380,
+                    success: function(me) {
+
+                    }
+                });
+            });
+        });
+    </script>
+
 
     <div id="modal">
         <div class="wrapper">
@@ -13,19 +35,30 @@
         </div>
     </div>
 
-    <script>
-
-
-    </script>
-
     <style>
+
+        #modal .english-example{
+            padding-left: 20px;
+            margin-top: 20px;
+            font-style: italic;
+            color: #6d6d6d;
+        }
+
+        #modal  .word-highlight{
+            font-weight: bold;
+        }
+
+        #modal .additional{
+            margin-top: 20px;
+        }
+
         #modal .inner {
             width: 800px;
             padding: 50px;
-            height: 337px;
+            min-height: 337px;
             background: #fff;
             margin: 0 auto;
-            border-radius: 6px;
+            /* border-radius: 6px; */
             overflow: hidden;
             -webkit-box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.1);
             -moz-box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.1);
@@ -83,13 +116,8 @@
             vertical-align: middle;
         }
 
-        #modal .text h2{
-            font-size: 20px;
-            height: 24px;
-        }
-
         #modal .text{
-            font-size: 18px;
+            font-size: 20px;
             line-height: 24px;
             font-weight: normal;
         }
@@ -98,6 +126,11 @@
             #modal .inner {
                 width: 95%;
             }
+        }
+
+
+        ul{
+            margin-left: 30px;
         }
     </style>
 
@@ -119,6 +152,7 @@
     <style>
         #absBox{
             margin-top: 20px;
+            border-top: 1px dotted #d0d1d2;
         }
         
         #absBox .text{
@@ -148,12 +182,8 @@
             color: #000000;
         }
 
-        #absBox .text:hover .phrase{
-
-        }
-
         #absBox .phrase:hover{
-
+            color: #0068c1;
         }
 
         #absBox h2{
@@ -165,8 +195,6 @@
         #absBox .explanation{
             display: none;
         }
-
-
 
         .next-level-box{
             margin-top: 20px;
@@ -185,6 +213,53 @@
         /*******************************************************************/
 
 
+        .download-panel .item{
+            display: inline-block;
+            padding: 2px 8px;
+            text-decoration: none;
+            color: #fff;
+            background: #3498DB;
+            margin-left: 8px;
+            text-transform: lowercase;
+            font-size: 12px;
+            opacity: 0.3;
+        }
+
+        .download-panel .item:hover{
+            opacity: 1;
+        }
+
+        /*.download-panel .item.pdf{
+
+        }
+
+        .download-panel .item.txt{
+            background: #19b5fe;
+        }
+
+        .download-panel .item.mp3-teacher{
+            background: #2574a9;
+        }
+
+        .download-panel .item.mp3-eng{
+            background: #4b77be;
+        }*/
+        .players-box{
+            overflow: hidden;
+            clear: both;
+            margin-left: -30px;
+        }
+
+        .players-box .player-item{
+            float: left;
+            margin: 0 0 20px 30px;
+        }
+
+        .players-box .player-item .caption2{
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
     </style>
 
     <div id="maincontentcontainer">
@@ -192,16 +267,43 @@
 
             {% include 'global/breadcrumbs/breadcrumbs.twig' %}
 
+            {% set mp3Eng = '/res/book/' ~ downloadId ~ '-eng.mp3' %}
+            {% set mp3Teacher = '/res/book/' ~ downloadId ~ '-teacher.mp3' %}
+
+            <div class="players-box">
+                <div class="player-item">
+                    <div class="caption2">Носитель языка</div>
+                    <audio controls="control" class="audioPlayer" preload="none" src="{{ mp3Eng }}" type="audio/mp3">
+                    </audio>
+                </div>
+
+                <div class="player-item">
+                    <div class="caption2">Объяснение преподавателя</div>
+                    <audio controls="control" class="audioPlayer" preload="none" src="{{ mp3Teacher }}" type="audio/mp3">
+                    </audio>
+                </div>
+            </div>
+
+            <div class="download-panel">
+                Скачать
+                <a href="/res/book/{{ downloadId }}.pdf" target="_blank" class="pdf item">Pdf</a>
+                <a href="/res/book/{{ downloadId }}.txt" target="_blank" class="txt item">Txt</a>
+                <a href="{{ mp3Eng }}" target="_blank" class="mp3-eng item">Mp3: англ</a>
+                <a href="{{ mp3Teacher }}" target="_blank" class="mp3-teacher item">Mp3: рус</a>
+            </div>
+
+
             <div id="absBox">
                 {{ printFile(contentFile) }}
             </div>
 
 
+                {#
             <div class="open-next-level-box">
                 <a href="{{ route('material.getabstract.nextlevel', abstractName) }}" class="btn">
                     Я выучил(а) текст. Открыть следующий курс
                 </a>
-            </div>
+            </div>#}
         </div>
     </div>
 {% endblock %}

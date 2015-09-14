@@ -36,6 +36,15 @@ class UserDao extends Dao
         );
     }
 
+    public function checkConfirmKey($confirmKey)
+    {
+        return $this->driver->table(self::USER_TABLE)->findAndModify(
+            [],
+            ['$set' => ['emailConfirm' => true, 'confirmKey' => '']],
+            ['confirmKey' => $confirmKey, 'emailConfirm' => false]
+        );
+    }
+
     /**
      * @param string $userId
      * @return array
@@ -93,7 +102,10 @@ class UserDao extends Dao
      */
     public function getUserByEmail($email)
     {
-        return $this->driver->table(self::USER_TABLE)->selectFirst([], [self::EMAIL_FIELD => $email]);
+        return $this->driver->table(self::USER_TABLE)->selectFirst(
+            [],
+            [self::EMAIL_FIELD => $email, 'emailConfirm' => true]
+        );
     }
 
     /**
@@ -119,10 +131,14 @@ class UserDao extends Dao
     }
 
     /**
-     * @param string @email
+     * @param $email
+     * @param $pwd
+     * @param $name
+     * @param $confirmKey
+     * @param null $oauthId
      * @return array
      */
-    public function registration($email, $pwd, $name, $oauthId = null)
+    public function registration($email, $pwd, $name, $confirmKey, $oauthId = null)
     {
         $insert = [
             self::EMAIL_FIELD => $email,
@@ -132,7 +148,8 @@ class UserDao extends Dao
             // 'oauthId' => $oauthId,
             'emailConfirm' => false, // Подтверждён ли email
             'lvlCompl' => 1, // Уровень сложности
-            'courseOpen' => 1 // Номер открытого курса
+            'courseOpen' => 1, // Номер открытого курса,
+            'confirmKey' => $confirmKey
         ];
         $this->driver->table(self::USER_TABLE)->insert($insert);
 
