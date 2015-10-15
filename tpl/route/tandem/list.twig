@@ -1,0 +1,99 @@
+{% extends "global/index.twig" %}
+
+{% block head %}
+    <link type="text/css" rel="stylesheet" href="/res/bower_package/responsive-tabs/css/responsive-tabs.css"/>
+    <link href="/res/sass/bin/module/tandem/list.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block footer %}
+    <script src="/res/bower_package/responsive-tabs/js/jquery.responsiveTabs.min.js"></script>
+
+    <script>
+        $('#horizontalTab').responsiveTabs({
+            rotate: false,
+            startCollapsed: 'accordion',
+            collapsible: 'accordion'
+        });
+
+    </script>
+{% endblock %}
+
+
+
+
+{% block content %}
+    <div id="maincontentcontainer">
+        <div id="maincontent" class="container">
+
+            <div id="horizontalTab">
+                <ul>
+                    <li><a href="#tab-1">Участники</a></li>
+                    <li><a href="#tab-2">Ваши заявки</a></li>
+                    <li><a href="#tab-3">Заявки в друзья</a></li>
+                </ul>
+
+                <div id="tab-1">
+                    <div class="btn-list-box">
+                        <a href="#" class="global-btn global-blue">Добавить себя в список</a>
+                    </div>
+                    {{ module('tandem.all-list') }}
+                </div>
+                <div id="tab-2">
+                    {{ module('tandem.user-calls') }}
+                </div>
+                <div id="tab-3">
+                    {{ module('tandem.friends-calls') }}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <style>
+        #maincontentcontainer{
+            background: #fff;
+        }
+
+        .btn-list-box {
+            margin-bottom: 10px;
+        }
+
+        .r-tabs {
+            -webkit-box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+
+            webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+        }
+
+        .r-tabs .r-tabs-nav {
+
+        }
+
+        .r-tabs .r-tabs-nav .r-tabs-anchor {
+            display: inline-block;
+            padding: 10px 12px;
+            text-decoration: none;
+            font-size: 14px;
+            background: #71869B;
+            color: #fff;
+        }
+
+        .r-tabs .r-tabs-panel {
+            background: #f6f7fa;
+        }
+
+        .r-tabs .r-tabs-nav .r-tabs-state-active .r-tabs-anchor {
+
+            text-shadow: none;
+            background-color: #f6f7fa;
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
+            color: #71869B;
+        }
+
+    </style>
+{% endblock %}

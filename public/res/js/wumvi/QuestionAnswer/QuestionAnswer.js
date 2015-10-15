@@ -29,7 +29,14 @@ wumvi.QuestionAnswer = function () {
     this.$soundExample = jQuery("#soundExample");
     this.$nextQuestion = jQuery("#nextQuestion");
 
+    /**
+     * Шаблон URL с ресурсами mp3 и oga
+     * @type {string}
+     */
+    this.resTplUrl = /** @type {string} */ (this.$root.data("resurl"));
+
     this.showAnswerMode = false;
+    this.currentItemName = "";
 
     this.init_();
 };
@@ -46,6 +53,9 @@ wumvi.QuestionAnswer.prototype.init_ = function(){
 
     // jQuery(document).trigger(wumvi.QuestionAnswer.Form.EVENT_ITEM_SHOW);
     this.formList[0].show();
+    this.currentItemName = this.formList[0].getName();
+
+    this.initSound("#player-box");
 
     this.initEvent_();
 };
@@ -84,13 +94,16 @@ wumvi.QuestionAnswer.prototype.switchAnswerMode = function () {
 
 
 wumvi.QuestionAnswer.prototype.onSoundExampleClick = function () {
-    console.warn("sound exmple");
+    this.playSound_(this.resTplUrl, this.currentItemName);
 };
 
 wumvi.QuestionAnswer.prototype.onNextQuestionClick = function () {
     this.formList[this.currentItem].hide();
     this.currentItem += 1;
-    this.formList[this.currentItem].show();
+    var form = this.formList[this.currentItem];
+    form.show();
+
+    this.currentItemName = form.getName();
 
     this.showAnswerMode = false;
 
@@ -105,5 +118,5 @@ wumvi.QuestionAnswer.prototype.onNextQuestionClick = function () {
 };
 
 wumvi.QuestionAnswer.prototype.showNextTaskBtn = function () {
-    console.warn("next task");
+    // console.warn("next task");
 };

@@ -1,5 +1,9 @@
 {% extends "global/index.twig" %}
 
+{% block head %}
+    <link href="/res/sass/bin/module/schedule/schedule.css" rel="stylesheet"/>
+{% endblock %}
+
 {% block content %}
     <div id="slider-box-outer">
         <style>
@@ -40,9 +44,12 @@
     <div id="maincontentcontainer">
         <div id="maincontent">
             <div class="container">
+
+                {{ module('user.schedule') }}
+
                 <div class="caption-2">Последние блоки</div>
                 <div id="last-view" class=" item-8">
-                    {% for i in (1..8) %}
+                    {% for i in (1..5) %}
                         <div class="item">
                             <a href="#">
                                 <img src="/res/img/index-empty.png"/>

@@ -3,22 +3,20 @@
 {% extends "global/index.twig" %}
 
 {% block head %}
-    <link href="/res/sass/bin/content-slide-box.css" rel="stylesheet"/>
-    <link href="/res/sass/bin/course/card.css" rel="stylesheet"/>
+     <link href="/res/sass/bin/course/card.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block footer %}
     <script src="/res/js/loadjs.js"></script>
     <script>
-        jQuery(document).ready(function(){
+        jQuery(document).ready(function () {
             var loader = new wumvi.LoadScript([
                 '/res/bower_package/jplayer/dist/jplayer/jquery.jplayer.js',
+                '/res/js/wumvi/EventDomDispatcher/EventDomDispatcher.js',
                 '/res/js/wumvi/ContentSlideBox.js',
-                '/res/js/wumvi/Card/Card.js',
-                '/res/js/wumvi/Card/Event.js',
-                '/res/js/wumvi/Card/Form.js'
-            ], function(){
-                var card = new wumvi.Card();
+                '/res/js/wumvi/Card/Card.js'
+            ], function () {
+                wumvi.card.init();
             });
         });
     </script>
@@ -27,66 +25,49 @@
 {% block content %}
     {% spaceless %}
 
-    <style>
-        .word-highlight{
-            font-weight: bold;
-        }
-    </style>
+        <style>
 
-    <div id="maincontentcontainer">
-        <div id="maincontent" class="container">
+        </style>
 
-            {% include 'global/breadcrumbs/breadcrumbs.twig' %}
+        <div id="maincontentcontainer">
+            <div id="maincontent" class="container">
 
-            <style>
-                {% for cardKey, cardItem in cardList %}
-                    #card-{{ cardKey }}{
-                        background: url('/res/img/course/card/bg/01/{{ cardKey }}.png') center center no-repeat
-                    }
-                {% endfor %}
-            </style>
+                {% include 'global/breadcrumbs/breadcrumbs.twig' %}
 
-            <div class="content-slide-box" id="wumvi-card-box" data-resurl="{{ resurl('/res/card/audio/01/%name.%ext') }}">
-                <div class="word-list-box">
-                    <ul>
+                    <div class="sent-item-list gutters" id="sent-item-list" data-resurl="{{ resurl('/res/sound/card/%name.%ext') }}">
                         {% for cardKey, cardItem in cardList %}
-                            <li data-id="{{ cardKey }}">{{ cardItem.name }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="word-card-box">
-                    {% for cardKey, cardItem in cardList %}
-                        <div class="item item-card" data-id="{{ cardKey }}" id="card-{{ cardKey }}">
-                            <div class="card-box">
-                                <div class="main-card">
-                                    <div class="name">{{ cardItem.name }}</div>
-                                    <div class="text">{{ cardItem.text|raw }}</div>
+                            <div class="sent-item-box sent-item-box-js span_8" data-id="{{ cardKey }}" id="card-{{ cardKey }}">
+                                <div class="caption caption-js">
+                                    <span class="foreign">
+                                        {{ cardItem.nameTranslate }}
+                                    </span>
+                                    <span class="translation">
+                                        {{ cardItem.name }}
+                                    </span>
+                                    <span class="play-sound play-sound-js"></span>
+                                    <span class="translate-word translate-word-js"></span>
                                 </div>
-                                <div class="translate-card">
-                                    <div class="name">{{ cardItem.nameTranslate }}</div>
-                                    <div class="text">{{ cardItem.textTranslate|raw }}</div>
+                                <div class="description-box description-box-js">
+                                    <div class="foreign">
+                                        {{ cardItem.textTranslate|raw }}
+                                    </div>
+                                    <div class="translation">
+                                        {{ cardItem.text|raw }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
-
-                    <div class="panel-button">
-                        <a href="#" class="item-btn">&nbsp;</a>
-                        <a href="#" class="item-btn check" id="playSound">Озвучить</a>
-                        <a href="#" class="item-btn next" id="showTranslate" data-text="Исходник">Перевод</a>
+                        {% endfor %}
                     </div>
+
+                <div class="open-next-level-box">
+                    <a href="{{ route('course.trash-mistake.nextlevel', trashMistakeName) }}" class="btn">
+                        Я прошёл все тесты. Открыть следующий курс
+                    </a>
                 </div>
-            </div>
 
-            <div class="open-next-level-box">
-                <a href="{{ route('course.trash-mistake.nextlevel', trashMistakeName) }}" class="btn">
-                    Я прошёл все тесты. Открыть следующий курс
-                </a>
             </div>
-
         </div>
-    </div>
 
-    <div id="player-box"></div>
+        <div id="player-box"></div>
     {% endspaceless %}
 {% endblock %}

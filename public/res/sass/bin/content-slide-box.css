@@ -1,7 +1,6 @@
 @charset "UTF-8";
 .content-slide-box {
   width: 800px;
-  padding: 50px;
   height: 337px;
   background: #fff;
   margin: 0 auto;
@@ -12,6 +11,8 @@
   box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.1);
   border: 1px solid #cdcdcd;
   position: relative; }
+  .content-slide-box .list-wrapper {
+    padding: 50px 50px 0 50px; }
 
 .content-slide-box .item {
   height: 237px;
@@ -24,13 +25,22 @@
   display: block; }
 
 .content-slide-box .panel-button {
-  position: absolute;
+  /*position: absolute;
   bottom: 16px;
   text-align: center;
   width: 100%;
   left: 0;
   clear: both;
-  overflow: hidden; }
+  overflow: hidden; */
+  overflow: hidden;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  left: 0; }
+
+.content-slide-box .panel-button:hover {
+  background: #ddeafa; }
 
 .content-slide-box .panel-button .item-btn {
   text-decoration: none;
@@ -38,12 +48,13 @@
   font-weight: bold;
   display: block;
   float: left;
-  width: 33%; }
+  width: 33.333333%;
+  height: 30px;
+  line-height: 30px; }
 
 .content-slide-box .panel-button .item-btn:hover {
-  color: #65a6f7;
-  border: 1px dotted #3e4046;
-  margin-bottom: -1px; }
+  color: #fff;
+  background: #65a6f7; }
 
 #progressRound {
   padding: 20px 0; }

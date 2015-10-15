@@ -52,28 +52,30 @@
             {% include 'global/breadcrumbs/breadcrumbs.twig' %}
 
             <div class="content-slide-box" id="wumvi-trash-mistake">
-                {% for key, item in trashMistakeList.list %}
-                    <div class="item item-{{ key }}" data-id="{{ item.id }}" id="item-tm-{{ key }}" data-regexp="{{ item.regexp }}">
-                        <div class="text-box">
-                            <div class="box box-1">
-                                <div class="question-text">
-                                    {{ item.questionText }}
+                <div class="list-wrapper">
+                    {% for key, item in trashMistakeList.list %}
+                        <div class="item item-{{ key }}" data-id="{{ item.id }}" id="item-tm-{{ key }}" data-regexp="{{ item.regexp }}">
+                            <div class="text-box">
+                                <div class="box box-1">
+                                    <div class="question-text">
+                                        {{ item.questionText }}
+                                    </div>
+                                    <div class="wrong-text">
+                                        {{ item.wrongText|raw }}
+                                    </div>
                                 </div>
-                                <div class="wrong-text">
-                                    {{ item.wrongText|raw }}
-                                </div>
-                            </div>
-                            <div class="box box-2">
-                                <div class="answer-text">
-                                    {{ item.answerText }}
-                                </div>
-                                <div class="right-text">
-                                    {{ item.rightText }}
+                                <div class="box box-2">
+                                    <div class="answer-text">
+                                        {{ item.answerText }}
+                                    </div>
+                                    <div class="right-text">
+                                        {{ item.rightText }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
 
                 <div class="panel-button">
                     <a href="#" class="item-btn answer" id="showAnswer" data-text="Показать вопрос">Показать ответ</a>

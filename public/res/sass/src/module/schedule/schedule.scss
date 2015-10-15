@@ -1,0 +1,89 @@
+@import '../../common/common.scss';
+@import '../../../../sprite/build/sprite.scss';
+
+.schedule-list-box {
+  clear: both;
+  overflow: hidden;
+  padding: 3px;
+  margin-left: -3px;
+
+  .schedule-item {
+    width: 33%;
+    font-size: 16px;
+    float: left;
+    position: relative;
+    margin-bottom: 20px;
+
+    &.overdue-type {
+      .date-box {
+        background: #ffecea;
+        border-left-color: #ffb5ad;
+      }
+
+      .overdue-box {
+        width: 45px;
+        height: 170px;
+        background: url('/res/img/ribbon.png');
+        position: absolute;
+        right: 10px;
+        top: -2px;
+      }
+    }
+
+    &.task-done-type {
+      .date-box {
+        background: #f0ffee;
+        border-left-color: #a0e599;
+      }
+    }
+
+    .date-box {
+      padding: 20px;
+      background: #f8f9fb;
+      font-size: 20px;
+      border-left: 2px solid #e4e8eb;
+      color: #474747;
+    }
+
+    .todo-box {
+      padding: 10px 10px 10px 20px;
+      border-top: 0;
+      height: 40px;
+      color: #899299;
+
+      a {
+        font-size: 18px;
+        text-decoration: none;
+        color: inherit;
+        @include common-checkbox-replaced();
+      }
+
+      input[type="checkbox"] {
+        display: none;
+      }
+
+      label {
+        content: '';
+        @include sprite($checkbox-off);
+        display: inline-block;
+        position: static;
+        vertical-align: top;
+        margin-right: 10px;
+      }
+
+      .checkbox-replaced + label:hover {
+        @include sprite($checkbox-hover);
+      }
+
+      .checkbox-replaced:checked + label {
+        @include sprite($checkbox-on);
+
+      }
+
+      input:checked + label + a {
+        color: #c2c7cc;
+        text-decoration: line-through;
+      }
+    }
+  }
+}

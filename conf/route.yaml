@@ -151,6 +151,13 @@ material.getabstract:
     itemName: @itemName
     courseName: @courseName
 
+material.wordspeed:
+  controller: \Site\Route\Course\Controller\WordSpeedController::indexAction
+  regexp: /wordspeed/{itemName}/$
+  vars:
+    itemName: @itemName
+    courseName: @courseName
+
 material.getabstract.test:
   controller: \Site\Route\Course\Controller\GetAbstractController::testingAction
   regexp: /getabstract/{itemName}/testing/$
@@ -264,3 +271,24 @@ pay-list:
 user.pay.history:
   controller: \Site\Route\Pay\Controller\IndexController::historyAction
   regexp: /user/pay/history/
+
+admin.users:
+  controller: \Site\Route\Admin\Controller\IndexController::usersAction
+  regexp: /admin12/users/
+
+forum.list:
+  controller: \Site\Route\Forum\Controller\IndexController::listAction
+  regexp: /forum/
+
+tandem.list:
+  controller: \Site\Route\Tandem\Controller\IndexController::listAction
+  regexp: /tandem/
+
+user.schedule.status:
+  controller: \Site\Route\Schedule\Controller\IndexController::taskStatusAction
+  regexp: /schedule/task-status/
+
+user.schedule:
+  controller: \Site\Route\Schedule\Controller\IndexController::indexAction
+  regexp: /schedule/
+

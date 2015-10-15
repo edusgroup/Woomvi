@@ -13,13 +13,18 @@ if (!isset($_SERVER['SITE_ROOT'])) {
     die('set in Nginx conf SITE_ROOT');
 }
 
-include $_SERVER['CORE_ROOT'] . 'core/Flame/autoloader.php';
-include $_SERVER['SITE_ROOT'] . 'vendor/autoload.php';
+define('CORE_ROOT', $_SERVER['CORE_ROOT']);
+define('SITE_ROOT', $_SERVER['SITE_ROOT']);
+define('DOCUMENT_URI', $_SERVER['DOCUMENT_URI']);
+define('HTTP_HOST', $_SERVER['HTTP_HOST']);
+
+include CORE_ROOT . 'core/Flame/autoloader.php';
+include SITE_ROOT . 'vendor/autoload.php';
 
 $init = new \Flame\Classes\Init();
 
 try {
-    $data = $init->initRoute('file', 'yaml', $_SERVER['SITE_ROOT'] . 'conf/route.yaml');
+    $data = $init->initRoute('file', 'yaml', SITE_ROOT . 'conf/route.yaml');
     if ($data instanceof \Flame\Classes\Http\Response\Json) {
         header('Content-Type: application/json; charset=utf-8');
         echo $data->get();

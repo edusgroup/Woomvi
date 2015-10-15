@@ -1,0 +1,147 @@
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
+
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet: width height image $spritesheet-sprites;
+*/
+$checkbox-hover-name: 'checkbox-hover';
+$checkbox-hover-x: 0px;
+$checkbox-hover-y: 0px;
+$checkbox-hover-offset-x: 0px;
+$checkbox-hover-offset-y: 0px;
+$checkbox-hover-width: 20px;
+$checkbox-hover-height: 20px;
+$checkbox-hover-total-width: 58px;
+$checkbox-hover-total-height: 55px;
+$checkbox-hover-image: '/res/sprite/build/sprite.png';
+$checkbox-hover: (0px, 0px, 0px, 0px, 20px, 20px, 58px, 55px, '/res/sprite/build/sprite.png', 'checkbox-hover', );
+$checkbox-off-name: 'checkbox-off';
+$checkbox-off-x: 20px;
+$checkbox-off-y: 0px;
+$checkbox-off-offset-x: -20px;
+$checkbox-off-offset-y: 0px;
+$checkbox-off-width: 20px;
+$checkbox-off-height: 20px;
+$checkbox-off-total-width: 58px;
+$checkbox-off-total-height: 55px;
+$checkbox-off-image: '/res/sprite/build/sprite.png';
+$checkbox-off: (20px, 0px, -20px, 0px, 20px, 20px, 58px, 55px, '/res/sprite/build/sprite.png', 'checkbox-off', );
+$checkbox-on-name: 'checkbox-on';
+$checkbox-on-x: 0px;
+$checkbox-on-y: 20px;
+$checkbox-on-offset-x: 0px;
+$checkbox-on-offset-y: -20px;
+$checkbox-on-width: 20px;
+$checkbox-on-height: 20px;
+$checkbox-on-total-width: 58px;
+$checkbox-on-total-height: 55px;
+$checkbox-on-image: '/res/sprite/build/sprite.png';
+$checkbox-on: (0px, 20px, 0px, -20px, 20px, 20px, 58px, 55px, '/res/sprite/build/sprite.png', 'checkbox-on', );
+$sound-small-hover-name: 'sound-small-hover';
+$sound-small-hover-x: 20px;
+$sound-small-hover-y: 20px;
+$sound-small-hover-offset-x: -20px;
+$sound-small-hover-offset-y: -20px;
+$sound-small-hover-width: 18px;
+$sound-small-hover-height: 15px;
+$sound-small-hover-total-width: 58px;
+$sound-small-hover-total-height: 55px;
+$sound-small-hover-image: '/res/sprite/build/sprite.png';
+$sound-small-hover: (20px, 20px, -20px, -20px, 18px, 15px, 58px, 55px, '/res/sprite/build/sprite.png', 'sound-small-hover', );
+$sound-small-off-name: 'sound-small-off';
+$sound-small-off-x: 40px;
+$sound-small-off-y: 0px;
+$sound-small-off-offset-x: -40px;
+$sound-small-off-offset-y: 0px;
+$sound-small-off-width: 18px;
+$sound-small-off-height: 15px;
+$sound-small-off-total-width: 58px;
+$sound-small-off-total-height: 55px;
+$sound-small-off-image: '/res/sprite/build/sprite.png';
+$sound-small-off: (40px, 0px, -40px, 0px, 18px, 15px, 58px, 55px, '/res/sprite/build/sprite.png', 'sound-small-off', );
+$translate-small-hover-name: 'translate-small-hover';
+$translate-small-hover-x: 40px;
+$translate-small-hover-y: 15px;
+$translate-small-hover-offset-x: -40px;
+$translate-small-hover-offset-y: -15px;
+$translate-small-hover-width: 15px;
+$translate-small-hover-height: 15px;
+$translate-small-hover-total-width: 58px;
+$translate-small-hover-total-height: 55px;
+$translate-small-hover-image: '/res/sprite/build/sprite.png';
+$translate-small-hover: (40px, 15px, -40px, -15px, 15px, 15px, 58px, 55px, '/res/sprite/build/sprite.png', 'translate-small-hover', );
+$translate-small-off-name: 'translate-small-off';
+$translate-small-off-x: 0px;
+$translate-small-off-y: 40px;
+$translate-small-off-offset-x: 0px;
+$translate-small-off-offset-y: -40px;
+$translate-small-off-width: 15px;
+$translate-small-off-height: 15px;
+$translate-small-off-total-width: 58px;
+$translate-small-off-total-height: 55px;
+$translate-small-off-image: '/res/sprite/build/sprite.png';
+$translate-small-off: (0px, 40px, 0px, -40px, 15px, 15px, 58px, 55px, '/res/sprite/build/sprite.png', 'translate-small-off', );
+$spritesheet-width: 58px;
+$spritesheet-height: 55px;
+$spritesheet-image: '/res/sprite/build/sprite.png';
+$spritesheet-sprites: ($checkbox-hover, $checkbox-off, $checkbox-on, $sound-small-hover, $sound-small-off, $translate-small-hover, $translate-small-off, );
+$spritesheet: (58px, 55px, '/res/sprite/build/sprite.png', $spritesheet-sprites, );
+
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+*/
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of SCSS
+
+@include sprites($spritesheet-sprites);
+*/
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}

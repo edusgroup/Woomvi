@@ -23,10 +23,10 @@ h2 {
 
 .menu-view .menu-box{
 
-  background-color: #4baf4d;
-  background-color: #f5f5f5;
+  /*background-color: #4baf4d;
+  background-color: #f5f5f5;*/
   /*background-color: #168de2;*/
-  box-shadow: 0px 0px 2px 0px #777;
+  /*box-shadow: 0px 0px 2px 0px #777;*/
   position: relative;
   z-index: 1;
   clear: both;
@@ -40,7 +40,7 @@ h2 {
   }
 
   nav{
-    float: left;
+    float: right;
   }
 
   .menu-link-nav{
@@ -97,16 +97,81 @@ h2 {
 }
 
 #maincontentcontainer{
-  background: #f8f8f8;
+  /*background: #f8f8f8;
   background: #f8f8f8;
   background: #f4f7f9;
+  background: #f6f7fa; */
+
+}
+
+.caption-1{
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  display: inline-block;
+  border-left: 2px solid #e4e8eb;
+  padding: 10px 30px;
+  color: #474747;
+}
+
+.caption-2{
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  display: inline-block;
+  border-left: 2px solid #e4e8eb;
+  padding: 10px 15px;
+  color: #474747;
+}
+
+body{
 }
 
 #maincontent{
   padding: 20px 0 40px 0;
 }
 
-.btn {
+.global-btn.global-blue{
+  background: #168de2;
+  color: #fff;
+}
+
+.global-btn.global-blue:hover{
+  background: #399ce3;
+}
+
+.global-btn.global-blue:active{
+  background: #1480cc;
+}
+
+.global-btn.global-green{
+  background: #55bf34;
+  color: #fff;
+}
+
+.global-btn.global-green:hover{
+  background: #67bf4d;
+}
+
+.global-btn.global-green:active{
+  background: #49a62d;
+}
+
+
+.global-btn.global-red{
+  background: #ff4040;
+  color: #fff;
+}
+
+.global-btn.global-red:hover{
+  background: #ff5959;
+}
+
+.global-btn.global-red:active{
+  background: #d93636;
+}
+
+.global-btn {
   display: inline-block;
   padding: 6px 12px;
   margin-bottom: 0;
@@ -129,6 +194,8 @@ h2 {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   text-decoration: none;
+
+
 }
 
 #slider .small-banner{

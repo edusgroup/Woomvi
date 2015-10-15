@@ -1,0 +1,39 @@
+{% extends "global/index.twig" %}
+
+{% block head %}
+    <link href="/res/sass/bin/module/schedule/schedule.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block footer %}
+    <script src="/res/js/loadjs.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            'use strict';
+            var loader = new wumvi.LoadScript([
+                '/res/js/wumvi/EventDomDispatcher/EventDomDispatcher.js',
+                '/res/js/wumvi/Module/Schedule/ScheduleItem.js',
+                '/res/js/wumvi/Module/Schedule/Schedule.js',
+                '/res/js/wumvi/Page/Schedule/PageController.js'
+            ], function () {
+                wumvi.schedule.ctrl.init();
+                wumvi.schedule.controller.init();
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div id="maincontentcontainer">
+        <div id="maincontent" class="container">
+            <div class="caption-1">Расписание</div>
+            {{ module('user.schedule') }}
+
+
+        </div>
+    </div>
+
+    <div id="urlList"
+            data-list="{{ {'task-status': route('user.schedule.status')} | json_encode }}"
+
+            ></div>
+{% endblock %}

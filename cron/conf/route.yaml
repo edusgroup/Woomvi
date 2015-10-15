@@ -1,0 +1,3 @@
+user.schedule:
+  controller: \Cron\Tasks\Schedule\Controller\IndexController::indexAction
+  regexp: /schedule/

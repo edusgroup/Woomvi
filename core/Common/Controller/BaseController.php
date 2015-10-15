@@ -17,7 +17,7 @@ class BaseController extends BaseAbstractController
     const TPL_USER_NOT_TIME = 'global/user/page-no-time.twig';
     const TPL_USER_NO_MONEY = 'global/user/page-no-money.twig';
 
-    const TIME_HOUR_UNBLOCK_COUNT = 16 * 60 * 60;
+    //const TIME_HOUR_UNBLOCK_COUNT = 16 * 60 * 60;
 
     use User;
     use Twig;
@@ -34,41 +34,46 @@ class BaseController extends BaseAbstractController
 
     public function preRenderCommon(\Twig_Environment $twig, &$tplName, &$varible)
     {
-        $this->extendsTwig($twig);
+        $this->extendsTwig($twig, $this);
         $varible['isAuth'] = $this->user->isAuth() ? 1 : 0;
     }
 
-    public function nextLevel($path, $courseName, $type)
+//    public function nextLevel($path, $courseName, $type)
+//    {
+//        $response = $this->checkRight($type, $courseName);
+//        if ($response !== null) {
+//            return $response;
+//        }
+//
+//        /** @var CourseService $courseService */
+//        $courseService = $this->fabric('course.service');
+//
+//        //$item = $courseService->openNextLevel($type, $courseName, $this->user->getId());
+//        $this->ifNullInvokeError4xx(
+//            $item,
+//            'Open level type="' . $type . '" course="' . htmlspecialchars($courseName) . '" not found'
+//        );
+//
+//        $groupName = $courseService->getCourseName($type, $courseName);
+//        $this->ifNullInvokeError4xx($groupName);
+//
+//        $vars['courseName'] = $groupName;
+//
+//        return new Html('route/course/testing.twig', $vars, $this);
+//    }
+
+    public function checkRight($courseType, $itemName, $courseGroupName)
     {
-        $response = $this->checkRight($type, $courseName);
-        if ($response !== null) {
-            return $response;
+        if (!$courseGroupName) {
+            die('Not found');
+            return new Html(self::TPL_USER_NOT_OPEN, [], $this);
         }
 
         /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');
-
-        $item = $courseService->openNextLevel($type, $courseName, $this->user->getId());
-        $this->ifNullInvokeError4xx(
-            $item,
-            'Open level type="' . $type . '" course="' . htmlspecialchars($courseName) . '" not found'
-        );
-
-        $groupName = $courseService->getCourseName($type, $courseName);
-        $this->ifNullInvokeError4xx($groupName);
-
-        $vars['courseName'] = $groupName;
-
-        return new Html('route/course/testing.twig', $vars, $this);
-    }
-
-    public function checkRight($courseType, $itemName, $courseName = '')
-    {
-        /** @var CourseService $courseService */
-        $courseService = $this->fabric('course.service');
         $isDemoCategory = $courseService->isDemo($courseType, $itemName);
         if ($isDemoCategory) {
-            return null;
+            //return null;
         }
 
         if (!$this->user->isAuth()) {
@@ -83,37 +88,34 @@ class BaseController extends BaseAbstractController
             );
         }
 
+        /** boolean $isEnoughRight */
+
         if ($courseType == CourseService::GET_ABSTRACT) {
             // Получаем все открытые блоки для пользователя и если есть выбранную книгу
-            $bookKey = 'course.' . $courseType . '.' . $courseName;
-            $openCourse = $courseService->getEventsByName(
-                $courseType . '.' . $courseName,
-                $this->user->getId(),
-                [$bookKey => 1]
+            $bookName = $courseService->getEventListByName(
+                $courseGroupName,
+                $courseType,
+                $this->user->getInnerId()
             );
 
-            if (isset($openCourse[CourseService::GET_ABSTRACT][$courseName]['name'])) {
-                $bookName = $openCourse[CourseService::GET_ABSTRACT][$courseName]['name'];
+            $isEnoughRight = (boolean) $bookName;
+
+            /*if (isset($openCourse[CourseService::GET_ABSTRACT][$courseGroupName]['name'])) {
+                $bookName = $openCourse[CourseService::GET_ABSTRACT][$courseGroupName]['name'];
                 $openCourse = $bookName != $itemName ? [] : [$courseType => [$itemName => ['time' => true]]];
             } else {
                 $openCourse = [];
-            }
+            }*/
         } else {
-            $openCourse = $courseService->getEventsByName(
-                $courseType . '.' . $itemName,
-                $this->user->getId(),
-                ['course.' . $courseType => 1]
+            $openCourseList = $courseService->getEventListByName(
+                $courseGroupName,
+                $courseType,
+                $this->user->getInnerId()
             );
+
+            $isEnoughRight = in_array($itemName, $openCourseList);
         }
 
-        if (!$openCourse) {
-            return new Html(self::TPL_USER_NOT_OPEN, [], $this);
-        }
-
-        if ($openCourse[$courseType][$itemName]['time'] + self::TIME_HOUR_UNBLOCK_COUNT > time()) {
-            return new Html(self::TPL_USER_NOT_TIME, [], $this);
-        }
-
-        return null;
+        return $isEnoughRight ? null : new Html(self::TPL_USER_NOT_OPEN, [], $this);
     }
 }

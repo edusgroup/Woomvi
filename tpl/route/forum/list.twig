@@ -1,0 +1,67 @@
+{% extends "global/index.twig" %}
+
+
+{% block content %}
+    <div id="maincontentcontainer">
+        <div id="maincontent" class="container">
+
+            <div class="caption-1">Be-have</div>
+            <div class="caption-2">Последние 10 обсуждений</div>
+            <div class="forum-list">
+                {% for num in 0..10 %}
+                    <div class="topic-item">
+                        <div class="topic-name">
+                            <a href="/forum/be-have/">Помогите найти видео, пожалуйста</a>
+                        </div>
+                        <div class="more-info">
+                            Admin, 04.10.2015
+                            <i class="spliter">•</i>
+                            <a href="#" class="ask-question">задать вопрос</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #maincontentcontainer{
+            background: #fff;
+        }
+
+        .topic-item{
+            border: 0 dotted #d3d6d8;
+            border-width: 0 0 1px;
+            color: #d3d6d8;
+            padding: .8em 1.25em .7em 4.1em;
+            position: relative;
+            display: block;
+        }
+
+        .topic-item a{
+            text-decoration: none;
+            line-height: 21px;
+            color: #07c;
+            font-size: 18px;
+        }
+
+        .topic-item a:hover{
+            color: #018ef3;
+        }
+
+        .topic-item .more-info{
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .topic-item .more-info .ask-question{
+            font-size: 13px;
+            color: #d3d6d8;
+        }
+
+        .topic-item .more-info .spliter{
+            display: inline-block;
+            margin: 0 10px;
+        }
+    </style>
+{% endblock %}

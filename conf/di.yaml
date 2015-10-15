@@ -93,3 +93,38 @@ class:
   social.google:
     class: \Flame\Classes\Social\Google\GoogleSocial
     param: []
+
+  admin.dao:
+    class: \Site\Route\Admin\Dao\AdminDao
+    param: @db
+  admin.service:
+    class: \Site\Route\Admin\Service\AdminService
+    param: @admin.dao
+
+  module.schedule:
+    class: \Site\Common\Modules\Schedule\Controller\ScheduleModule
+    param: @controller
+
+  module.schedule.dao:
+    class: \Site\Common\Modules\Schedule\Dao\ScheduleDao
+    param: @db
+
+  module.schedule.service:
+    class: \Site\Common\Modules\Schedule\Service\ScheduleService
+    param: @module.schedule.dao
+
+  module.tandem:
+    class: \Site\Common\Modules\Tandem\Controller\TandemModule
+    param: @controller
+
+  module.wordspeed:
+    class: \Site\Common\Modules\WordSpeed\Controller\WordSpeedModule
+    param: @controller
+
+  module.wordspeed.dao:
+    class: \Site\Common\Modules\WordSpeed\Dao\WordSpeedDao
+    param: @db
+
+  module.wordspeed.service:
+    class: \Site\Common\Modules\WordSpeed\Service\WordSpeedService
+    param: @module.wordspeed.dao

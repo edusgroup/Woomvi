@@ -149,7 +149,8 @@ class UserDao extends Dao
             'emailConfirm' => false, // Подтверждён ли email
             'lvlCompl' => 1, // Уровень сложности
             'courseOpen' => 1, // Номер открытого курса,
-            'confirmKey' => $confirmKey
+            'confirmKey' => $confirmKey,
+            'overdue' => 0
         ];
         $this->driver->table(self::USER_TABLE)->insert($insert);
 

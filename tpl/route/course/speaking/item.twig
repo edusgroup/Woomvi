@@ -3,20 +3,20 @@
 {% extends "global/index.twig" %}
 
 {% block head %}
-    <link href="/res/sass/bin/content-slide-box.css" rel="stylesheet"/>
     <link href="/res/sass/bin/course/card.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block footer %}
     <script src="/res/js/loadjs.js"></script>
     <script>
-        jQuery(document).ready(function(){
+        jQuery(document).ready(function () {
             var loader = new wumvi.LoadScript([
                 '/res/bower_package/jplayer/dist/jplayer/jquery.jplayer.js',
+                '/res/js/wumvi/EventDomDispatcher/EventDomDispatcher.js',
                 '/res/js/wumvi/ContentSlideBox.js',
-                '/res/js/wumvi/Speaking/Speaking.js',
-            ], function(){
-                var speaking = new wumvi.Speaking();
+                '/res/js/wumvi/Card/Card.js'
+            ], function () {
+                wumvi.card.init();
             });
         });
     </script>
@@ -25,36 +25,59 @@
 {% block content %}
     {% spaceless %}
 
-        <style>
-            .content-slide-box .item{
-                font-size: 16px;
-                line-height: 22px;
-            }
-
-            .content-slide-box .item .description{
-
-                margin-bottom: 10px;
-            }
-
-            .content-slide-box .item .caption{
-                font-size: 18px;
-                line-height: 24px;
-                margin-bottom: 10px;
-                font-weight: bold;
-            }
-
-            .content-slide-box .item{
-                height: 291px;
-                overflow: auto;
-            }
-        </style>
-
         <div id="maincontentcontainer">
             <div id="maincontent" class="container">
 
                 {% include 'global/breadcrumbs/breadcrumbs.twig' %}
 
                 {% set resurl = resurl('/res/sound/speaking/' ~ itemName ~ '/%name.%ext', 'snd') %}
+
+                <style>
+                    .translation .list{
+                        margin-top: 20px;
+                    }
+
+                    .list .eng{
+                        font-weight: 600;
+                        color: #666;
+                    }
+                </style>
+
+                <div class="sent-item-list gutters" id="sent-item-list" data-resurl="{{ resurl }}">
+                    {% for cardKey, cardItem in speakingList %}
+                        <div class="sent-item-box sent-item-box-js span_8" data-id="{{ cardKey }}" id="card-{{ cardKey }}">
+                            <div class="caption caption-js">
+                                       <span class="translation">
+                                          {{ cardItem.title }}
+                                    </span>
+                                <span class="play-sound play-sound-js"></span>
+                            </div>
+                            <div class="description-box description-box-js">
+                                <div class="translation">
+                                    {{ cardItem.description }}
+
+                                    <ul class="list">
+                                        {% for eng, trans in cardItem.sample %}
+                                            <li>
+                                                <span class="eng">{{ eng }}</span>
+                                                -
+                                                <span class="trans">{{ trans }}</span>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+
+
+
+
+
+{#
+
                 <div class="content-slide-box" id="wumvi-card-box" data-resurl="{{ resurl }}">
                     <div class="word-list-box">
                         <ul>
@@ -87,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-
+#}
                 <div class="open-next-level-box">
                     <a href="{{ route('course.trash-mistake.nextlevel', trashMistakeName) }}" class="btn">
                         Я прошёл все тесты. Открыть следующий курс

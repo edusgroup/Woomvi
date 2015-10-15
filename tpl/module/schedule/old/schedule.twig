@@ -1,0 +1,45 @@
+<h2>Расписание</h2>
+
+<div class="schedule-item-list gutters  user-auth">
+    {% for dayItem in list %}
+        <div class="day-item span_8 col {{ dayItem.active ? 'active' }}">
+            <div class="header">
+                {% if dayItem.date.date == 'today' %}
+                    <div class="today">
+                        Сегодня
+                    </div>
+                {% else %}
+                    <div class="date">
+                        {{ dayItem.date.date }}
+                    </div>
+                    <div class="more-info">
+                        <div class="month">
+                            {{ dayItem.date.month }}
+                        </div>
+                        <div class="weekday">
+                            {{ dayItem.date.weekday }}
+                        </div>
+
+                    </div>
+                {% endif %}
+            </div>
+            <div class="content">
+                <ul>
+                    {% for todoItem in dayItem.list %}
+                        <li class="todo-item">
+                            <input type="checkbox" value="{{ todoItem.id }}" id="todo-{{ todoItem.id }}" class="checkbox-replaced"/>
+                            <label for="todo-{{ todoItem.id }}"></label>
+                            {% if dayItem.active %}
+                                <a href="{{ todoItem.url }}">
+                            {% endif %}
+                                {{- todoItem.name }}
+                            {% if dayItem.active %}
+                                </a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+</div>

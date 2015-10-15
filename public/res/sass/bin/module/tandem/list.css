@@ -1,0 +1,81 @@
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
+
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet: width height image $spritesheet-sprites;
+*/
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+*/
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of SCSS
+
+@include sprites($spritesheet-sprites);
+*/
+.tandem-list {
+  overflow: hidden;
+  clear: both;
+  padding: 10px;
+  margin-left: -10px; }
+  .tandem-list .user-item {
+    overflow: hidden;
+    -webkit-box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+    webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background: #fff;
+    /*border: 1px solid rgba(0, 0, 0, 0.1);*/
+    float: left;
+    margin-bottom: 20px;
+    margin-right: 1%;
+    position: relative; }
+    .tandem-list .user-item:hover .add-box {
+      display: block; }
+    .tandem-list .user-item .add-box {
+      height: 120px;
+      background: #fff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      width: 100%;
+      display: none; }
+    .tandem-list .user-item .info-box {
+      position: relative; }
+      .tandem-list .user-item .info-box .info {
+        padding: 16px;
+        display: table-cell; }
+        .tandem-list .user-item .info-box .info .name {
+          font-size: 16px;
+          font-weight: bold; }
+        .tandem-list .user-item .info-box .info .list {
+          font-size: 12px;
+          margin-top: 5px;
+          color: #3b3b3b; }
+    .tandem-list .user-item .photo-box {
+      vertical-align: top; }
+      .tandem-list .user-item .photo-box .photo {
+        width: 120px;
+        height: 120px;
+        background: #eee;
+        line-height: 0; }
+    .tandem-list .user-item .about-user {
+      margin-top: 8px; }

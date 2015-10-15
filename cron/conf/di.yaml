@@ -1,0 +1,18 @@
+res:
+  mongodb:
+    url: mongodb://localhost
+
+class:
+  mongodb:
+    class: \MongoClient
+    param: $mongodb
+  db:
+    class: \Flame\Classes\Db\Driver\Mongo
+    param: [@mongodb, wumvi]
+
+  schedule.dao:
+    class: \Cron\Tasks\Schedule\Dao\ScheduleDao
+    param: @db
+  schedule.service:
+    class: \Cron\Tasks\Schedule\Service\ScheduleService
+    param: @schedule.dao

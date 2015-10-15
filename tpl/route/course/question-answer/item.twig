@@ -10,6 +10,7 @@
     <script>
         jQuery(document).ready(function(){
             var loader = new wumvi.LoadScript([
+                '/res/bower_package/jplayer/dist/jplayer/jquery.jplayer.js',
                 '/res/js/ProgressBar.js',
                 '/res/js/wumvi/ContentSlideBox.js',
                 '/res/js/wumvi/QuestionAnswer/QuestionAnswer.js',
@@ -71,21 +72,24 @@
                 </style>
 
 
-                <div class="content-slide-box" id="question-answer-box">
-                    {% for item in questionList %}
-                        <div class="item">
-                            <div class="box box-1">
-                                <div class="question-text">
-                                    {{ item.question|raw }}
+                <div class="content-slide-box" id="question-answer-box" data-resurl="{{ resurl('/res/sound/question/'~questionName~'/%name.%ext') }}">
+                    <div class="list-wrapper">
+                        {% for key, item in questionList %}
+                                <div class="item" data-id="{{ key }}">
+                                    <div class="box box-1">
+                                        <div class="question-text">
+                                            {{ item.question|raw }}
+                                        </div>
+                                    </div>
+                                    <div class="box box-2">
+                                        <div class="answer-text">
+                                            {{ item.answer|raw }}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="box box-2">
-                                <div class="answer-text">
-                                    {{ item.answer|raw }}
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+
+                        {% endfor %}
+                    </div>
 
                     <div class="panel-button">
                         <a href="#" class="item-btn answer" id="showAnswer" data-text="Показать вопрос">Показать ответ</a>
@@ -93,6 +97,7 @@
                         <a href="#" class="item-btn next" id="nextQuestion">Далее</a>
                     </div>
                 </div>
+
                 <div class="progress-box" id="progressRound" data-count="{{ questionList.length }}"></div>
 
                 <div class="next-level-box">
@@ -103,4 +108,7 @@
 
         </div>
     </div>
+
+
+    <div id="player-box"></div>
 {% endblock %}

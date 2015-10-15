@@ -1,0 +1,33 @@
+{% spaceless %}
+<DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <meta name="description" content="{{ seo.description }}"/>
+    <title>{{ seo.title }}</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta http-equiv="cleartype" content="on">
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link href="/res/icons/icon128.png" rel="icon"/>
+    <link href="/res/icons/icon128.png" rel="apple-touch-icon-precomposed"/>
+
+    <!-- Responsive and mobile friendly stuff -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet"  href="/res/css/base.css">
+    <link rel="stylesheet"  href="/res/css/responsive.gs.24col.css">
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+{% block content %}{% endblock %}
+</body>
+</html>
+{% endspaceless %}

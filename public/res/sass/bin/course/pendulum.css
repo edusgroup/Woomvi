@@ -1,0 +1,98 @@
+@charset "UTF-8";
+/**** Кнопка начала ******************/
+#wumvi-pendulum .start-page-btn {
+  width: 400px;
+  height: 80px;
+  line-height: 80px;
+  background-color: #c0c8cf;
+  cursor: pointer;
+  color: #fff;
+  display: block;
+  margin: 100px auto 0 auto;
+  font-size: 22px;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: 5px;
+  text-decoration: none; }
+  #wumvi-pendulum .start-page-btn:hover {
+    background-color: #62dd7e; }
+  #wumvi-pendulum .start-page-btn:after {
+    content: "";
+    display: block;
+    margin: 0 5px;
+    height: 5px;
+    bottom: -5px;
+    border-radius: 5px;
+    background-color: #ebf2f8; }
+  #wumvi-pendulum .start-page-btn:hover:after {
+    background-color: #dbefdb; }
+
+/********************************************/
+#wumvi-pendulum-testing .answerBox {
+  height: 210px; }
+
+#wumvi-pendulum-testing .questionBox {
+  height: 210px;
+  display: table-cell; }
+
+.wumvi-pendulum-end, .wumvi-pendulum-start-screen {
+  display: none; }
+
+.wumvi-pendulum-end.show, .wumvi-pendulum-start-screen.show {
+  display: block; }
+
+#wumvi-pendulum-testing.show {
+  display: table; }
+
+#wumvi-pendulum-testing {
+  display: none;
+  width: 100%;
+  margin-top: 40px; }
+
+#wumvi-pendulum-testing .questionBox {
+  text-align: center;
+  font-size: 24px;
+  line-height: 34px;
+  width: 100%; }
+
+#wumvi-pendulum-testing .questionBox .text {
+  display: table-cell;
+  vertical-align: middle; }
+
+#progressSquare {
+  margin-top: 50px; }
+
+#wumvi-pendulum-testing .answerBox {
+  text-align: center; }
+
+#wumvi-pendulum-testing .answerBox table {
+  width: 470px;
+  margin: 0 auto; }
+  #wumvi-pendulum-testing .answerBox table td.text {
+    vertical-align: middle;
+    text-align: center;
+    position: relative; }
+  #wumvi-pendulum-testing .answerBox table td.img {
+    width: 165px; }
+
+#wumvi-pendulum-testing .box {
+  display: none; }
+
+#wumvi-pendulum-testing.answer-type .answerBox {
+  display: block; }
+
+#wumvi-pendulum-testing.question-type .questionBox {
+  display: table; }
+
+#wumvi-pendulum-testing .answerBox .bubble {
+  position: absolute;
+  top: 40px;
+  left: 0; }
+
+.count-down {
+  width: 40px;
+  position: absolute;
+  top: 25px;
+  right: -10px;
+  z-index: 10; }

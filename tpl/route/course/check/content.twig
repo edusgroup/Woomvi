@@ -9,14 +9,14 @@
 {% block footer %}
     <script src="/res/js/loadjs.js"></script>
     <script>
-        jQuery(document).ready(function(){
+        jQuery(document).ready(function () {
             var loader = new wumvi.LoadScript([
                 '/res/js/wumvi/Utils.js',
                 '/res/js/ProgressBar.js',
                 '/res/js/wumvi/ContentSlideBox.js',
                 '/res/js/wumvi/CheckTest/CheckTest.js',
                 '/res/js/wumvi/CheckTest/Form.js'
-            ], function(){
+            ], function () {
                 var trashMistake = new wumvi.CheckTest();
             });
         });
@@ -30,29 +30,27 @@
             background-image: url('/res/img/slider/slider-bg-01.jpg');
         }
 
-        .question-text{
+        .question-text {
             margin-bottom: 20px;
         }
 
-        .content-slide-box{
+        .content-slide-box {
             background: url('/res/img/course/check/panel-bg.png') bottom right no-repeat #fff;
         }
 
-        .content-slide-box .check-list{
+        .content-slide-box .check-list {
             margin-left: 20px;
         }
 
-        .content-slide-box .check-list label.right{
+        .content-slide-box .check-list label.right {
             color: #72e778;
         }
 
-        .content-slide-box .check-list label.error{
+        .content-slide-box .check-list label.error {
             color: #d14b51;
         }
 
-
-
-        #error-panel{
+        #error-panel {
             position: absolute;
             bottom: 10px;
             left: 0;
@@ -60,36 +58,36 @@
             width: 100%;
         }
 
-        #wumvi-check-test .question-list{
+        #wumvi-check-test .question-list {
             display: block;
         }
 
-        #wumvi-check-test.too-many-errors .question-list{
+        #wumvi-check-test.too-many-errors .question-list {
             display: block;
         }
 
-        #wumvi-check-test.too-many-errors .question-list{
+        #wumvi-check-test.too-many-errors .question-list {
             display: none;
         }
 
-        #wumvi-check-test .too-many-error-box{
+        #wumvi-check-test .too-many-error-box {
             display: none;
             width: 100%;
         }
 
-        #wumvi-check-test .too-many-error-box .text{
+        #wumvi-check-test .too-many-error-box .text {
             vertical-align: middle;
             font-weight: bold;
             font-size: 20px;
         }
 
-        #wumvi-check-test.too-many-errors .too-many-error-box{
+        #wumvi-check-test.too-many-errors .too-many-error-box {
             height: 100%;
             display: block;
             text-align: center;
         }
 
-        #wumvi-check-test.too-many-errors{
+        #wumvi-check-test.too-many-errors {
             padding: 20px;
         }
     </style>
@@ -103,23 +101,25 @@
 
             <div class="content-slide-box" id="wumvi-check-test">
                 <div class="question-list">
-                    {% for key, itemCheck in checkList %}
-                        <div class="item item-{{ key }}" data-id="{{ key }}" data-aid="{{ itemCheck.answerId }}">
-                            <div class="question-text">
-                                {{ itemCheck.text }}
+                    <div class="list-wrapper">
+                        {% for key, itemCheck in checkList %}
+                            <div class="item item-{{ key }}" data-id="{{ key }}" data-aid="{{ itemCheck.answerId }}">
+                                <div class="question-text">
+                                    {{ itemCheck.text }}
+                                </div>
+                                <ul class="check-list">
+                                    {% for questionId, questionText in itemCheck.list %}
+                                        <li>
+                                            <label>
+                                                <input type="radio" name="{{ key }}" value="{{ questionId }}"/>
+                                                {{ questionText }}
+                                            </label>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
                             </div>
-                            <ul class="check-list">
-                                {% for questionId, questionText in itemCheck.list %}
-                                    <li>
-                                        <label>
-                                            <input type="radio" name="{{ key }}" value="{{ questionId }}"/>
-                                            {{ questionText }}
-                                        </label>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
 
                 <table class="too-many-error-box">

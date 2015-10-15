@@ -17,7 +17,11 @@ class PendulumController extends BaseController
      */
     public function indexAction($path, $itemName)
     {
-        $response = $this->checkRight(CourseService::PENDULUM, $itemName);
+        /** @var CourseService $courseService */
+        $courseService = $this->fabric('course.service');
+        $courseGroupName = $courseService->getCourseGroupName(CourseService::TRASH_MISTAKE, $itemName);
+
+        $response = $this->checkRight(CourseService::PENDULUM, $itemName, $courseGroupName);
         if ($response !== null) {
             return $response;
         }

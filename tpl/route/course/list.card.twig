@@ -1,0 +1,13 @@
+<div class="item {{ itemClass }}">
+    <a href="{{ itemUrl }}">
+        <img src="{{ imgUrl }}" class="preview"/>
+
+        {% set colorClass = type == 'grammar' ? '' : 'dark' %}
+        <div class="text {{ colorClass }}">
+            <div class="caption">{{ caption }}</div>
+            <div class="description">{{ description }}</div>
+            <div class="info"></div>
+        </div>
+        <div class="locked access" title="Доступ закрыт"></div>
+    </a>
+</div>

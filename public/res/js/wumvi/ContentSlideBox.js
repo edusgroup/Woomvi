@@ -19,11 +19,11 @@ wumvi.ContentSlideBox = function()
  * @param {!jQuery} $btn
  * @private
  */
-wumvi.ContentSlideBox.prototype.switchLabelBtn_ = function($btn){
-    var text = /** @type {string} */ ($btn.text());
-    var newText = /** @type {string} */ ($btn.data("text"));
-    $btn.html(newText).data("text", text);
-};
+//wumvi.ContentSlideBox.prototype.switchLabelBtn_ = function($btn){
+//    var text = /** @type {string} */ ($btn.text());
+//    var newText = /** @type {string} */ ($btn.data("text"));
+//    $btn.html(newText).data("text", text);
+//};
 
 wumvi.ContentSlideBox.prototype.initSound = function(id){
     this.$playerBox = jQuery(id);

@@ -1,0 +1,94 @@
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
+
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet: width height image $spritesheet-sprites;
+*/
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+*/
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of SCSS
+
+@include sprites($spritesheet-sprites);
+*/
+.schedule-list-box {
+  clear: both;
+  overflow: hidden;
+  padding: 3px;
+  margin-left: -3px; }
+  .schedule-list-box .schedule-item {
+    width: 33%;
+    font-size: 16px;
+    float: left;
+    position: relative;
+    margin-bottom: 20px; }
+    .schedule-list-box .schedule-item.overdue-type .date-box {
+      background: #ffecea;
+      border-left-color: #ffb5ad; }
+    .schedule-list-box .schedule-item.overdue-type .overdue-box {
+      width: 45px;
+      height: 170px;
+      background: url("/res/img/ribbon.png");
+      position: absolute;
+      right: 10px;
+      top: -2px; }
+    .schedule-list-box .schedule-item.task-done-type .date-box {
+      background: #f0ffee;
+      border-left-color: #a0e599; }
+    .schedule-list-box .schedule-item .date-box {
+      padding: 20px;
+      background: #f8f9fb;
+      font-size: 20px;
+      border-left: 2px solid #e4e8eb;
+      color: #474747; }
+    .schedule-list-box .schedule-item .todo-box {
+      padding: 10px 10px 10px 20px;
+      border-top: 0;
+      height: 40px;
+      color: #899299; }
+      .schedule-list-box .schedule-item .todo-box a {
+        font-size: 18px;
+        text-decoration: none;
+        color: inherit; }
+      .schedule-list-box .schedule-item .todo-box input[type="checkbox"] {
+        display: none; }
+      .schedule-list-box .schedule-item .todo-box label {
+        content: '';
+        background-image: url(/res/sprite/build/sprite.png);
+        background-position: -20px 0px;
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        position: static;
+        vertical-align: top;
+        margin-right: 10px; }
+      .schedule-list-box .schedule-item .todo-box .checkbox-replaced + label:hover {
+        background-image: url(/res/sprite/build/sprite.png);
+        background-position: 0px 0px;
+        width: 20px;
+        height: 20px; }
+      .schedule-list-box .schedule-item .todo-box .checkbox-replaced:checked + label {
+        background-image: url(/res/sprite/build/sprite.png);
+        background-position: 0px -20px;
+        width: 20px;
+        height: 20px; }
+      .schedule-list-box .schedule-item .todo-box input:checked + label + a {
+        color: #c2c7cc;
+        text-decoration: line-through; }

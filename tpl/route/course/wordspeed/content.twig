@@ -1,0 +1,57 @@
+{% extends "global/index.twig" %}
+
+{% block head %}
+    <link href="/res/sass/bin/course/wordspeed.css" rel="stylesheet"/>
+	<link href="/res/sass/bin/module/wordspeed/wordspeed.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block footer %}
+    <script src="/res/js/loadjs.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            var loader = new wumvi.LoadScript([
+                '/res/js/wumvi/EventDomDispatcher/EventDomDispatcher.js',
+                '/res/js/wumvi/Page/WordSpeed/PageController.js',
+                '/res/js/wumvi/Utils.js',
+                '/res/js/wumvi/Module/WordSpeed/WordSpeed.js'
+            ], function () {
+                wumvi.wordspeed.controller.init();
+                wumvi.wordspeed.ctrl.init();
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    {{ module('wordspeed.mainbox') }}
+
+    <div class="speed-controll-box">
+        <div class="begginer-controll-box controll-box">
+            <label for="switch-wordspeed-beginer">Начинающий</label>
+            <input type="radio" id="switch-wordspeed-beginer" name="speed" checked/>
+        </div>
+
+        <div class="profi-controll-box controll-box">
+            <label for="switch-wordspeed-profi" class="profi-input">Профессионал</label>
+            <input type="radio" id="switch-wordspeed-profi" name="speed"/>
+        </div>
+    </div>
+
+	<div class="start-btn-box">
+        <a class="start-page-btn start-page-btn-js" href="#start-btn" data-text="Заново">Начать</a>
+	</div>
+
+    <style>
+        .speed-controll-box{
+            text-align: center;
+        }
+
+        .speed-controll-box .controll-box{
+            display: inline-block;
+        }
+
+        .speed-controll-box .profi-controll-box{
+            margin-left: 40px;
+        }
+    </style>
+{% endblock %}

@@ -1,47 +1,103 @@
-.content-slide-box {
-  padding: 0;
-  clear: both; }
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
 
-.content-slide-box .word-list-box {
-  width: 200px;
-  border-right: 1px solid #cdcdcd;
-  height: inherit;
-  float: left;
-  /* overflow-y: scroll; */ }
+.icon-home {
+  width: $icon-home-width;
+}
 
-.content-slide-box .word-list-box {
-  padding: 10px 0;
-  overflow: auto; }
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
 
-.content-slide-box .word-list-box li {
-  padding: 3px 10px; }
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet: width height image $spritesheet-sprites;
+*/
+/*
+The provided mixins are intended to be used with the array-like variables
 
-.content-slide-box .word-list-box li {
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+*/
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of SCSS
+
+@include sprites($spritesheet-sprites);
+*/
+.sent-item-list {
+  overflow: hidden;
+  margin-left: -1%;
+  color: #303030; }
+
+.sent-item-box .caption {
+  /*border-bottom: 1px dotted #848893; */
+  display: inline-block;
+  font-size: 20px;
   cursor: pointer; }
 
-.content-slide-box .word-list-box li:hover, .content-slide-box .word-list-box li.select {
-  background: #f4f7f9; }
-
-.word-card-box {
-  width: 598px;
-  height: 335px;
-  float: right;
+.sent-item-box {
+  float: left;
+  background: #ffffff;
+  padding: 12px 12px;
   position: relative;
-  padding: 10px 20px; }
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e5eb;
+  margin: 0 0 1% 1%; }
 
-.card-box .name {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 20px; }
+.sent-item-box.end-point-of-grid {
+  clear: left; }
 
-.content-slide-box .panel-button .item-btn.next {
-  visibility: visible; }
+.description-box {
+  margin-top: 30px;
+  font-size: 16px;
+  line-height: 24px; }
 
-.item-card .card-box .translate-card {
+.sent-item-box.foreign-show-mode .translation {
   display: none; }
 
-.item-card.translate-mode .card-box .translate-card {
-  display: block; }
-
-.item-card.translate-mode .card-box .main-card {
+.sent-item-box .foreign {
   display: none; }
+
+.sent-item-box.foreign-show-mode .foreign {
+  display: inline-block; }
+
+.word-highlight {
+  font-weight: bold; }
+
+.play-sound {
+  display: inline-block;
+  margin-left: 10px;
+  background-image: url(/res/sprite/build/sprite.png);
+  background-position: -40px 0px;
+  width: 18px;
+  height: 15px; }
+
+.play-sound:hover {
+  background-image: url(/res/sprite/build/sprite.png);
+  background-position: -20px -20px;
+  width: 18px;
+  height: 15px; }
+
+.translate-word {
+  display: inline-block;
+  margin-left: 10px;
+  background-image: url(/res/sprite/build/sprite.png);
+  background-position: 0px -40px;
+  width: 15px;
+  height: 15px; }
+
+.translate-word:hover {
+  background-image: url(/res/sprite/build/sprite.png);
+  background-position: -40px -15px;
+  width: 15px;
+  height: 15px; }

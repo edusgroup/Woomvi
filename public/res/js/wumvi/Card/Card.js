@@ -1,127 +1,135 @@
-"use strict";
-/* global */
+'use strict';
+/* global EventDomDispatcher */
 
-wumvi = window.wumvi || {};
-
-/**
- *
- * @constructor
- */
-wumvi.Card = function () {
-    /**
-     * @type {!jQuery}
-     */
-    this.$root = jQuery("#wumvi-card-box");
-    this.$wordList = this.$root.find(".word-list-box li");
+var wumvi = wumvi || {};
+wumvi.card = (function () {
+    var EVENT_BOX_NAME = 'wumvi.card';
+    var EVENT_CARD_ITEM_PLAYED_VOICE = 'wumvi.card.item.played.voice';
+    var EVENT_CARD_ITEM_SWITCH_TRANSLATE = 'wumvi.card.item.switch.translate';
 
     /**
-     * Шаблон URL с ресурсами mp3 и oga
-     * @type {string}
+     *
+     * @constructor
      */
-    this.resTplUrl = /** @type {string} */ (this.$root.data("resurl"));
+    function SentenseList() {
+        var that = this;
 
-    /**
-     * Объекты с заданиями
-     * @type {Object}
-     */
-    this.formList = {};
+        this.$root = jQuery('#sent-item-list');
 
+        this.eventDispatcher = new EventDomDispatcher(EVENT_BOX_NAME);
 
-    this.$playSound = jQuery("#playSound");
+        this.sentItemBoxList = [];
+        this.$root.find('.sent-item-box-js').each(function () {
+            that.sentItemBoxList.push(new SentenseList.Item(jQuery(this), that.eventDispatcher, that));
+        });
 
-    /**
-     * Кнопка, показать перевод
-     * @type {!jQuery}
-     */
-    this.$showTranslate = jQuery("#showTranslate");
+        /**
+         * Шаблон URL с ресурсами mp3 и oga
+         * @type {string}
+         */
+        this.resTplUrl = /** @type {string} */ (this.$root.data('resurl'));
+    }
 
-    /**
-     * Показывать ли перевод
-     * @type {boolean}
-     */
-    this.showTraslateMode = false;
+    SentenseList.prototype = Object.create(wumvi.ContentSlideBox.prototype);
 
-    /**
-     * Текущий выделенная карточка
-     * @type {string}
-     */
-    this.currentItem = "";
-
-    this.init_();
-};
-
-wumvi.Card.prototype = Object.create(wumvi.ContentSlideBox.prototype);
-
-wumvi.Card.prototype.init_ = function(){
-    var that = this;
-
-
-    var firstKey = "";
-
-    this.$root.find(".item-card").each(function (num, obj) {
-        var id = /** @type {string} */ (jQuery(obj).data("id"));
-        if (firstKey === "") {
-            firstKey = id;
+    SentenseList.prototype.init = function (params) {
+        if (this.sentItemBoxList.length === 0) {
+            return;
         }
 
-        that.formList[id] = new wumvi.Card.Form(jQuery(obj), id);
-    });
+        this.initSound('#player-box');
 
-    this.initSound("#player-box");
+        //this.eventDispatcher.addListener(EVENT_CARD_ITEM_PLAYED_VOICE, function () {
+        //
+        //});
 
-    this.showCard(firstKey);
+        this.initGrid();
+        this.initEvent();
+    };
 
-    this.initEvent_();
-};
+    //SentenseList.prototype.
 
+    SentenseList.prototype.initEvent = function () {
+        var that = this;
 
-/**
- *
- * @private
- */
-wumvi.Card.prototype.initEvent_ = function(){
-    var that = this;
+        /*this.$playSound.click(function () {
+         that.playSound_(that.resTplUrl, that.currentItem);
+         return false;
+         }); */
+    };
 
-    this.$wordList.click(function(){
-        that.onWordInListClick_(jQuery(this));
-    });
+    SentenseList.prototype.playSentense = function (currentItem) {
+        this.playSound_(this.resTplUrl, currentItem);
+    };
 
-    this.$playSound.click(function () {
-        that.playSound_(that.resTplUrl, that.currentItem);
-        return false;
-    });
+    SentenseList.prototype.initGrid = function () {
+        var containerWidth = this.$root.width();
+        var itemWidth = this.sentItemBoxList[0].getWidth();
+        var count = Math.round(containerWidth / itemWidth - 0.5, 0);
 
-    this.$showTranslate.click(function () {
-        that.switchAnswerMode();
-        return false;
-    });
-};
+        jQuery.each(this.sentItemBoxList, function (index, sentItemBox) {
+            if (index % count === 0) {
+                sentItemBox.setEndPointOfGrid();
+            }
+        });
+    };
 
-//wumvi.Card.EVENT_WORD_SELECT = "word-select";
+    /**
+     * @constructor
+     */
+    SentenseList.Item = function ($root, eventDispatcher, parentCtrl) {
+        this.$root = $root;
+        this.eventDispatcher = eventDispatcher;
+        this.parentCtrl = parentCtrl;
 
-wumvi.Card.prototype.showCard = function(cardId){
-    this.currentItem = cardId;
+        this.id = this.$root.data('id');
+        this.isShowTranslate = true;
 
-    this.$root.find(".item-card").removeClass("show");
-    jQuery("#card-" + cardId).addClass("show");
+        this.init();
+    };
 
-    this.$wordList.removeClass("select");
-    this.$wordList.filter("[data-id=\"" + cardId + "\"]").addClass("select");
-};
+    SentenseList.Item.prototype.init = function () {
+        this.initEvent();
+    };
 
-wumvi.Card.prototype.onWordInListClick_ = function($obj){
-    if (this.showTraslateMode) {
-        this.switchLabelBtn_(this.$showTranslate);
+    SentenseList.Item.prototype.initEvent = function () {
+        var that = this;
+
+        this.$root.find('.play-sound-js').click(function () {
+            that.eventDispatcher.emit(EVENT_CARD_ITEM_PLAYED_VOICE, {
+                name: that.id
+            });
+            that.parentCtrl.playSentense(that.id);
+        });
+
+        this.$root.find('.translate-word-js').click(function () {
+            that.switchTranslateMode();
+        });
+    };
+
+    SentenseList.Item.prototype.switchTranslateMode = function () {
+        this.isShowTranslate = !this.isShowTranslate;
+        this.eventDispatcher.emit(EVENT_CARD_ITEM_SWITCH_TRANSLATE, {
+            name: this.id,
+            mode: this.isShowTranslate
+        });
+
+        this.$root.toggleClass('foreign-show-mode');
+    };
+
+    SentenseList.Item.prototype.setEndPointOfGrid = function () {
+        this.$root.addClass('end-point-of-grid');
+    };
+
+    SentenseList.Item.prototype.getWidth = function () {
+        return this.$root.width();
+    };
+
+    function init(params) {
+        return (new SentenseList()).init(params);
     }
-    this.showTraslateMode = false;
-    this.formList[this.currentItem].switchAnswerMode(false);
 
-    var cardId = /** @type {string} */ ($obj.data("id"));
-    this.showCard(cardId);
-};
-
-wumvi.Card.prototype.switchAnswerMode = function () {
-    this.showTraslateMode = !this.showTraslateMode;
-    this.formList[this.currentItem].switchAnswerMode(this.showTraslateMode);
-    this.switchLabelBtn_(this.$showTranslate);
-};
+    return {
+        init: init
+    };
+})();

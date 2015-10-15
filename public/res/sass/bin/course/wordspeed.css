@@ -1,0 +1,32 @@
+@charset "UTF-8";
+/**** Кнопка начала ******************/
+.start-btn-box {
+  text-align: center; }
+
+.start-btn-box .start-page-btn {
+  width: 400px;
+  height: 80px;
+  line-height: 80px;
+  background-color: #c0c8cf;
+  cursor: pointer;
+  color: #fff;
+  display: block;
+  margin: 100px auto 0 auto;
+  font-size: 22px;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: 5px;
+  text-decoration: none; }
+  .start-btn-box .start-page-btn:hover {
+    background-color: #62dd7e; }
+  .start-btn-box .start-page-btn:after {
+    content: "";
+    display: block;
+    margin: 0 5px;
+    height: 5px;
+    bottom: -5px;
+    border-radius: 5px;
+    background-color: #ebf2f8; }
+  .start-btn-box .start-page-btn:hover:after {
+    background-color: #dbefdb; }

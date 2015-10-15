@@ -16,6 +16,7 @@
 
 {% block head %}
     <link href="/res/sass/bin/progress.css" rel="stylesheet"/>
+    <link href="/res/sass/bin/course/pendulum.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
@@ -65,133 +66,12 @@
     <div id="maincontentcontainer">
         <div id="maincontent" class="container">
 
-
-
-
-
-            <style>
-                /**** Кнопка начала ******************/
-
-                #wumvi-pendulum .start-page-btn{
-                    width: 400px;;
-                    height: 80px;
-                    line-height: 80px;
-
-                    background-color: #c0c8cf;
-                    cursor: pointer;
-                    color: #fff;
-                    display: block;
-                    margin: 100px auto 0 auto;
-                    font-size: 22px;
-                    text-align: center;
-                    text-transform: uppercase;
-                    white-space: nowrap;
-                    border-radius: 5px;
-                    text-decoration: none;
-                }
-
-                #wumvi-pendulum .start-page-btn:hover{
-                    background-color: #62dd7e;
-                }
-
-                #wumvi-pendulum .start-page-btn:after{
-                    content: "";
-                    display: block;
-                    margin: 0 5px;
-                    height: 5px;
-                    bottom: -5px;
-                    border-radius: 5px;
-
-                    background-color: #ebf2f8;
-                }
-
-                #wumvi-pendulum .start-page-btn:hover:after{
-                    background-color: #dbefdb;
-                }
-
-                /********************************************/
-
-                #wumvi-pendulum-testing .answerBox{
-                    height: 210px;
-                }
-
-                #wumvi-pendulum-testing .questionBox{
-                    height: 210px;
-                    display: table-cell;
-                }
-
-                #wumvi-pendulum-testing.hide, #wumvi-pendulum-end.hide, #wumvi-pendulum-start-screen.hide{
-                    display: none;
-                }
-
-                #wumvi-pendulum-testing{
-                    display: table;
-                    width: 100%;
-                    margin-top: 40px;
-                }
-
-                #wumvi-pendulum-testing .questionBox{
-                    text-align: center;
-                    font-size: 24px;
-                    line-height: 34px;
-                    width: 100%;
-                }
-
-                #wumvi-pendulum-testing .questionBox .text{
-                    display: table-cell;
-                    vertical-align: middle;
-                }
-
-                #progressSquare{
-                    margin-top: 50px;
-                }
-
-                #wumvi-pendulum-testing .answerBox{
-                    text-align: center;
-                }
-
-                #wumvi-pendulum-testing .answerBox table{
-                    width: 400px;
-
-                    margin: 0 auto;
-                }
-
-                #wumvi-pendulum-testing .answerBox table td.text{
-                    vertical-align: middle;
-                    text-align: center;
-                    position: relative;
-                }
-
-                #wumvi-pendulum-testing .answerBox table td.img{
-                    width: 165px;
-                }
-
-                #wumvi-pendulum-testing .box{
-                    display: none;
-                }
-
-                #wumvi-pendulum-testing.answer-type .answerBox{
-                    display: block;
-                }
-
-                #wumvi-pendulum-testing.question-type .questionBox{
-                    display: table;
-                }
-
-                #wumvi-pendulum-testing .answerBox .bubble{
-                    position: absolute;
-                    top: 40px;
-                    left: 0;
-                }
-            </style>
-
-
-
             <div id="wumvi-pendulum">
                 <div class="content">
-                    <div id="wumvi-pendulum-start-screen" class="">
+
+                    <div id="wumvi-pendulum-start-screen" class="show wumvi-pendulum-start-screen">
                         <div class="btn-list">
-                            <a href="#start" class="start-page-btn" data-text2="Заново!">Начать!</a>
+                            <a href="#start" class="start-page-btn start-page-btn-js" data-text2="Заново!">Начать!</a>
                         </div>
 
                         <div class="open-next-level-box">
@@ -201,37 +81,29 @@
                         </div>
                     </div>
 
-                    <div id="wumvi-pendulum-testing" class="hide">
-
-                        <div class="questionBox box">
+                    {# ----------------------------------------------------------- #}
+                    <div id="wumvi-pendulum-testing">
+                        <div class="questionBox question-box-js box">
                             <div class="text"></div>
                         </div>
-
                         <div class="answerBox box">
                             <table>
                                 <tr>
                                     <td class="img"><img src="/res/img/trainer.png"/></td>
                                     <td class="text">
+                                        <img class="count-down count-down-img-js" data-src="/res/img/count-down-{num}.gif"/>
                                         <img src="/res/img/bubble.png" class="bubble"/>
 
-
-                                        sdfsdf ssdf sdfsdf
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <div class="progress-box" id="progressRound"></div>
+                                        <span class="motivation-words-js"></span>
                                     </td>
                                 </tr>
                             </table>
-
-
                         </div>
-
-                        <div class="progress-box square" data-count="{{ pendulumList|length }}" id="progressSquare"></div>
+                        <div class="progress-box" data-count="{{ pendulumList|length }}" id="progressSquare"></div>
                     </div>
+                    {# ----------------------------------------------------------- #}
 
-                    <div id="wumvi-pendulum-end" class="hide">
+                    <div id="wumvi-pendulum-end" class="wumvi-pendulum-end">
                         Маятник завершен. Хорошая работа!
                     </div>
 

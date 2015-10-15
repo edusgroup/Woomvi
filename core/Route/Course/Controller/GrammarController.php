@@ -29,7 +29,11 @@ class GrammarController extends BaseController
      */
     public function indexAction($path, $courseName)
     {
-        $response = $this->checkRight(CourseService::GRAMMAR, $courseName);
+        /** @var CourseService $courseService */
+        $courseService = $this->fabric('course.service');
+        $courseGroupName = $courseService->getCourseGroupName(CourseService::TRASH_MISTAKE, $courseName);
+
+        $response = $this->checkRight(CourseService::GRAMMAR, $courseName, $courseGroupName);
         if ($response !== null) {
             return $response;
         }

@@ -18,13 +18,16 @@ class TrashMistakeController extends BaseController
      */
     public function indexAction($path, $itemName)
     {
+        /** @var CourseService $courseService */
+        $courseService = $this->fabric('course.service');
+
+
         $response = $this->checkRight(CourseService::TRASH_MISTAKE, $itemName);
         if ($response !== null) {
             return $response;
         }
 
-        /** @var CourseService $courseService */
-        $courseService = $this->fabric('course.service');
+
 
         $params['trashMistakeList'] = $courseService->getTrashMistakeData($itemName);
         $this->ifNullInvokeError4xx($params['trashMistakeList']);
@@ -34,8 +37,8 @@ class TrashMistakeController extends BaseController
         return new Html('route/course/trash-mistake/item.twig', $params, $this);
     }
 
-    public function nextLevelAction($path, $courseName)
+    /*public function nextLevelAction($path, $courseName)
     {
         return parent::nextLevel($path, $courseName, CourseService::TRASH_MISTAKE);
-    }
+    }*/
 }

@@ -45,7 +45,7 @@ class CourseDao extends Dao
 
     public function getCourseData($courseName)
     {
-        return $this->driver->table(self::TABLE_SITE_COURSE)->selectFirst([], ['url' => $courseName]);
+        return $this->driver->table(self::TABLE_SITE_COURSE)->selectFirst(['_id' => 0], ['url' => $courseName]);
     }
 
     public function getQuestionList($groupName)
@@ -70,31 +70,29 @@ class CourseDao extends Dao
         );
     }
 
-    public function getEventsByName($name, $userId, $fields = [])
+    public function getEventsByName($name, $userInnerId)
     {
-        $name = $name ? '.' . $name : '';
-
         return $this->driver->table(self::TABLE_SITE_EVENTS)->selectFirst(
-            $fields,
-            ['course' . $name => ['$exists' => true], 'userId' => $userId]
+            [$name => 1],
+            ['_id' => $userInnerId]
         );
     }
 
-    public function getCourseName($groupName, $blockName)
+    public function getCourseGroupName($courseType, $itemName)
     {
         return $this->driver->table(self::TABLE_SITE_COURSE)->selectFirst(
             ['url' => 1, '_id' => 0],
-            ['data.' . $groupName. '.' . $blockName => ['$exists' => true]]
+            ['data.name' => $courseType, 'data.url' => $itemName]
         );
     }
 
-    public function getNextLevelItem($type, $key)
+    /*public function getNextLevelItem($type, $key)
     {
         return $this->driver->table('siteLevelSequence')->selectFirst(
             ["$type.$key" => 1],
             ["$type.$key" => ['$exists' => 1]]
         );
-    }
+    }*/
 
 
     public function getEventDataByName($type, $key, $userId)

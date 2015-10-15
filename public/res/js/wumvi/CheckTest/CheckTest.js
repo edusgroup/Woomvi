@@ -83,14 +83,12 @@ wumvi.CheckTest.prototype.onAnswerRight_ = function(){
 wumvi.CheckTest.prototype.onAnswerWrong_ = function(){
     var that = this;
     this.errorCount_ -= 1;
-    if (this.errorCount_ < 0) {
+    this.$errorLost.html(this.errorCount_).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+    if (this.errorCount_ <= 0) {
         setTimeout(function(){
             that.tooManyErrors_();
         }, 500);
-        return;
     }
-
-    this.$errorLost.html(this.errorCount_).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 };
 
 wumvi.CheckTest.prototype.tooManyErrors_ = function(){

@@ -1,0 +1,55 @@
+@mixin common-shadow-box{
+  -webkit-box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+@mixin common-checkbox-replaced(){
+
+
+}
+
+
+@mixin border-radius($size: 4px){
+  webkit-border-radius: $size;
+  -moz-border-radius: $size;
+  border-radius: $size;
+}
+
+@mixin big-start-button(){
+  width: 400px;;
+  height: 80px;
+  line-height: 80px;
+
+  background-color: #c0c8cf;
+  cursor: pointer;
+  color: #fff;
+  display: block;
+  margin: 100px auto 0 auto;
+  font-size: 22px;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: 5px;
+  text-decoration: none;
+
+  &:hover{
+    background-color: #62dd7e;
+  }
+
+  &:after{
+    content: "";
+    display: block;
+    margin: 0 5px;
+    height: 5px;
+    bottom: -5px;
+    border-radius: 5px;
+
+    background-color: #ebf2f8;
+  }
+
+  &:hover:after{
+    background-color: #dbefdb;
+  }
+
+}

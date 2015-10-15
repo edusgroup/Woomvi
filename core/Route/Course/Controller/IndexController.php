@@ -5,6 +5,7 @@ namespace Site\Route\Course\Controller;
 use Flame\Classes\Http\Response\Html;
 use Flame\Classes\RequestHttp;
 use Site\Common\Controller\BaseController;
+use Site\Common\Modules\Schedule\Controller\ScheduleModule;
 use Site\Route\Course\Service\CourseService;
 use Site\Route\Course\Service\IndexService;
 use Site\Route\Course\Service\MaterialService;
@@ -30,26 +31,23 @@ class IndexController extends BaseController
         /** @var IndexService $indexService */
         $indexService = $this->fabric('course.service.index');
 
-        $data = $indexService->checkRight($courseName, $this->user);
-        if ($data instanceof Html) {
-            return $data;
+        $courseData = $indexService->checkRight($courseName, $this->user);
+        if ($courseData instanceof Html) {
+            return $courseData;
         }
 
         /** @var CourseService $courseService */
         $courseService = $this->fabric('course.service');
 
         $params['courseData'] = $courseService->getOpenCategory(
-            $data['courseData'],
-            $data['openCourse'],
-            $courseName,
-            self::TIME_HOUR_UNBLOCK_COUNT
+            $courseData,
+            $courseName
         );
         unset($data);
 
         $params['courseName'] = $courseName;
 
-        //$request = new RequestHttp();
-        //$params['thisPath'] = $request->getPath();
+
 
         return new Html('route/course/list.twig', $params, $this);
     }

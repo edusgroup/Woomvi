@@ -1,0 +1,38 @@
+<div class="schedule-list-box" id="schedule-list-box" data-is-overdue="{{ isOverdue ? 'true' }}">
+
+    {% for scheduleItem in scheduleList %}
+        {% set firstLoop = loop.first %}
+
+        <div class="schedule-item schedule-item-js" data-id="{{ scheduleItem.id }}">
+            <div class="overdue-box"></div>
+            <div class="date-box">
+                {{ loop.first ? 'Сегодня' : '16 марта, пон.' }}
+            </div>
+            {% for todoItem in scheduleItem.list %}
+                <div class="todo-box">
+                    {% if firstLoop %}
+                        <input type="checkbox"
+                               value="{{ todoItem.id }}"
+                               id="todo-{{ todoItem.id }}"
+                               class="checkbox-replaced checkbox-js"
+                                {{ todoItem.id in scheduleList.taskListChecked ? 'checked' }}
+                                />
+                        <label for="todo-{{ todoItem.getId }}"></label>
+                        <a href="#">{{ todoItem.name }}</a>
+                    {% else %}
+                        {{ todoItem.name }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            {% set count = scheduleList.maxCountElement - scheduleItem.list.length %}
+            {% if count > 0 %}
+                {% for num in 1..count %}
+                    <div class="todo-box hidden">&nbsp;</div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    {% endfor %}
+
+</div>

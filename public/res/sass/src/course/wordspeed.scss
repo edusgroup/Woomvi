@@ -1,0 +1,11 @@
+@import '../common/common.scss';
+/**** Кнопка начала ******************/
+
+
+.start-btn-box{
+  text-align: center;
+}
+
+.start-btn-box .start-page-btn{
+  @include big-start-button();
+}

@@ -4,6 +4,11 @@ namespace Site\Route\Course\Service;
 
 use Flame\Classes\Model\Collection;
 use Site\Route\Course\Dao\CourseDao;
+use Site\Route\Course\Model\CourseCard;
+use Site\Route\Course\Model\CourseData;
+use Site\Route\Course\Model\CourseItem;
+use Site\Route\Course\Model\OpenCourse;
+use Site\Route\Course\Model\OpenGetAbstractCourse;
 use Site\Route\Course\Model\QuestionAnswer;
 
 class CourseService
@@ -100,6 +105,20 @@ class CourseService
             return [];
         }
 
+        $cardList = array_map(function ($cardItem) {
+            if ($cardItem['name'] === 'getabstract') {
+                return new CourseCard($cardItem['name'], '', '');
+            }
+            return new CourseCard($cardItem['name'], $cardItem['url'], $cardItem['caption']);
+        }, $data['data']);
+
+        $data = new CourseItem(
+            $data['url'],
+            $data['id'],
+            $data['name'],
+            $cardList
+        );
+
         return $data;
     }
 
@@ -125,73 +144,83 @@ class CourseService
         return $data['list'];
     }
 
-    public function getOpenCategory($courseData, $openCourse, $courseName, $hourCount)
+    /**
+     * Получаем список открытых карточек модуля
+     *
+     * @param CourseData $courseData Данные модуля
+     * @param string $courseName Название курса
+     * @return mixed
+     */
+    public function getOpenCategory(CourseData $courseData, $courseName)
     {
-        $typeList = [
-            self::PENDULUM,
-            self::TRASH_MISTAKE,
-            self::QUESTION_ANSWER,
-            // self::GET_ABSTRACT,
-            self::SPEAKING,
-            self::CARD,
-            self::VIDEO,
-            self::EXAM
-        ];
+        $openedCourse = $courseData->getOpenCourse();
 
-        if (isset($openCourse[self::GET_ABSTRACT][$courseName])) {
-            $blockName = $openCourse[self::GET_ABSTRACT][$courseName]['name'];
-            /*$bookInfo = $this->materialService->getBookInfo($blockName);*/
+        foreach ($courseData->getCourseData()->getCourseCardList() as $item) {
+            // Если это демо доступ, то он всегда открыт
+            if ($this->isDemo($item->getName(), $item->getUrl())) {
+                $item->setOpenStatus(true);
+                continue;
+            }
 
-            $courseData['data'][self::GET_ABSTRACT] = [
-                $blockName => [
-                    'name' => 'none' // $bookInfo['title']
-                ]
-            ];
-        }
+            $isOpen = false;
+            if (isset($openedCourse[$item->getName()])) {
+                $openItem = $openedCourse[$item->getName()];
 
-        foreach ($typeList as $type) {
-            foreach ($courseData['data'][$type] as $key => &$item) {
-                if ($this->isDemo($type, $key)) {
-                    $item = ['info' => $item, 'isInit' => true, 'isOpen' => true];
-                    continue;
-                }
-
-                $isOpen = isset($openCourse[$type][$key]);
-                $item = ['info' => $item, 'isInit' => $isOpen];
-                if ($isOpen) {
-                    $time = $openCourse[$type][$key]['time'];
-                    $item['isOpen'] = $time + $hourCount < time();
-                    $item['time'] = (new \DateTime())->setTimestamp($time + $hourCount);
+                if ($openItem instanceof OpenGetAbstractCourse) {
+                    $isOpen = true;
+                    $item->setUrl($openItem->getBookName());
+                } else {
+                    $isOpen = $openedCourse[$item->getName()]->isInArray($item->getUrl());
                 }
             }
+
+            $item->setOpenStatus($isOpen);
         }
 
-        unset($typeList);
+        return $courseData->getCourseData();
+    }
 
-        return $courseData;
+    public function getEventListByName($groupName, $courseType, $userInnerId)
+    {
+        $name = $groupName . '.' . $courseType;
+        $list = $this->courseDao->getEventsByName($name, $userInnerId);
+        if (!$list || !isset($list[$groupName][$courseType])) {
+            return [];
+        }
+
+        return $list[$groupName][$courseType];
     }
 
     /**
-     * @param string $name
-     * @param string $userId
+     * @param string $groupName
+     * @param string $userInnerId
      * @param array $fields
-     * @return array|null
+     * @return OpenCourse[]|OpenGetAbstractCourse[]
      */
-    public function getEventsByName($name, $userId, $fields = [])
+    public function getAllEventsByGroupName($groupName, $userInnerId)
     {
-        $list = $this->courseDao->getEventsByName($name, $userId, $fields);
+        $list = $this->courseDao->getEventsByName($groupName, $userInnerId);
         if (!$list) {
             return [];
         }
 
-        return array_map(function ($item) {
-            return $item;
-        }, $list['course']);
+        $list = $list[$groupName];
+
+        $result = [];
+        foreach ($list as $key => $item) {
+            if ($key === self::GET_ABSTRACT) {
+                $result[$key] = new OpenGetAbstractCourse($key, $item);
+                continue;
+            }
+            $result[$key] = new OpenCourse($key, $item);
+        }
+
+        return $result;
     }
 
-    public function getCourseName($groupName, $blockName)
+    public function getCourseGroupName($courseType, $itemName)
     {
-        $data = $this->courseDao->getCourseName($groupName, $blockName);
+        $data = $this->courseDao->getCourseGroupName($courseType, $itemName);
         if (!$data) {
             return null;
         }
@@ -227,7 +256,7 @@ class CourseService
      *
      * $courseService->openNextLevel(CourseService::GRAMMAR, $courseName, $user->getId());
      */
-    public function openNextLevel($type, $key, $userId)
+    /*public function openNextLevel($type, $key, $userId)
     {
         $item = $this->courseDao->getNextLevelItem($type, $key);
         if (!$item) {
@@ -243,7 +272,7 @@ class CourseService
         }
 
         return true;
-    }
+    }*/
 
     public function setChoosenBook($bookId, $courseName, $userId)
     {

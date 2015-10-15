@@ -1,0 +1,11 @@
+<div class="word-box" id="word-box" data-end-text="Тест окончен">
+    <div class="word-item">
+        <span class="text-js text">Нажмите "Начать"</span>
+    </div>
+</div>
+
+<script>
+    var wumvi = wumvi || {};
+    wumvi.wordspeed = wumvi.wordspeed || {};
+    wumvi.wordspeed.wordList = {{ wordList | json_encode | raw }};
+</script>

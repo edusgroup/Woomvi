@@ -1,0 +1,63 @@
+
+
+<div class="tandem-list gutters ">
+    {% for num in 1..8 %}
+        <div class="user-item span_8">
+            <table>
+                <tr>
+                    <td class="photo-box">
+                        <div class="photo">
+                            <img src="/res/img/no-user-image-square.png"/>
+                        </div>
+                    </td>
+                    <td class="info-box">
+                        <div class="info">
+                            <div class="name">Jorge Nickon</div>
+                            <div class="list">
+                                <ul>
+                                    <li>
+                                        <span class="age">18 лет</span>
+                                        {#<i class="spliter">•</i>
+                                        <span>Средний</span>#}
+                                    </li>
+                                    <li class="about-user">
+                                        ;alskdjf s;dkf jas;dfj a;skdjf ;askj f;askdjf ;asdf
+                                        asfdj;askdjf ;askdjf ;aksjdf ;askjd;
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="add-box">
+                            <div class="btn-ctrl">
+                                {% if type == 'all-list' %}
+                                    <a href="#" class="global-btn global-blue send-js">Предложить тандем</a>
+                                {% elseif type == 'friends-list' %}
+                                    <a href="#" class="global-btn global-red deny-js">Отказать</a>
+                                    <a href="#" class="global-btn global-green accept-js">Образовать тандем</a>
+                                {% else %}
+                                    <a href="#" class="global-btn global-blue cancel-js">Отменить заявку</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    {% endfor %}
+</div>
+
+<style>
+
+    .btn-ctrl{
+        text-align: center;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .btn-ctrl .global-btn{
+        display: block;
+        width: 80%;
+        margin: 20px auto 0 auto;
+    }
+</style>

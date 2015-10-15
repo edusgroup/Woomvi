@@ -1,0 +1,41 @@
+.word-box {
+  height: 200px;
+  width: 80%;
+  -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.22);
+  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.22);
+
+  overflow: hidden;
+  position: relative;
+
+  margin: 60px auto 20px auto;
+
+  .word-item {
+    text-align: center;
+    height: 200px;
+    width: 100%;
+    line-height: 200px;
+    font-size: 60px;
+
+    color: #c0c8cf;
+    background: #fff;
+    float: left;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    .text{
+      display: inline-block;
+      padding: 0 40px;
+    }
+  }
+
+  &.question-mode .word-item{
+    background: url('/res/img/wordspeed-bg-1.jpg');
+    color: #333;
+  }
+
+  &.answer-mode .word-item{
+    color: #333;
+  }
+}

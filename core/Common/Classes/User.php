@@ -21,6 +21,8 @@ class User extends \Flame\Abstracts\User
     protected $lvlCompl_ = 1;
     protected $courseOpen_ = 1;
     protected $oauthId_ = 1;
+    protected $overdue_ = false;
+    protected $scheduleDay_ = 1;
     protected $innerId = null;
     protected $emailConfirm = false;
 
@@ -40,7 +42,8 @@ class User extends \Flame\Abstracts\User
         }
 
         $this->isAuth = true;
-        foreach (['id', 'sum', 'email', 'lvlCompl', 'courseOpen', 'emailConfirm'] as $name) {
+        $param = ['id', 'sum', 'email', 'lvlCompl', 'courseOpen', 'emailConfirm', 'scheduleDay', 'overdue'];
+        foreach ($param as $name) {
             $this->{$name . '_'} = $userData[$name];
         }
 
@@ -65,5 +68,15 @@ class User extends \Flame\Abstracts\User
     public function getInnerId()
     {
         return $this->innerId;
+    }
+
+    public function isOverdue()
+    {
+        return $this->overdue_;
+    }
+
+    public function getScheduleDay()
+    {
+        return $this->scheduleDay_;
     }
 }

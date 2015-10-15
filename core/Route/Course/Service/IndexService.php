@@ -5,6 +5,7 @@ namespace Site\Route\Course\Service;
 use Flame\Classes\Http\Exception\Error4xx;
 use Flame\Classes\Http\Response\Html;
 use Site\Common\Classes\User;
+use Site\Route\Course\Model\CourseData;
 
 class IndexService
 {
@@ -21,7 +22,7 @@ class IndexService
      * @param string $courseName Название курса
      * @param User $user Модель пользователя
      *
-     * @return array|Html Html если доступ закрыт, array с данными
+     * @return CourseData|Html Html если доступ закрыт, array с данными
      *
      * @throws Error4xx Если курс не найден
      */
@@ -34,12 +35,10 @@ class IndexService
 
         $isDemoCategory = $this->courseService->isDemo('category', $courseName);
 
-        // Получаем все открытые блоки для пользователя и если есть выбранную книгу
-        $bookKey = 'course.' . CourseService::GET_ABSTRACT . '.' . $courseName;
-        $openCourse = $this->courseService->getEventsByName(
-            '',
-            $user->getId(),
-            [$bookKey => 1, 'course' => 1]
+        // Получаем все открытые блоки для пользователя
+        $openCourse = $this->courseService->getAllEventsByGroupName(
+            $courseName,
+            $user->getInnerId()
         );
         unset($bookKey);
 
@@ -49,6 +48,7 @@ class IndexService
             return new Html();
         }
 
-        return ['courseData' => $courseData, 'openCourse' => $openCourse];
+        //return ['courseData' => $courseData, 'openCourse' => $openCourse];
+        return new CourseData($courseData, $openCourse);
     }
 }

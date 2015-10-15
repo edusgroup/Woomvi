@@ -1,60 +1,80 @@
-.content-slide-box{
-  padding: 0;
-  clear: both;
+@import "../../../sprite/build/sprite.scss";
+
+.sent-item-list {
+  overflow: hidden;
+  margin-left: -1%;
+  color: #303030;
 }
 
-.content-slide-box .word-list-box{
-  width: 200px;
-  border-right: 1px solid #cdcdcd;
-  height: inherit;
-  float: left;
-  /* overflow-y: scroll; */
-}
-
-.content-slide-box .word-list-box{
-  padding: 10px 0;
-  overflow: auto;
-}
-
-.content-slide-box .word-list-box li{
-  padding: 3px 10px;
-}
-
-.content-slide-box .word-list-box li{
+.sent-item-box .caption {
+  /*border-bottom: 1px dotted #848893; */
+  display: inline-block;
+  font-size: 20px;
   cursor: pointer;
-
 }
 
-.content-slide-box .word-list-box li:hover, .content-slide-box .word-list-box li.select{
-  background: #f4f7f9;
-}
+.sent-item-box {
+  float: left;
+  background: #ffffff;
+  padding: 12px 12px;
 
-.word-card-box{
-  width: 598px;
-  height: 335px;
-  float: right;
   position: relative;
-  padding: 10px 20px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+
+  border: 1px solid #e0e5eb;
+
+  margin: 0 0 1% 1%;
 }
 
-.card-box .name{
-  font-size: 22px;
+.sent-item-box.end-point-of-grid {
+  clear: left;
+}
+
+.description-box {
+  margin-top: 30px;
+
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.sent-item-box.foreign-show-mode .translation {
+  display: none;
+}
+
+.sent-item-box .foreign {
+  display: none;
+}
+
+.sent-item-box.foreign-show-mode .foreign {
+  display: inline-block;
+}
+
+.word-highlight {
   font-weight: bold;
-  margin-bottom: 20px;
 }
 
-.content-slide-box .panel-button .item-btn.next{
-  visibility: visible;
+.play-sound {
+  display: inline-block;
+  margin-left: 10px;
+  @include sprite($sound-small-off);
 }
 
-.item-card .card-box .translate-card{
-  display: none;
+.play-sound:hover {
+  @include sprite($sound-small-hover);
 }
 
-.item-card.translate-mode .card-box .translate-card{
-  display: block;
+.translate-word {
+  display: inline-block;
+  margin-left: 10px;
+  @include sprite($translate-small-off);
 }
 
-.item-card.translate-mode .card-box .main-card{
-  display: none;
+.translate-word:hover {
+  @include sprite($translate-small-hover);
 }
